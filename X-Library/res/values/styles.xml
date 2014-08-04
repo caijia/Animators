@@ -27,5 +27,14 @@
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+    
+    <style name="AnimationDialogStyle" parent="@style/MyDialogStyle">
+        <item name="android:windowAnimationStyle">@style/myDialogAnim</item>
+    </style>
+    
+    <style name="myDialogAnim" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/enter_animation</item>
+        <item name="@android:windowExitAnimation">@anim/exit_animation</item>
+	</style>
 
 </resources>

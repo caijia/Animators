@@ -127,6 +127,4 @@ public class PlayerSeriesFragment extends DialogFragment {
 	}
 	
 	
-	
-	
 }

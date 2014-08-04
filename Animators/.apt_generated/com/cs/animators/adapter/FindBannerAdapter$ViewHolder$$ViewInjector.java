@@ -7,13 +7,13 @@ import butterknife.ButterKnife.Finder;
 public class FindBannerAdapter$ViewHolder$$ViewInjector {
   public static void inject(Finder finder, final com.cs.animators.adapter.FindBannerAdapter.ViewHolder target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 0, "field 'name' and field 'pic'");
-    target.name = (android.widget.TextView) view;
+    view = finder.findRequiredView(source, 0, "field 'pic' and field 'name'");
     target.pic = (android.widget.ImageView) view;
+    target.name = (android.widget.TextView) view;
   }
 
   public static void reset(com.cs.animators.adapter.FindBannerAdapter.ViewHolder target) {
-    target.name = null;
     target.pic = null;
+    target.name = null;
   }
 }
