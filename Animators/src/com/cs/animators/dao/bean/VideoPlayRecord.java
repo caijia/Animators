@@ -1,42 +1,58 @@
 package com.cs.animators.dao.bean;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 /**
  * 播放记录
  * @Author android_nihao (caijia)
  * @Time 2014-8-2 下午5:09:07
  */
-@DatabaseTable(tableName="VIDEO_PLAY_RECORD")
 public class VideoPlayRecord {
-
-	//哪一集视频的id 视频的Videoid
-	@DatabaseField(id = true)
-	private long idAndVideoId ;
 	
-	//播放记录
-	@DatabaseField
+	
+	//哪一集视频的id
+	private long id ;
+
+	//视频的Videoid  (根据videoId 查找 播放记录大于 0 的记录 表示有播放记录  )
+	private String videoId ;
+	
+	//播放记录 时间
 	private long playRecord;
 
 	//播放的哪一集
-	@DatabaseField
 	private int series ;
 	
-	//是否播放完成
-	@DatabaseField
-	private boolean playComplete;
-	
 	//记录播放 的时间戳
-	@DatabaseField
 	private long recordTime ;
 
-	public long getIdAndVideoId() {
-		return idAndVideoId;
+	//视频播放的总时间
+	private long duration ;
+
+	public VideoPlayRecord() {
 	}
 
-	public void setIdAndVideoId(long idAndVideoId) {
-		this.idAndVideoId = idAndVideoId;
+	public VideoPlayRecord(long id, String videoId, long playRecord,
+			int series, long recordTime, long duration) {
+		this.id = id;
+		this.videoId = videoId;
+		this.playRecord = playRecord;
+		this.series = series;
+		this.recordTime = recordTime;
+		this.duration = duration;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getVideoId() {
+		return videoId;
+	}
+
+	public void setVideoId(String videoId) {
+		this.videoId = videoId;
 	}
 
 	public long getPlayRecord() {
@@ -55,14 +71,6 @@ public class VideoPlayRecord {
 		this.series = series;
 	}
 
-	public boolean isPlayComplete() {
-		return playComplete;
-	}
-
-	public void setPlayComplete(boolean playComplete) {
-		this.playComplete = playComplete;
-	}
-
 	public long getRecordTime() {
 		return recordTime;
 	}
@@ -71,17 +79,13 @@ public class VideoPlayRecord {
 		this.recordTime = recordTime;
 	}
 
-	public VideoPlayRecord(long idAndVideoId, long playRecord, int series,
-			boolean playComplete, long recordTime) {
-		this.idAndVideoId = idAndVideoId;
-		this.playRecord = playRecord;
-		this.series = series;
-		this.playComplete = playComplete;
-		this.recordTime = recordTime;
+	public long getDuration() {
+		return duration;
 	}
 
-	public VideoPlayRecord() {
-		
+	public void setDuration(long duration) {
+		this.duration = duration;
 	}
+	
 	
 }

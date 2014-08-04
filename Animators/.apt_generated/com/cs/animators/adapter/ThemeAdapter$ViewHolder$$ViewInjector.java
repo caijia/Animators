@@ -9,15 +9,15 @@ public class ThemeAdapter$ViewHolder$$ViewInjector {
     View view;
     view = finder.findRequiredView(source, 2131296387, "field 'name'");
     target.name = (android.widget.TextView) view;
-    view = finder.findRequiredView(source, 2131296395, "field 'pic'");
-    target.pic = (android.widget.ImageView) view;
     view = finder.findRequiredView(source, 2131296396, "field 'lastup'");
     target.lastup = (android.widget.TextView) view;
+    view = finder.findRequiredView(source, 2131296395, "field 'pic'");
+    target.pic = (android.widget.ImageView) view;
   }
 
   public static void reset(com.cs.animators.adapter.ThemeAdapter.ViewHolder target) {
     target.name = null;
-    target.pic = null;
     target.lastup = null;
+    target.pic = null;
   }
 }

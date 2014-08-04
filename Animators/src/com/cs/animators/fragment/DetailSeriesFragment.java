@@ -96,6 +96,7 @@ public class DetailSeriesFragment extends BaseFragment {
 			Intent intent = new Intent(getActivity(), TestVitamioActivity.class);
 			intent.putExtra(TestVitamioActivity.VIDEO_ID, videoId);
 			intent.putExtra(TestVitamioActivity.CUR_PLAY_VIDEO_SERIES, detailSeries);
+			intent.putExtra(TestVitamioActivity.CUR_VIDEO_SERIES, position + 1);
 			intent.putParcelableArrayListExtra(TestVitamioActivity.TOTAL_SERIES, (ArrayList<? extends Parcelable>) mVideoDetail.getEpisode());
 			getActivity().startActivity(intent);
 			

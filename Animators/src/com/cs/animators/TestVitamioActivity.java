@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
@@ -40,8 +41,11 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import com.cs.animators.constants.Constants;
+import com.cs.animators.dao.bean.VideoPlayRecord;
+import com.cs.animators.dao.service.DaoFactory;
 import com.cs.animators.entity.PlayVideo;
 import com.cs.animators.entity.VideoDetailSeries;
+import com.cs.animators.eventbus.PlayRecordEvent;
 import com.cs.animators.eventbus.PlayerSizeEvent;
 import com.cs.animators.eventbus.SelectSeriesEvent;
 import com.cs.animators.fragment.PlayerSeriesFragment;
@@ -385,6 +389,7 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		isSurfaceDestroy = false ;
+		// 播放网络视频
 		if(path == null)
 		{
 			requestPlayUrl(mVideoId, mCurPlaySeries.getId());
@@ -418,8 +423,25 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 //		release();
 //		clearStatus();
 		isSurfaceDestroy = true ;
+		
+		//保存记录
 		if(mediaPlayer != null)
+		{
 			playPosition = mediaPlayer.getCurrentPosition();
+			
+			VideoPlayRecord record = null ;
+			if(mCurPlaySeries != null)
+			{
+				record = new VideoPlayRecord(Long.parseLong(mCurPlaySeries.getId()),mVideoId, mediaPlayer.getCurrentPosition(), mCurSeries, System.currentTimeMillis(), mediaPlayer.getDuration());
+				//退出界面后 要将播放记录显示在前一个界面上
+				EventBus.getDefault().post(new PlayRecordEvent(record));
+			}
+			else
+			{
+				
+			}
+			DaoFactory.getVideoRecordInstance(this).saveOrUpdate(record);
+		}
 	}
 
 	@Override
@@ -499,6 +521,18 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 	{
 		mHolder.setFixedSize(width, width);
 		mediaPlayer.start();
+		
+		//播放网络视频
+		if(mCurPlaySeries != null)
+		{
+			VideoPlayRecord record = DaoFactory.getVideoRecordInstance(this).queryVideoPlayRecord(mVideoId, Long.parseLong(mCurPlaySeries.getId()));
+			if(record != null)
+			{
+				long playRecord = record.getPlayRecord();
+				Log.e("player", playRecord+"");
+				mPlayerProgressBar.setProgress((int)playRecord);
+			}
+		}
 		
 		//设置时间
 		final long duration = mediaPlayer.getDuration();
@@ -973,6 +1007,7 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 	public static final String VIDEO_ID = "video_id";
 	public static final String CUR_PLAY_VIDEO_SERIES = "cur_play_video_series";
 	public static final String TOTAL_SERIES = "total_series";
+	public static final String CUR_VIDEO_SERIES = "cur_series";
 	
 	public static final String VIDEO_PATH = "vedio_path";
 	public static final String VEDIO_TITLE = "vedio_title";
@@ -982,6 +1017,7 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 	private ArrayList<VideoDetailSeries> mTotalSeries ;
 	
 	private String videoTitle ;
+	private int mCurSeries ;
 	
 	private void getExtra(){
 		Bundle bundle = getIntent().getExtras();
@@ -994,8 +1030,9 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 			//网络视频请求路径的参数
 			mVideoId = bundle.getString(VIDEO_ID);
 			mCurPlaySeries = (VideoDetailSeries)bundle.getParcelable(CUR_PLAY_VIDEO_SERIES);
+			mCurSeries = bundle.getInt(CUR_VIDEO_SERIES);
 			mTotalSeries = bundle.getParcelableArrayList(TOTAL_SERIES);
-			videoTitle = mCurPlaySeries != null ? mCurPlaySeries.getName() : null ;
+			videoTitle = videoTitle != null ? videoTitle : mCurPlaySeries.getName() ;
 		}
 	}
 	
