@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- WHI defined colors -->
+    <color name="red">#F2837B</color>
+    <color name="dark_red">#ffa02d38</color>
+    <color name="white">#ffffff</color>
+    <color name="default_loading_imge">#ECE8EC</color>
+    
+    <color name="transparent">#00000000</color>
+    <color name="background">#F7F4F0</color>
+    <color name="title_color">#333333</color>
+    
+    <string name="btn_scroll_view">ScrollView demo</string>
+    <string name="btn_list_view">ListView demo</string>
+</resources>

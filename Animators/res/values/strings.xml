@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">动漫家</string>
+    <string name="main_user_info">个人信息</string>
+    <string name="main_my_collection">我的收藏</string>
+    <string name="main_feedback">意见反馈</string>
+    <string name="main_setting">设置</string>
+    <string name="action_search">搜索</string>
+    <string name="find_recommend">推荐</string>
+    <string name="find_category">类型</string>
+    <string name="find_theme">题材</string>
+    <string name="find_area">地区</string>
+    <string name="find_more">查看更多</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+
+    <string-array name="main_slidetab_title">
+        <item >主题</item>
+        <item >发现</item>
+        <item >最新</item>
+        <item >热门</item>
+    </string-array>
+    
+    <string-array name="main_drawer_title">
+        <item >动漫首页</item>
+        <item >动漫收藏</item>
+        <item >本地缓存</item>
+        <item >帮助</item>
+        <item >设置</item>
+        <item >关于</item>
+    </string-array>
+    
+    <string-array name="detail_slide_tab">
+        <item>简介</item>
+        <item>剧集</item>
+    </string-array>
+    
+    <array name="main_drawer_img">
+        <item>@drawable/ic_ringtones_menu</item>
+        <item>@drawable/ic_actionbar_myrings</item>
+        <item>@drawable/ic_actionbar_myrings</item>
+        <item>@drawable/ic_help_menu</item>
+        <item>@drawable/ic_setting_menu</item>
+        <item>@drawable/ic_about_menu</item>
+    </array>
+    
+</resources>

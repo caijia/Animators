@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="layout_bg">#E4E4E4</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey_light">#CCC</color>
+    <color name="orange_light">#ffffbb33</color>
+    <color name="orange_dark">#ffff8800</color>
+    <color name="drawlayout_bg">#2F2E2F</color>
+    <color name="drawlayout_diver_line">#444344</color>
+    <color name="player_series_diver_line">#525652</color>
+    <color name="drawlayout_bg_above">#373937</color>
+    <color name="drawlayout_textcolor_above">#DEDADE</color>
+    <color name="drawlayout_textcolor_below">#979497</color>
+    <color name="indicator_color">#168FFA</color>
+    <color name="play_pressed">#064B8A</color>
+    <color name="play_normal">#168FFA</color>
+    <color name="outline_normal">#FBFBFB</color>
+    <color name="outline_pressed">#898B89</color>
+    <color name="translucent_color">#d0000000</color>
+    <color name="player_series_translucent_color">#ee434643</color>
+    <color name="player_series_item_normal_color">#3E3C3E</color>
+    <color name="player_series_item_pressed_color">#60000000</color>
+    <color name="actionbar_bg">#272E40</color>
+    <color name="detail_slide_tab_bg">#F4F0F4</color>
+    <color name="detail_serices_normal">#FCFCFC</color>
+    <color name="detail_serices_pressed">#C3D8EC</color>
+    <color name="detail_intro_color">#95989B</color>
+    <color name="detail_series_divider">#E0DDE0</color>
+    <color name="detail_series_bg">#F2EFF2</color>
+    
+    <color name="player_seek_bg">#585C5D</color>
+    <color name="player_seek_second_progress">#9B9B9B</color>
+    <color name="player_seek_progress">#4094EB</color>
+    
+    <color name="default_screen_bg">#20324a</color>
+    <color name="rounded_container_bg">#80000000</color>
+    <color name="rounded_container_border">#3b3f44</color>
+    <color name="light_gray_header_color">#646663</color>
+    
+    <color name="player_canvas_normal">#C4C3C4</color>
+    <color name="player_seekbar_brightness_progress">#FCFCFC</color>
+    <color name="player_seekbar_brightness_bg">#585758</color>
+    
+    <color name="player_series_group_color">#4A4C4A</color>
+    <color name="player_series_child_color">#BDBCBD</color>
+    
+    
+    
+    
+    
+    
+    
+</resources>

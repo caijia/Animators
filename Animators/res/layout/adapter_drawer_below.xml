@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    >
+
+    <ImageView
+        android:id="@+id/main_img_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="18dp"
+        android:src="@drawable/ic_ringtones_menu" />
+
+    <TextView
+        android:id="@+id/main_txt_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_centerVertical="true"
+        android:textColor="#DEDADE"
+        android:layout_toRightOf="@+id/main_img_drawer"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

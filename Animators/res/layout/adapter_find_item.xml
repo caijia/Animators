@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/find_img_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/defalut_loadimage_icon" />
+
+    <TextView
+        android:id="@+id/find_txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignLeft="@+id/find_img_pic"
+        android:layout_alignRight="@+id/find_img_pic"
+        android:layout_below="@+id/find_img_pic"
+        android:background="@drawable/selector_find_item"
+        android:gravity="center"
+        android:textColor="@color/gray_light"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/grey_light"
+        android:layout_alignLeft="@+id/find_img_pic"
+        android:layout_alignRight="@+id/find_img_pic"
+        android:layout_below="@+id/find_txt_name" />
+
+</RelativeLayout>

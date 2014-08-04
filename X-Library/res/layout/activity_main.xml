@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/txt_main_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/txt_main_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txt_main_id"
+        android:layout_alignBottom="@+id/txt_main_id"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/txt_main_id"
+         />
+
+    <Button
+        android:id="@+id/btn_main_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txt_main_id"
+        android:layout_marginTop="26dp"
+        android:text="add" />
+
+    <Button
+        android:id="@+id/btn_main_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btn_main_add"
+        android:text="update" />
+
+    <Button
+        android:id="@+id/btn_main_query"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btn_main_update"
+        android:layout_marginTop="22dp"
+        android:text="query" />
+
+    <Button
+        android:id="@+id/btn_main_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btn_main_query"
+        android:text="delete" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btn_main_delete" >
+    </ListView>
+
+</RelativeLayout>

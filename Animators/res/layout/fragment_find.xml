@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.cs.cj.view.CustomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg"
+    android:id="@+id/find_scrollview" xmlns:app="http://schemas.android.com/apk/res/com.cs.animators">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp" >
+
+        <com.cs.cj.view.AutoScrollViewPager
+            android:id="@+id/find_autoscroll_vpager"
+            android:layout_width="match_parent"
+            android:layout_height="170dp" />
+
+        <com.cs.cj.view.CircleLoopPageIndicator
+            android:id="@+id/find_pageindicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/find_autoscroll_vpager"
+            android:layout_alignParentRight="true"
+           android:padding="8dp" 
+           app:fillColor="@color/play_normal"
+           app:pageColor="@color/white"
+           app:strokeWidth="0dp"
+           app:vpiradius="4dp"
+           app:snap="true"/>
+
+        <TextView
+            android:id="@+id/find_txt_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/find_autoscroll_vpager"
+            android:layout_marginTop="15dp"
+            android:text="@string/find_recommend"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/gray_light" />
+
+        <com.cs.animators.view.WrapContentGridView
+            android:id="@+id/find_gv_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/find_txt_recommend"
+            android:layout_marginTop="6dp"
+            android:horizontalSpacing="6dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth" 
+            />
+
+        <TextView
+            android:id="@+id/find_txt_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/find_gv_recommend"
+            android:layout_marginTop="20dp"
+            android:text="@string/find_area"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/gray_light" />
+
+        <TextView
+            android:id="@+id/find_txt_area_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/find_txt_area"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_find_more"
+           android:padding="4dp"
+            android:text="@string/find_more"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white" />
+
+        <com.cs.animators.view.WrapContentGridView
+            android:id="@+id/find_gv_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/find_txt_area"
+            android:layout_marginTop="6dp"
+            android:horizontalSpacing="6dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:listSelector="@drawable/selector_find_item" />
+
+        <TextView
+            android:id="@+id/find_txt_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/find_gv_area"
+            android:layout_marginTop="20dp"
+            android:text="@string/find_category"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/gray_light" />
+
+        <TextView
+            android:id="@+id/find_txt_category_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/find_txt_category"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_find_more"
+           android:padding="4dp"
+            android:text="@string/find_more"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white" />
+
+        <com.cs.animators.view.WrapContentGridView
+            android:id="@+id/find_gv_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/find_txt_category"
+            android:layout_marginTop="6dp"
+            android:horizontalSpacing="6dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:listSelector="@drawable/selector_find_item" />
+        
+        <TextView
+            android:id="@+id/find_txt_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/find_gv_category"
+            android:layout_marginTop="15dp"
+            android:text="@string/find_theme"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/gray_light" />
+        
+        <TextView
+            android:id="@+id/find_txt_theme_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/find_txt_theme"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_find_more"
+           android:padding="4dp"
+            android:text="@string/find_more"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white" />
+        
+        <com.cs.animators.view.WrapContentGridView
+            android:id="@+id/find_gv_theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/find_txt_theme"
+            android:layout_marginTop="6dp"
+            android:horizontalSpacing="6dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:listSelector="@drawable/selector_find_item" />
+        
+    </RelativeLayout>
+
+</com.cs.cj.view.CustomScrollView>

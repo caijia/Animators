@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.cs.animators"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/player_series_translucent_color" >
+
+    <RelativeLayout
+        android:id="@+id/rlayout_setting_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:text="剧集"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txt_series_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/selector_player_setting_close"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/rlayout_setting_title"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#464C46" />
+
+    <com.cs.animators.view.ExpandableGridView
+        android:id="@+id/player_series_expand_gv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rlayout_setting_title"
+        app:numColumns="4"
+        app:stretchMode="columnWidth" />
+
+</RelativeLayout>

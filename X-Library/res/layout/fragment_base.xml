@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/base_fragment_content" >
+
+    <ViewStub
+        android:id="@+id/viewstub_http_loading"
+        android:layout="@layout/http_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        />
+    
+    
+     <ViewStub
+        android:id="@+id/viewstub_http_error"
+        android:layout="@layout/http_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>
+

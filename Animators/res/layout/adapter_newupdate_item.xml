@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="#EEE" />
+
+    <ImageView
+        android:layout_below="@+id/divider_line"
+        android:id="@+id/newupdate_img_cover"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignTop="@+id/newupdate_img_cover"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/newupdate_img_cover" >
+
+        <TextView
+            android:id="@+id/newupdate_txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Medium Text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/newupdate_txt_updateseries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="Small Text"
+            android:textColor="#aaa"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/newupdate_txt_totalseries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Small Text"
+            android:textColor="#aaa"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/newupdate_txt_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/newupdate_txt_name"
+            android:layout_alignParentRight="true"
+            android:text="Small Text"
+            android:textColor="#aaa"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

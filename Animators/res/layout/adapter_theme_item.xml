@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_bg" >
+
+    <TextView
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="@color/white"/>
+
+    <ImageView
+        android:id="@+id/newupdate_img_pic"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_below="@+id/divider"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/shape_loading_image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/newupdate_img_pic"
+        android:background="@drawable/shape_shadow"
+        android:gravity="center_vertical"
+        android:padding="8dp" >
+
+        <TextView
+            android:id="@+id/newupdate_txt_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/newupdate_txt_lastup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

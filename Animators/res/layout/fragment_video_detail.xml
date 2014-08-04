@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.cs.animators"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.cs.cj.view.PagerSlidingTabStrip
+        android:id="@+id/detail_slidetab"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:pstsIndicatorColor="@color/indicator_color"
+        app:pstsIndicatorHeight="4dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/detail_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

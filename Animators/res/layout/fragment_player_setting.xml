@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:background="@color/translucent_color" 
+    android:paddingBottom="20dp">
+
+        <RelativeLayout
+            android:id="@+id/rlayout_setting_title"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:text="设置"
+                android:textSize="20sp"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/txt_setting_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/selector_player_setting_close"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/rlayout_setting_title"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#464C46" />
+
+        <RelativeLayout
+            android:id="@+id/rlayout_brightness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider_line"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:text="亮度"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
+
+            <SeekBar
+                android:id="@+id/skb_brightness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="25dp"
+                android:layout_toRightOf="@+id/textView3"
+                android:maxHeight="2dp"
+                android:progress="12"
+                android:progressDrawable="@drawable/play_seekbar_brightness"
+                android:thumb="@drawable/player_settings_bright_thumb" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlayout_brightness"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:text="画布"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
+
+            <RadioGroup
+                android:id="@+id/rgoup_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView4"
+                android:orientation="horizontal" 
+                android:layout_marginLeft="5dp">
+
+                <RadioButton
+                    android:id="@+id/rbtn_brightness_five"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_player_setting_radio_bg"
+                    android:drawablePadding="5dp"
+                    android:text="50%"
+                    android:background="@null"
+                    android:textColor="@drawable/selector_player_canvas_textcolor" />
+
+                <RadioButton
+                    android:id="@+id/rbtn_brightness_seven"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_player_setting_radio_bg"
+                    android:drawablePadding="5dp"
+                    android:text="75%"
+                    android:background="@null"
+                    android:textColor="@drawable/selector_player_canvas_textcolor" />
+
+                <RadioButton
+                    android:id="@+id/rbtn_brightness_ten"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_player_setting_radio_bg"
+                    android:drawablePadding="5dp"
+                    android:text="100%"
+                    android:background="@null"
+                    android:checked="true"
+                    android:textColor="@drawable/selector_player_canvas_textcolor" />
+            </RadioGroup>
+        </RelativeLayout>
+</RelativeLayout>
