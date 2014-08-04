@@ -7,8 +7,9 @@ import butterknife.ButterKnife.Finder;
 public class FindAdapter$ViewHolder$$ViewInjector {
   public static void inject(Finder finder, final com.cs.animators.adapter.FindAdapter.ViewHolder target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 0, "field 'pic' and field 'name'");
+    view = finder.findRequiredView(source, 2131296372, "field 'pic'");
     target.pic = (android.widget.ImageView) view;
+    view = finder.findRequiredView(source, 2131296373, "field 'name'");
     target.name = (android.widget.TextView) view;
   }
 

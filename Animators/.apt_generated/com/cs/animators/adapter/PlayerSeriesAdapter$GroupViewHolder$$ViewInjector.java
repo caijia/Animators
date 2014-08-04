@@ -7,13 +7,14 @@ import butterknife.ButterKnife.Finder;
 public class PlayerSeriesAdapter$GroupViewHolder$$ViewInjector {
   public static void inject(Finder finder, final com.cs.animators.adapter.PlayerSeriesAdapter.GroupViewHolder target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 0, "field 'groupTitle' and field 'expandablePic'");
-    target.groupTitle = (android.widget.TextView) view;
+    view = finder.findRequiredView(source, 2131296393, "field 'expandablePic'");
     target.expandablePic = (android.widget.ImageView) view;
+    view = finder.findRequiredView(source, 2131296392, "field 'groupTitle'");
+    target.groupTitle = (android.widget.TextView) view;
   }
 
   public static void reset(com.cs.animators.adapter.PlayerSeriesAdapter.GroupViewHolder target) {
-    target.groupTitle = null;
     target.expandablePic = null;
+    target.groupTitle = null;
   }
 }
