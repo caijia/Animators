@@ -436,11 +436,8 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 				//退出界面后 要将播放记录显示在前一个界面上
 				EventBus.getDefault().post(new PlayRecordEvent(record));
 			}
-			else
-			{
-				
-			}
-			DaoFactory.getVideoRecordInstance(this).saveOrUpdate(record);
+			if(record != null )
+				DaoFactory.getVideoRecordInstance(this).saveOrUpdate(record);
 		}
 	}
 
@@ -531,6 +528,10 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 				long playRecord = record.getPlayRecord();
 				Log.e("player", playRecord+"");
 				mPlayerProgressBar.setProgress((int)playRecord);
+				if(mediaPlayer != null)
+				{
+					mediaPlayer.seekTo(playRecord);
+				}
 			}
 		}
 		

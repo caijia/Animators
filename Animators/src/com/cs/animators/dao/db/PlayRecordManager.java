@@ -68,7 +68,7 @@ public class PlayRecordManager implements PlayRecordDao {
 				+ TableUtil.TablePlayRecord.PLAY_RECORD + " = ? , "
 				+ TableUtil.TablePlayRecord.RECORD_TIME + " = ? , "
 				+ TableUtil.TablePlayRecord.SERIES + " = ?  where " 
-				+ TableUtil.TablePlayRecord.VIDEO_ID + " = ? , "
+				+ TableUtil.TablePlayRecord.VIDEO_ID + " = ? and "
 				+ TableUtil.TablePlayRecord.ID + " = ?";
 		db.execSQL(sql, new Object[]{record.getDuration(),record.getPlayRecord(),record.getRecordTime(),
 				record.getSeries(),record.getVideoId(),record.getId()});
@@ -139,7 +139,7 @@ public class PlayRecordManager implements PlayRecordDao {
 		String sql = "select * from " + TableUtil.TablePlayRecord.TABLE_NAME + " where "
 				+ TableUtil.TablePlayRecord.VIDEO_ID +" = ? and "
 				+ TableUtil.TablePlayRecord.ID + " = ?" ;
-		Cursor cursor = db.rawQuery(sql, new String[]{videoId});
+		Cursor cursor = db.rawQuery(sql, new String[]{videoId,String.valueOf(id)});
 		//这里取第一项 降序排列第一项为 最后播放的记录   不实用循环while
 		if(cursor != null && cursor.moveToNext())
 		{

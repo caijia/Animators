@@ -33,7 +33,6 @@ public class VideoDetailActivity extends BaseActivity {
 	@InjectView(R.id.detail_txt_category) TextView mTxtCategory ;
 	@InjectView(R.id.detail_txt_year) TextView mTxtYear ;
 	@InjectView(R.id.detail_txt_history) TextView mTxtPlayRecord ;
-	
 	@InjectView(R.id.detail_btn_play) Button mBtnPlay ;
 	@InjectView(R.id.detail_txt_outline) Button mBtnOutline ;
 	
@@ -48,6 +47,9 @@ public class VideoDetailActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
+		
+		//onCreate的时候注册  onDestroy的时候销毁
+		EventBus.getDefault().register(this);
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		getExtra();
 		
@@ -108,18 +110,12 @@ public class VideoDetailActivity extends BaseActivity {
 		return super.getSupportParentActivityIntent();
 	}
 	
-	@Override
-	protected void onStart() {
-		super.onStart();
-		EventBus.getDefault().register(this);
-	}
 	
 	@Override
-	protected void onStop() {
-		super.onStop();
+	protected void onDestroy() {
+		super.onDestroy();
 		EventBus.getDefault().unregister(this);
 	}
-
 	
 	//当播放退出后 要将播放记录回传
 	public void onEventMainThread(PlayRecordEvent event)
