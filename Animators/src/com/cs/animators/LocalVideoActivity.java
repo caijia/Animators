@@ -22,7 +22,7 @@ public class LocalVideoActivity extends BaseActivity {
 	
 	@Override
 	protected void loadLayout() {
-		setContentView(R.layout.activity_cache_video);
+		setContentView(R.layout.activity_cache_video);  
 	}
 
 	@Override

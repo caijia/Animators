@@ -11,16 +11,16 @@ public class DetailIntroFragment$$ViewInjector {
     target.mTxtDerector = (android.widget.TextView) view;
     view = finder.findRequiredView(source, 2131296403, "field 'mTxtCategory'");
     target.mTxtCategory = (android.widget.TextView) view;
-    view = finder.findRequiredView(source, 2131296401, "field 'mTxtIntro'");
-    target.mTxtIntro = (android.widget.TextView) view;
     view = finder.findRequiredView(source, 2131296404, "field 'mTxtCharactor'");
     target.mTxtCharactor = (android.widget.TextView) view;
+    view = finder.findRequiredView(source, 2131296401, "field 'mTxtIntro'");
+    target.mTxtIntro = (android.widget.TextView) view;
   }
 
   public static void reset(com.cs.animators.fragment.DetailIntroFragment target) {
     target.mTxtDerector = null;
     target.mTxtCategory = null;
-    target.mTxtIntro = null;
     target.mTxtCharactor = null;
+    target.mTxtIntro = null;
   }
 }
