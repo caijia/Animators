@@ -91,7 +91,6 @@ public class MainActivity extends BaseActivity {
 	}
 	
 	protected void drawerLayoutClick() {
-		//本地缓存
 		if(mDrawerPosition == 2)
 		{
 			Intent intent = new Intent(mContext, LocalVideoActivity.class);
