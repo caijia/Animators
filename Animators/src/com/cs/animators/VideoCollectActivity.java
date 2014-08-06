@@ -2,7 +2,6 @@ package com.cs.animators;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
-
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -15,12 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-
 import com.cs.animators.adapter.VideoCollectAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.dao.bean.VideoCollect;
 import com.cs.animators.dao.service.DaoFactory;
-import com.cs.animators.entity.HotItem;
 import com.cs.animators.fragment.HotFragment;
 import com.cs.animators.util.CommonUtil;
 
