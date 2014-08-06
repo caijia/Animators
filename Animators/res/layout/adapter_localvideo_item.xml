@@ -24,7 +24,7 @@
         android:singleLine="true"
         android:text="16:26"
         android:textColor="@color/gray_light"
-        android:textSize="14sp" />
+        android:textSize="14sp"  />
 
     <TextView
         android:id="@+id/localvideo_txt_size"
