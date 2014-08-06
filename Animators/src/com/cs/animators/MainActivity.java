@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity {
 				ActivityCompat.invalidateOptionsMenu(MainActivity.this);
 				
 				//界面跳转逻辑
+				drawerLayoutClick();
 			}
 
 			@Override
@@ -89,20 +90,29 @@ public class MainActivity extends BaseActivity {
 		
 	}
 	
-	
-	
-	@OnItemClick(R.id.main_lv_left_drawer)
-	void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-		
-//		getSupportActionBar().setTitle(mDrawerTextItem[position]);
-		
-		if(position == 2)
+	protected void drawerLayoutClick() {
+		//本地缓存
+		if(mDrawerPosition == 2)
 		{
 			Intent intent = new Intent(mContext, LocalVideoActivity.class);
 			startActivity(intent);
 		}
+		//动漫收藏
+		else if(mDrawerPosition == 1)
+		{
+			Intent intent = new Intent(mContext, VideoCollectActivity.class);
+			startActivity(intent);
+		}
 		
+	}
+
+	private int mDrawerPosition ;
+	
+	@OnItemClick(R.id.main_lv_left_drawer)
+	void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 		mDrawerLayout.closeDrawer(mListView);
+//		getSupportActionBar().setTitle(mDrawerTextItem[position]);
+		mDrawerPosition = position ;
 	}
 	
 	@Override

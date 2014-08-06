@@ -10,47 +10,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class HotAdapter extends ArrayAdapter<HotItem> {
+public class HotAdapter extends ActionModeAdapter<HotItem> {
 
-	private SparseBooleanArray mSelectedItemIds ;
-	
 	public HotAdapter(Context context, List<HotItem> objects) {
 		super(context, 0, objects);
-		mSelectedItemIds = new SparseBooleanArray();
-	}
-	
-	public void toggleSelection(int position){
-		boolean isSelected = mSelectedItemIds.get(position);
-		if(!isSelected)
-		{
-			mSelectedItemIds.put(position, true);
-		}
-		else
-		{
-			mSelectedItemIds.delete(position);
-		}
-		notifyDataSetChanged();
-	}
-	
-	public void removeAllSelectedView(){
-		mSelectedItemIds.clear();
-		notifyDataSetChanged();
-	}
-	
-	public int getSelectedItemCount(){
-		return mSelectedItemIds.size();
-	}
-	
-	public SparseBooleanArray getSelectedItemIds(){
-		return mSelectedItemIds ;
 	}
 	
 	@Override
@@ -77,7 +46,8 @@ public class HotAdapter extends ArrayAdapter<HotItem> {
 			ImageLoader.getInstance().displayImage(item.getCover(), holder.cover, ImageLoaderUtil.roundImageLoaderOptions(4));
 		}
 		
-		convertView.setBackgroundColor(mSelectedItemIds.get(position) ? 0x9934B5E4 : Color.TRANSPARENT);
+		//设置高亮的颜色 变化
+		setBackGroundColor(convertView, position, 0x9934B5E4, Color.TRANSPARENT);
 		return convertView;
 	}
 	

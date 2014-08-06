@@ -1,14 +1,17 @@
 package com.cs.animators;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
 
@@ -18,7 +21,9 @@ import com.cs.animators.entity.LocalVideo;
 
 public class LocalVideoActivity extends BaseActivity {
 
-	@InjectView(R.id.local_video_gridview) GridView mGridView ;
+	@InjectView(R.id.local_video_lv) ListView mListView ;
+	private Handler mHandler ;
+	
 	
 	@Override
 	protected void loadLayout() {
@@ -27,10 +32,54 @@ public class LocalVideoActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
-		List<LocalVideo> localVideos = getLocalVideo();
-		LocalVideoAdapter adapter = new LocalVideoAdapter(mContext, localVideos);
-		mGridView.setAdapter(adapter);
+		
+		mActionBar.setTitle("本地缓存");
+		mActionBar.setDisplayHomeAsUpEnabled(true);
+		
+		mHandler = new GetLocalVideoHandler(this);
+		showProgress();
+		new Thread(new GetLocalVideoRunnable()).start();
 	}
+	
+	private class GetLocalVideoRunnable implements Runnable{
+
+		@Override
+		public void run() {
+			List<LocalVideo> localVideos = getLocalVideo();
+			Message msg = new Message();
+			msg.what = 100 ;
+			msg.obj = localVideos ;
+			mHandler.sendMessage(msg);
+		}
+		
+	}
+	
+	static class GetLocalVideoHandler extends Handler{
+		private final WeakReference<LocalVideoActivity> mTarget ;
+		
+		public GetLocalVideoHandler(LocalVideoActivity target)
+		{
+			mTarget = new WeakReference<LocalVideoActivity>(target);
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public void handleMessage(Message msg) {
+			LocalVideoActivity activity = mTarget.get();
+			if(activity != null)
+			{
+				//do something
+				if(msg.what == 100)
+				{
+					activity.dismiss();
+					List<LocalVideo> localVideos = (List<LocalVideo>) msg.obj;
+					LocalVideoAdapter adapter = new LocalVideoAdapter(activity, localVideos);
+					activity.mListView.setAdapter(adapter);
+				}
+			}
+		}
+	}
+	
 
 	private List<LocalVideo> getLocalVideo() {
 
@@ -69,7 +118,7 @@ public class LocalVideoActivity extends BaseActivity {
 		return localVideos ;
 	}
 	
-	@OnItemClick(R.id.local_video_gridview)
+	@OnItemClick(R.id.local_video_lv)
 	void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 		LocalVideo video = (LocalVideo) parent.getAdapter().getItem(position);
 		String videoPath = video.getVideoPath();
@@ -77,6 +126,13 @@ public class LocalVideoActivity extends BaseActivity {
 		intent.putExtra(TestVitamioActivity.VIDEO_PATH, videoPath);
 		intent.putExtra(TestVitamioActivity.VEDIO_TITLE, video.getVideoTitle());
 		startActivity(intent);
+	}
+	
+	
+	@Override
+	public Intent getSupportParentActivityIntent() {
+		finish();
+		return super.getSupportParentActivityIntent();
 	}
 	
 }

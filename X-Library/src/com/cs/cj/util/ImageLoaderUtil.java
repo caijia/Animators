@@ -19,7 +19,7 @@ public class ImageLoaderUtil {
 	}
 	
 	public static DisplayImageOptions roundImageLoaderOptions(int radius) {
-		DisplayImageOptions options = roundImageLoaderOptions(radius, R.drawable.shape_loading_image);
+		DisplayImageOptions options = roundImageLoaderOptions(radius, R.drawable.defalut_loadimage_icon);
 		return options;
 	}
 
@@ -34,7 +34,7 @@ public class ImageLoaderUtil {
 	}
 	
 	public static DisplayImageOptions FadeInImageLoaderOptions(int durationMillis) {
-		DisplayImageOptions options = FadeInImageLoaderOptions(durationMillis, R.drawable.shape_loading_image);
+		DisplayImageOptions options = FadeInImageLoaderOptions(durationMillis, R.drawable.defalut_loadimage_icon);
 		return options;
 	}
 	

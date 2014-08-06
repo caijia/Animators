@@ -120,6 +120,7 @@ public class VideoDetailActivity extends BaseActivity {
 	//当播放退出后 要将播放记录回传
 	public void onEventMainThread(PlayRecordEvent event)
 	{
+		mTxtPlayRecord.setVisibility(View.VISIBLE);
 		VideoPlayRecord playRecord = event.getPlayRecord();
 		String note = "上次播放至第" + playRecord.getSeries() + "集" + StringUtils.generateTime(playRecord.getPlayRecord());
 		mTxtPlayRecord.setText(note);

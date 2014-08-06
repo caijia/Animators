@@ -95,14 +95,14 @@ public abstract class BaseActivity extends ActionBarActivity {
 	protected <T> void get( String url , RequestParams params ,  BaseParser<T> parser ,  DataCallback<T> callback , boolean showProgress)
     {
 		if(showProgress)
-			httpStart();
+			showProgress();
     	JHttpClient.get(this, url, params, parser,jHttpDataCallback( url, params, parser, callback , showProgress));
     }
     
     protected <T> void get(String url ,  RequestParams params ,  Class<T> clazz ,  DataCallback<T> callback , boolean showProgress)
     {
     	if(showProgress)
-			httpStart();
+			showProgress();
     	JHttpClient.get(this, url, params, clazz,  jHttpDataCallback(url, params, new FastJsonParser<T>(clazz), callback,showProgress) );
     }
 
@@ -116,7 +116,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 
 			@Override
 			public void onFinish() {
-				dismissProgress();
+				dismiss();
 			}
 
 			
@@ -135,12 +135,12 @@ public abstract class BaseActivity extends ActionBarActivity {
 			@Override
 			public void onSuccess(Response<T> data) {
 				callback.onSuccess(data);
-				dismissProgress();
+				dismiss();
 			}
 		};
 	}
     
-    public void httpStart()
+	protected void showProgress()
     {
     	if(mError != null)
     	{
@@ -158,7 +158,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
     
     
-    private void dismissProgress(){
+    protected void dismiss(){
     	if(mProgress != null)
     	{
     		mProgress.setVisibility(View.GONE);
@@ -168,7 +168,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     public <T> void failure(final String url , final RequestParams params , final BaseParser<T> parser , final JDataCallback<T> callback)
     {
     	
-    	dismissProgress();
+    	dismiss();
     	
     	if(mError == null)
     	{

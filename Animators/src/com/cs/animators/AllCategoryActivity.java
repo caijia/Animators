@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.view.ActionMode;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,8 @@ import butterknife.OnItemLongClick;
 import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
+import com.cs.animators.dao.bean.VideoCollect;
+import com.cs.animators.dao.service.DaoFactory;
 import com.cs.animators.entity.AllCategory;
 import com.cs.animators.entity.HotItem;
 import com.cs.animators.fragment.FindFragment;
@@ -34,7 +37,7 @@ import com.markmao.pulltorefresh.widget.XListView.IXListViewListener;
  */
 public class AllCategoryActivity extends BaseActivity implements IXListViewListener {
 
-	@InjectView(R.id.all_category_lv)
+	@InjectView(R.id.all_category_lv)  
 	XListView mXListView ;
 	
 	private long mLoadPage = 1;
@@ -197,13 +200,27 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			switch (item.getItemId()) {
-			case R.id.action_delete:
-				CommonUtil.showMessage(mContext, "delete!");
+			case R.id.action_collect:
+				//将选中的视频保存
+				SparseBooleanArray selectedItems = mAdapter.getSelectedItemIds();
+				for (int i = 0; i < selectedItems.size(); i++) {
+					boolean selected = selectedItems.valueAt(i);
+					if(selected)
+					{
+						int position = selectedItems.keyAt(i);
+						HotItem hotItem = mAdapter.getItem(position);
+						//将选中的保存
+						VideoCollect vc = new VideoCollect(
+								hotItem.getVideoId()+"", hotItem.getName(), hotItem.getCover(), hotItem.getCurNum(),
+								hotItem.getTotalNum(), hotItem.getCategory(), hotItem.getScore(), null);
+						DaoFactory.getVideoCollectInstance(mContext).saveOrUpdate(vc);
+					}
+				}
+				
+				//提示用户收藏成功
+				CommonUtil.showMessage(mContext, "收藏成功");
 				break;
 
-			case R.id.action_edit:
-				CommonUtil.showMessage(mContext, "edit!");
-				break;
 			default:
 				break;
 			}

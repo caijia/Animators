@@ -11,6 +11,7 @@ import butterknife.OnItemClick;
 
 import com.cs.animators.R;
 import com.cs.animators.VideoDetailActivity;
+import com.cs.animators.adapter.ActionModeAdapter;
 import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseFragment;
 import com.cs.animators.constants.Constants;
@@ -31,7 +32,7 @@ public class HotFragment extends BaseFragment implements IXListViewListener {
 	
 	private List<HotItem> mHotItems = new ArrayList<HotItem>();
 	
-	private HotAdapter mAdapter;
+	private ActionModeAdapter mAdapter;
 	
 	@Override
 	protected void loadLayout() {

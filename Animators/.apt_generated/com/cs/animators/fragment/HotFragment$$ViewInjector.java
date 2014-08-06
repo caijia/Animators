@@ -7,7 +7,7 @@ import butterknife.ButterKnife.Finder;
 public class HotFragment$$ViewInjector {
   public static void inject(Finder finder, final com.cs.animators.fragment.HotFragment target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131296422, "field 'mXListView' and method 'onItemClickListener'");
+    view = finder.findRequiredView(source, 2131296428, "field 'mXListView' and method 'onItemClickListener'");
     target.mXListView = (com.markmao.pulltorefresh.widget.XListView) view;
     ((android.widget.AdapterView<?>) view).setOnItemClickListener(
       new android.widget.AdapterView.OnItemClickListener() {

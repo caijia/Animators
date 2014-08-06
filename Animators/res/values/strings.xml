@@ -14,7 +14,13 @@
     <string name="find_more">查看更多</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
-
+    
+    <string name="action_video_collet">收藏</string>
+    <string name="action_video_edit">编辑</string>
+    <string name="action_video_delete">删除</string>
+    <string name="action_video_cancel">取消</string>
+    
+    
     <string-array name="main_slidetab_title">
         <item >主题</item>
         <item >发现</item>

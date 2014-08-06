@@ -7,7 +7,7 @@ import butterknife.ButterKnife.Finder;
 public class DetailSeriesFragment$ViewHolder$$ViewInjector {
   public static void inject(Finder finder, final com.cs.animators.fragment.DetailSeriesFragment.ViewHolder target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131296366, "field 'gridView' and method 'onItemClick'");
+    view = finder.findRequiredView(source, 2131296367, "field 'gridView' and method 'onItemClick'");
     target.gridView = (android.widget.GridView) view;
     ((android.widget.AdapterView<?>) view).setOnItemClickListener(
       new android.widget.AdapterView.OnItemClickListener() {

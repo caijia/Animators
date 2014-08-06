@@ -11,14 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.cs.animators.R;
 import com.cs.animators.entity.LocalVideo;
-import com.cs.animators.util.CommonUtil;
+import com.cs.cj.util.FileUtils;
 
 public class LocalVideoAdapter extends ArrayAdapter<LocalVideo> {
 	
@@ -41,16 +39,23 @@ public class LocalVideoAdapter extends ArrayAdapter<LocalVideo> {
 		}
 		
 		//表示平分为几列
-		holder.thumb.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(getContext()) / 3,CommonUtil.getWidthMetrics(getContext()) / 3 - CommonUtil.dip2px(getContext(), 5)));
-		holder.thumb.setScaleType(ScaleType.FIT_XY);
-		
 		LocalVideo localVideo = getItem(position);
 		if(localVideo != null)
 		{
 			holder.name.setText(localVideo.getVideoName());
 			holder.duration.setText(StringUtils.generateTime(localVideo.getVideoDuration()));
 			Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(getContext(), localVideo.getVideoPath(), Thumbnails.MINI_KIND);
-			holder.thumb.setImageBitmap(bitmap);
+			if(bitmap != null)
+			{
+				holder.thumb.setImageBitmap(bitmap);	
+			}
+			else
+			{
+				holder.thumb.setImageResource(R.drawable.defalut_loadimage_icon);
+			}
+			
+			String fileSize = FileUtils.getFilesSize(localVideo.getVideoPath());
+			holder.size.setText(fileSize);
 		}
 		return convertView;
 	}
@@ -60,6 +65,7 @@ public class LocalVideoAdapter extends ArrayAdapter<LocalVideo> {
 		@InjectView(R.id.localvideo_img_pic) ImageView thumb ;
 		@InjectView(R.id.localvideo_txt_name) TextView name ;
 		@InjectView(R.id.localvideo_txt_duration) TextView duration ;
+		@InjectView(R.id.localvideo_txt_size) TextView size ;
 		
 		public ViewHolder(View v)
 		{

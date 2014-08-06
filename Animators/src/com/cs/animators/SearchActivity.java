@@ -8,6 +8,7 @@ import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
 
+import com.cs.animators.adapter.ActionModeAdapter;
 import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
@@ -44,7 +45,7 @@ public class SearchActivity extends BaseActivity {
 
 			@Override
 			public void onSuccess(Response<Search> data) {
-				HotAdapter adapter = new HotAdapter(mContext, data.getResult().getList());
+				ActionModeAdapter adapter = new HotAdapter(mContext, data.getResult().getList());
 				mListView.setAdapter(adapter);
 			}
 		});

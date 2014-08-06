@@ -4,16 +4,23 @@ import io.vov.vitamio.LibsChecker;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.MediaPlayer.OnBufferingUpdateListener;
 import io.vov.vitamio.MediaPlayer.OnCompletionListener;
+import io.vov.vitamio.MediaPlayer.OnErrorListener;
 import io.vov.vitamio.MediaPlayer.OnInfoListener;
 import io.vov.vitamio.MediaPlayer.OnPreparedListener;
 import io.vov.vitamio.MediaPlayer.OnSeekCompleteListener;
 import io.vov.vitamio.MediaPlayer.OnVideoSizeChangedListener;
 import io.vov.vitamio.utils.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
@@ -40,6 +47,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
 import com.cs.animators.dao.service.DaoFactory;
@@ -57,9 +66,10 @@ import com.cs.cj.http.httplibrary.RequestParams;
 import com.cs.cj.http.work.JDataCallback;
 import com.cs.cj.http.work.JHttpClient;
 import com.cs.cj.http.work.Response;
+
 import de.greenrobot.event.EventBus;
 
-public class TestVitamioActivity extends ActionBarActivity implements Callback, OnPreparedListener, OnBufferingUpdateListener, OnCompletionListener, OnVideoSizeChangedListener, OnSeekCompleteListener, OnInfoListener {
+public class TestVitamioActivity extends ActionBarActivity implements Callback, OnPreparedListener, OnBufferingUpdateListener, OnCompletionListener, OnVideoSizeChangedListener, OnSeekCompleteListener, OnInfoListener, OnErrorListener {
 
 	/*显示视频图像的控件*/
 	private SurfaceView mSurfaceView ;
@@ -377,12 +387,14 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 			mediaPlayer.setOnVideoSizeChangedListener(this);
 			mediaPlayer.setOnSeekCompleteListener(this);
 			mediaPlayer.setOnInfoListener(this);
+			mediaPlayer.setOnErrorListener(this);
 			
 			//set volume
 			setVolumeControlStream(AudioManager.STREAM_MUSIC);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			Toast.makeText(this, "此视频不能播放！", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -433,11 +445,12 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 			if(mCurPlaySeries != null)
 			{
 				record = new VideoPlayRecord(Long.parseLong(mCurPlaySeries.getId()),mVideoId, mediaPlayer.getCurrentPosition(), mCurSeries, System.currentTimeMillis(), mediaPlayer.getDuration());
+			}
+			if(record != null ){
 				//退出界面后 要将播放记录显示在前一个界面上
 				EventBus.getDefault().post(new PlayRecordEvent(record));
-			}
-			if(record != null )
 				DaoFactory.getVideoRecordInstance(this).saveOrUpdate(record);
+			}
 		}
 	}
 
@@ -1072,10 +1085,30 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
             break;
         case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
             //显示 下载速度
-        	mTxtBufferPercentage.setText(extra+"kb/s" +"("+mBufferPercent+"%)");
+        	mTxtBufferPercentage.setText(extra+"K/S" +"("+mBufferPercent+"%)");
             break;
         }
         return true;
+	}
+
+	@Override
+	public boolean onError(MediaPlayer mp, int what, int extra) {
+		System.out.println("what = "+what+"---extra="+extra);
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("不能播放此视频！");
+		builder.setTitle("视频");
+		builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				TestVitamioActivity.this.finish();
+				builder.create().dismiss();
+			}
+		} );
+		builder.setNegativeButton("取消", null);
+		builder.create().show();
+		return true;
 	}
 	
 }

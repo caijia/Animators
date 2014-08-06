@@ -7,7 +7,7 @@ import butterknife.ButterKnife.Finder;
 public class ThemeFragment$$ViewInjector {
   public static void inject(Finder finder, final com.cs.animators.fragment.ThemeFragment target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131296425, "field 'mListView' and method 'onItemClickListener'");
+    view = finder.findRequiredView(source, 2131296431, "field 'mListView' and method 'onItemClickListener'");
     target.mListView = (android.widget.ListView) view;
     ((android.widget.AdapterView<?>) view).setOnItemClickListener(
       new android.widget.AdapterView.OnItemClickListener() {

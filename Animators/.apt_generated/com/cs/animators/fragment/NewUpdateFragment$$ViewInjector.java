@@ -7,7 +7,7 @@ import butterknife.ButterKnife.Finder;
 public class NewUpdateFragment$$ViewInjector {
   public static void inject(Finder finder, final com.cs.animators.fragment.NewUpdateFragment target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131296425, "field 'mListView'");
+    view = finder.findRequiredView(source, 2131296431, "field 'mListView'");
     target.mListView = (se.emilsjolander.stickylistheaders.StickyListHeadersListView) view;
   }
 
