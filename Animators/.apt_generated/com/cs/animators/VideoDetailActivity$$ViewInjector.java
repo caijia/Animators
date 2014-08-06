@@ -9,30 +9,30 @@ public class VideoDetailActivity$$ViewInjector {
     View view;
     view = finder.findRequiredView(source, 2131296362, "field 'mBtnPlay'");
     target.mBtnPlay = (android.widget.Button) view;
-    view = finder.findRequiredView(source, 2131296360, "field 'mTxtYear'");
-    target.mTxtYear = (android.widget.TextView) view;
-    view = finder.findRequiredView(source, 2131296359, "field 'mTxtCategory'");
-    target.mTxtCategory = (android.widget.TextView) view;
     view = finder.findRequiredView(source, 2131296363, "field 'mBtnOutline'");
     target.mBtnOutline = (android.widget.Button) view;
     view = finder.findRequiredView(source, 2131296357, "field 'mImgCover'");
     target.mImgCover = (android.widget.ImageView) view;
     view = finder.findRequiredView(source, 2131296364, "field 'mTxtPlayRecord'");
     target.mTxtPlayRecord = (android.widget.TextView) view;
+    view = finder.findRequiredView(source, 2131296359, "field 'mTxtCategory'");
+    target.mTxtCategory = (android.widget.TextView) view;
     view = finder.findRequiredView(source, 2131296356, "field 'mImgBg'");
     target.mImgBg = (android.widget.ImageView) view;
+    view = finder.findRequiredView(source, 2131296360, "field 'mTxtYear'");
+    target.mTxtYear = (android.widget.TextView) view;
     view = finder.findRequiredView(source, 2131296358, "field 'mTxtName'");
     target.mTxtName = (android.widget.TextView) view;
   }
 
   public static void reset(com.cs.animators.VideoDetailActivity target) {
     target.mBtnPlay = null;
-    target.mTxtYear = null;
-    target.mTxtCategory = null;
     target.mBtnOutline = null;
     target.mImgCover = null;
     target.mTxtPlayRecord = null;
+    target.mTxtCategory = null;
     target.mImgBg = null;
+    target.mTxtYear = null;
     target.mTxtName = null;
   }
 }

@@ -11,22 +11,22 @@ public class NewUpdateAdapter$ViewHolder$$ViewInjector {
     target.name = (android.widget.TextView) view;
     view = finder.findRequiredView(source, 2131296374, "field 'cover'");
     target.cover = (android.widget.ImageView) view;
-    view = finder.findRequiredView(source, 2131296376, "field 'updateText'");
-    target.updateText = (android.widget.TextView) view;
-    view = finder.findRequiredView(source, 2131296377, "field 'category'");
-    target.category = (android.widget.TextView) view;
-    view = finder.findRequiredView(source, 2131296378, "field 'score'");
-    target.score = (android.widget.TextView) view;
     view = finder.findRequiredView(source, 2131296380, "field 'updateSeries'");
     target.updateSeries = (android.widget.TextView) view;
+    view = finder.findRequiredView(source, 2131296378, "field 'score'");
+    target.score = (android.widget.TextView) view;
+    view = finder.findRequiredView(source, 2131296377, "field 'category'");
+    target.category = (android.widget.TextView) view;
+    view = finder.findRequiredView(source, 2131296376, "field 'updateText'");
+    target.updateText = (android.widget.TextView) view;
   }
 
   public static void reset(com.cs.animators.adapter.NewUpdateAdapter.ViewHolder target) {
     target.name = null;
     target.cover = null;
-    target.updateText = null;
-    target.category = null;
-    target.score = null;
     target.updateSeries = null;
+    target.score = null;
+    target.category = null;
+    target.updateText = null;
   }
 }
