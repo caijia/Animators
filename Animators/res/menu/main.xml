@@ -1,15 +1,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <item android:id="@+id/action_search"
-          android:title="@string/action_search"
-          android:icon="@android:drawable/ic_menu_search"
-          app:showAsAction="ifRoom|collapseActionView"
-          app:actionViewClass="android.support.v7.widget.SearchView" />
-    
-     <item android:id="@+id/action_userinfo"
+    <item
+        android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/action_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"/>
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/main_user_info"
-        app:showAsAction="always"
-        android:icon="@drawable/abc_ic_menu_moreoverflow_normal_holo_dark"/>
-    
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="@string/main_user_info"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_add"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/main_user_info"
+        app:showAsAction="never"/>
+
 </menu>

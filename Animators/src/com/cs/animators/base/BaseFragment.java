@@ -1,10 +1,13 @@
 package com.cs.animators.base;
 
+import java.lang.reflect.Field;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -31,9 +34,40 @@ public abstract class BaseFragment extends Fragment{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//不管有没有实体菜单键都显示OverFlow ActionBar Item
+        showOverFlowMenu();
+		
 		//没有这句在Fragment中显示不出ActionBar
 		setHasOptionsMenu(true);
 	}
+	
+	/**
+     * supportV7 里面的ActionBar overFlowMenu 如果有实体菜单键 就不会显示OverFlowMenu  
+     * 这个方法是让有实体菜单键的手机显示OverFlowMenu
+     */
+    private void showOverFlowMenu() {
+    	try { 
+
+            ViewConfiguration config =ViewConfiguration.get(getActivity()); 
+
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey"); 
+
+            if(menuKeyField != null ){
+
+            menuKeyField.setAccessible(true); 
+
+            menuKeyField.setBoolean(config, false);
+
+            }
+
+        } catch (Exception e) { 
+
+            e.printStackTrace();
+
+        }       
+	}
+
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
