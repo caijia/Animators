@@ -9,8 +9,6 @@ public class PlayerSettingFragment$$ViewInjector {
     View view;
     view = finder.findRequiredView(source, 2131296439, "field 'mRgroupCanvas'");
     target.mRgroupCanvas = (android.widget.RadioGroup) view;
-    view = finder.findRequiredView(source, 2131296437, "field 'mSkbBrightness'");
-    target.mSkbBrightness = (android.widget.SeekBar) view;
     view = finder.findRequiredView(source, 2131296435, "field 'mTxtClose' and method 'closeDialog'");
     target.mTxtClose = (android.widget.TextView) view;
     view.setOnClickListener(
@@ -21,11 +19,13 @@ public class PlayerSettingFragment$$ViewInjector {
           target.closeDialog();
         }
       });
+    view = finder.findRequiredView(source, 2131296437, "field 'mSkbBrightness'");
+    target.mSkbBrightness = (android.widget.SeekBar) view;
   }
 
   public static void reset(com.cs.animators.fragment.PlayerSettingFragment target) {
     target.mRgroupCanvas = null;
-    target.mSkbBrightness = null;
     target.mTxtClose = null;
+    target.mSkbBrightness = null;
   }
 }
