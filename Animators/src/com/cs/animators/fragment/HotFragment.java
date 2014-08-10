@@ -2,16 +2,13 @@ package com.cs.animators.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-
 import com.cs.animators.R;
 import com.cs.animators.VideoDetailActivity;
-import com.cs.animators.adapter.ActionModeAdapter;
 import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseFragment;
 import com.cs.animators.constants.Constants;
@@ -32,7 +29,7 @@ public class HotFragment extends BaseFragment implements IXListViewListener {
 	
 	private List<HotItem> mHotItems = new ArrayList<HotItem>();
 	
-	private ActionModeAdapter mAdapter;
+	private HotAdapter mAdapter;
 	
 	@Override
 	protected void loadLayout() {

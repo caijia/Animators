@@ -129,8 +129,6 @@ public class MainActivity extends BaseActivity {
 		
 		switch (item.getItemId()) {
 		case R.id.action_userinfo:
-			View mOverFlowMenu = findViewById(R.id.action_userinfo);
-			showPopMenu(mOverFlowMenu);
 			break;
 
 		default:
@@ -140,52 +138,54 @@ public class MainActivity extends BaseActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	private void showPopMenu(View flowMenu) {
-		PopupMenu popupMenu = new PopupMenu(mContext, flowMenu);
-		
-		/*这段代码 使Actionbar显示图标*/
-		try {
-		    Field[] fields = popupMenu.getClass().getDeclaredFields();
-		    for (Field field : fields) {
-		        if ("mPopup".equals(field.getName())) {
-		            field.setAccessible(true);
-		            Object menuPopupHelper = field.get(popupMenu);
-		            Class<?> classPopupHelper = Class.forName(menuPopupHelper
-		                    .getClass().getName());
-		            Method setForceIcons = classPopupHelper.getMethod(
-		                    "setForceShowIcon", boolean.class);
-		            setForceIcons.invoke(menuPopupHelper, true);
-		            break;
-		        }
-		    }
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-		
-		popupMenu.getMenuInflater().inflate(R.menu.main_overflow, popupMenu.getMenu());
-		popupMenu.show();
-		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-			
-			@Override
-			public boolean onMenuItemClick(MenuItem menu) {
-				switch (menu.getItemId()) {
-				case R.id.action_search:
-					CommonUtil.showMessage(mContext, "search");
-					break;
-
-				default:
-					break;
-				}
-				return false;
-			}
-		});
-	}
+//	private void showPopMenu(View flowMenu) {
+//		PopupMenu popupMenu = new PopupMenu(mContext, flowMenu);
+//		
+//		/*这段代码 使Actionbar显示图标*/
+//		try {
+//		    Field[] fields = popupMenu.getClass().getDeclaredFields();
+//		    for (Field field : fields) {
+//		        if ("mPopup".equals(field.getName())) {
+//		            field.setAccessible(true);
+//		            Object menuPopupHelper = field.get(popupMenu);
+//		            Class<?> classPopupHelper = Class.forName(menuPopupHelper
+//		                    .getClass().getName());
+//		            Method setForceIcons = classPopupHelper.getMethod(
+//		                    "setForceShowIcon", boolean.class);
+//		            setForceIcons.invoke(menuPopupHelper, true);
+//		            break;
+//		        }
+//		    }
+//		} catch (Exception e) {
+//		    e.printStackTrace();
+//		}
+//		
+//		popupMenu.getMenuInflater().inflate(R.menu.main_overflow, popupMenu.getMenu());
+//		popupMenu.show();
+//		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+//			
+//			@Override
+//			public boolean onMenuItemClick(MenuItem menu) {
+//				switch (menu.getItemId()) {
+//				case R.id.action_search:
+//					CommonUtil.showMessage(mContext, "search");
+//					break;
+//
+//				default:
+//					break;
+//				}
+//				return false;
+//			}
+//		});
+//	}
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mListView);
 		menu.findItem(R.id.action_search).setVisible(!drawerOpen);
-		menu.findItem(R.id.action_userinfo).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_edit).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_delete).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_add).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
 	

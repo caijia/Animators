@@ -1,6 +1,8 @@
 package com.cs.animators.base;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.View.OnTouchListener;
 import android.view.ViewStub;
 import android.view.Window;
@@ -17,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
 import com.cs.animators.R;
 import com.cs.cj.http.httplibrary.RequestParams;
 import com.cs.cj.http.parserinterface.BaseParser;
@@ -52,6 +56,9 @@ public abstract class BaseActivity extends ActionBarActivity {
         
         super.setContentView(mHolder.mainContent);
         
+        //不管有没有实体菜单键都显示OverFlow ActionBar Item
+        showOverFlowMenu();
+        
         ButterKnife.inject(this);
         
         //逻辑
@@ -59,7 +66,33 @@ public abstract class BaseActivity extends ActionBarActivity {
         
     }
     
-    protected abstract void loadLayout();
+    /**
+     * supportV7 里面的ActionBar overFlowMenu 如果有实体菜单键 就不会显示OverFlowMenu  
+     * 这个方法是让有实体菜单键的手机显示OverFlowMenu
+     */
+    private void showOverFlowMenu() {
+    	try { 
+
+            ViewConfiguration config =ViewConfiguration.get(this); 
+
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey"); 
+
+            if(menuKeyField != null ){
+
+            menuKeyField.setAccessible(true); 
+
+            menuKeyField.setBoolean(config, false);
+
+            }
+
+        } catch (Exception e) { 
+
+            e.printStackTrace();
+
+        }       
+	}
+
+	protected abstract void loadLayout();
     protected abstract void processLogic();
     
 	class ViewHolder {

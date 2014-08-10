@@ -132,7 +132,8 @@ public class XListView extends ListView implements OnScrollListener {
     @Override
     public void setAdapter(ListAdapter adapter) {
         // make sure XFooterView is the last footer view, and only add once.
-        if (!mIsFooterReady) {
+    	// >=10仅仅为保证充满屏幕
+        if (!mIsFooterReady && adapter.getCount() >= 10) {
             mIsFooterReady = true;
             addFooterView(mFooterLayout);
         }
