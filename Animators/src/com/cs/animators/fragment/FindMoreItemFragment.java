@@ -1,4 +1,4 @@
-package com.cs.animators;
+package com.cs.animators.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +14,16 @@ import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
 import butterknife.OnItemLongClick;
+import com.cs.animators.FindMoreActivity;
+import com.cs.animators.R;
+import com.cs.animators.VideoDetailActivity;
 import com.cs.animators.adapter.HotAdapter;
-import com.cs.animators.base.BaseActivity;
+import com.cs.animators.base.BaseFragment;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoCollect;
 import com.cs.animators.dao.service.DaoFactory;
 import com.cs.animators.entity.AllCategory;
 import com.cs.animators.entity.HotItem;
-import com.cs.animators.fragment.FindFragment;
-import com.cs.animators.fragment.HotFragment;
 import com.cs.animators.util.CommonUtil;
 import com.cs.cj.http.httplibrary.RequestParams;
 import com.cs.cj.http.work.JDataCallback;
@@ -31,11 +32,11 @@ import com.markmao.pulltorefresh.widget.XListView;
 import com.markmao.pulltorefresh.widget.XListView.IXListViewListener;
 
 /**
- * 点击FindFragment中的GridView Item 跳转过来
+ * 点击FindFragment中的更多(箭头) 跳转过来
  * @Author android_nihao (caijia)
  * @Time 2014-7-15 下午3:09:01
  */
-public class AllCategoryActivity extends BaseActivity implements IXListViewListener {
+public class FindMoreItemFragment extends BaseFragment implements IXListViewListener {
 
 	@InjectView(R.id.all_category_lv)  
 	XListView mXListView ;
@@ -63,7 +64,6 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 
 	@Override
 	protected void processLogic() {
-		mActionBar.setDisplayHomeAsUpEnabled(true);
 		getExtra();
 		configXListView();
 		bindData();
@@ -100,7 +100,7 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 	}
 	
 	public void bindData() {
-		mAdapter = new HotAdapter(this, mHotItems);
+		mAdapter = new HotAdapter(getActivity(), mHotItems);
 		mXListView.setAdapter(mAdapter);
 	}
 
@@ -117,7 +117,7 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 		}
 		else
 		{
-			CommonUtil.showMessage(mContext, "没有更多数据");
+			CommonUtil.showMessage(getActivity(), "没有更多数据");
 			onLoad();
 		}
 	}
@@ -129,10 +129,10 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 	}
 	
 	private void getExtra(){
-		Bundle bundle = getIntent().getExtras();
+		Bundle bundle = getArguments();
 		if(bundle != null)
 		{
-//			mId = bundle.getString(FindFragment.ID_KEY);
+			mId = bundle.getString(FindMoreActivity.GROUP_IMTE_ID);
 		}
 	}
 	
@@ -143,7 +143,7 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 		{
 			HotItem hotItem  = (HotItem) parent.getAdapter().getItem(position);
 			String videoId = hotItem.getVideoId()+"";
-			Intent detailIntent = new Intent(this, VideoDetailActivity.class);
+			Intent detailIntent = new Intent(getActivity(), VideoDetailActivity.class);
 			detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
 			startActivity(detailIntent);
 		}
@@ -164,7 +164,7 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 		boolean hasSelectItem = mAdapter.getSelectedItemCount() > 0 ;
 		if(hasSelectItem && mActionMode == null)
 		{
-			mActionMode = startSupportActionMode(callback);
+			mActionMode = ((FindMoreActivity)getActivity()).startSupportActionMode(callback);
 		}
 		
 		if(!hasSelectItem && mActionMode != null)
@@ -213,12 +213,12 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 						VideoCollect vc = new VideoCollect(
 								hotItem.getVideoId()+"", hotItem.getName(), hotItem.getCover(), hotItem.getCurNum(),
 								hotItem.getTotalNum(), hotItem.getCategory(), hotItem.getScore(), null);
-						DaoFactory.getVideoCollectInstance(mContext).saveOrUpdate(vc);
+						DaoFactory.getVideoCollectInstance(getActivity()).saveOrUpdate(vc);
 					}
 				}
 				
 				//提示用户收藏成功
-				CommonUtil.showMessage(mContext, "收藏成功");
+				CommonUtil.showMessage(getActivity(), "收藏成功");
 				break;
 
 			default:
@@ -228,11 +228,4 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 			return false;
 		}
 	};
-	
-	@Override
-	public Intent getSupportParentActivityIntent() {
-		finish();
-		return super.getSupportParentActivityIntent();
-	}
-	
 }

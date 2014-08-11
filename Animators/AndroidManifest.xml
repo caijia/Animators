@@ -34,7 +34,6 @@
             </intent-filter>
         </activity>
         <activity android:name="GroupItemActivity" android:screenOrientation="portrait"  android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"/>
-        <activity android:name="AllCategoryActivity" android:screenOrientation="portrait"  android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"/>
         <activity android:name="SearchActivity" android:screenOrientation="portrait"  android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"/>
         <activity android:name="VideoDetailActivity" android:screenOrientation="portrait"  >
         </activity>
@@ -61,6 +60,7 @@
          <activity android:name="LocalVideoActivity"
              android:screenOrientation="portrait" ></activity>
          <activity android:name="VideoCollectActivity"></activity>
+         <activity android:name="FindMoreActivity"></activity>
     </application>
 
 </manifest>

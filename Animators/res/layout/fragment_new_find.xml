@@ -81,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:background="@drawable/selector_find_more"
                 android:drawableLeft="@drawable/more_icon"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp" />
@@ -146,6 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:background="@drawable/selector_find_more"
                 android:drawableLeft="@drawable/more_icon"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp" />
@@ -211,6 +213,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:background="@drawable/selector_find_more"
                 android:drawableLeft="@drawable/more_icon"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp" />

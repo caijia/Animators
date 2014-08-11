@@ -45,7 +45,7 @@ public class FindTabItemFragment extends BaseFragment {
 		
 		mAdapter = new FindAdapter(getActivity(), 3, mList, mGridView);
 		
-		//这里的目的是让GridView初始有六个数据  防止第一次加载数据时 填充是出现界面跳动
+		//这里的目的是让GridView初始有六个数据  防止第一次加载数据时 填充出现界面跳动
 		if(mList.size() == 0)
 		{
 			for (int i = 0; i < 6; i++) {
@@ -73,7 +73,7 @@ public class FindTabItemFragment extends BaseFragment {
 				mList.addAll(data.getResult().getList());
 				mAdapter.notifyDataSetChanged();
 			}
-		});
+		},false);
 		
 	}
 
@@ -90,7 +90,7 @@ public class FindTabItemFragment extends BaseFragment {
 		HotItem hotItem  = (HotItem) parent.getAdapter().getItem(position);
 		if(hotItem != null)
 		{
-			String videoId = hotItem.getId()+"";
+			String videoId = hotItem.getVideoId()+"";
 			Intent detailIntent = new Intent(getActivity(), VideoDetailActivity.class);
 			detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
 			startActivity(detailIntent);

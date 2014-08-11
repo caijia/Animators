@@ -1,24 +1,25 @@
 package com.cs.animators.adapter;
 
 import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
 import com.cs.animators.R;
 import com.cs.animators.entity.ThemeItem;
+import com.cs.animators.util.CommonUtil;
 import com.cs.cj.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 public class ThemeAdapter extends ArrayAdapter<ThemeItem> {
+	
+	private static final int PADDING = 10 ;
 	
 	public ThemeAdapter(Context context, List<ThemeItem> objects) {
 		super(context, 0, objects);
@@ -37,6 +38,13 @@ public class ThemeAdapter extends ArrayAdapter<ThemeItem> {
 		{
 			holder = (ViewHolder) convertView.getTag();
 		}
+		
+		int picWidth = CommonUtil.getWidthMetrics(getContext()) - CommonUtil.dip2px(getContext(), PADDING) * 2 ;
+		int picHeight = (int) (picWidth / (float)2) ;
+		LayoutParams layoutParams = (LayoutParams) holder.pic.getLayoutParams();
+		layoutParams.width = picWidth ;
+		layoutParams.height = picHeight ;
+		holder.pic.setLayoutParams(layoutParams);
 		
 		ThemeItem item = getItem(position);
 		if(item != null)

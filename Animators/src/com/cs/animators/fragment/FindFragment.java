@@ -1,13 +1,21 @@
 package com.cs.animators.fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
+import com.cs.animators.FindMoreActivity;
 import com.cs.animators.R;
 import com.cs.animators.adapter.FindBannerAdapter;
 import com.cs.animators.base.BaseFragment;
@@ -16,6 +24,7 @@ import com.cs.animators.entity.Banner;
 import com.cs.animators.entity.BannerItem;
 import com.cs.animators.entity.Group;
 import com.cs.animators.entity.GroupItem;
+import com.cs.animators.util.CommonUtil;
 import com.cs.cj.http.httplibrary.RequestParams;
 import com.cs.cj.http.work.FastJsonParserArray;
 import com.cs.cj.http.work.JDataCallback;
@@ -58,8 +67,9 @@ public class FindFragment extends BaseFragment {
 	
 	@InjectView(R.id.find_txt_category_more)
 	TextView mTxtCategoryMore ;
-	 
-
+	
+	private List<Group> mServerData ;
+	
 	@Override
 	protected void loadLayout() {
 		setContentView(R.layout.fragment_new_find);
@@ -68,6 +78,12 @@ public class FindFragment extends BaseFragment {
 	//业务逻辑
 	@Override
 	protected void processLogic(){
+		
+		//为了保持图片的宽高比
+		int width = CommonUtil.getWidthMetrics(getActivity());
+		int height = width / 2 ;
+		mViewPager.setLayoutParams(new RelativeLayout.LayoutParams(width, height));
+		
 		//加载数据
 		loadData();
 		//加载Banner
@@ -79,8 +95,8 @@ public class FindFragment extends BaseFragment {
 		RequestParams params = new RequestParams();
 		params.put("m", "Cartoon");
 		params.put("a", "index");
-		params.put("limit", "5");
-		params.put("tab", "2");
+		params.put("limit", "8");
+		params.put("tab", "1");
 		params.put("page", "1");
 		JHttpClient.get(getActivity() , Constants.host, params, Banner.class, new JDataCallback<Banner>() {
 
@@ -119,11 +135,11 @@ public class FindFragment extends BaseFragment {
 	public static final String TAB_ID_KEY = "tab_id_key";
 	
 	protected void bindData(Response<List<Group>> data) {
-		List<Group> serverData = data.getResult();
+		mServerData = data.getResult();
 		
-		List<GroupItem> recommed = serverData.get(RECOMMED).getList().subList(0, 3);
-		List<GroupItem> area = serverData.get(AREA).getList().subList(0, 3);
-		List<GroupItem> category = serverData.get(CATEGORY).getList().subList(0, 3);
+		List<GroupItem> recommed = mServerData.get(RECOMMED).getList().subList(0, 3);
+		List<GroupItem> area = mServerData.get(AREA).getList().subList(0, 3);
+		List<GroupItem> category = mServerData.get(CATEGORY).getList().subList(0, 3);
 		
 		mPtsRecommend.setAdapter(new TabAdapter(getChildFragmentManager(), recommed, R.id.find_ll_recommend_container));
 		mPtsArea.setAdapter(new TabAdapter(getChildFragmentManager(), area, R.id.find_ll_area_container));
@@ -163,10 +179,35 @@ public class FindFragment extends BaseFragment {
 
 		@Override
 		public String getPagetTitle(int position) {
-			return list.get(position).getName().substring(0, 2);
+			if(list.get(position).getName().length() > 2)
+			{
+				return list.get(position).getName().substring(0, 2);
+			}
+			return list.get(position).getName();
 		}
 		
 	}
 	
+	public static final String GROUP_ITEM_MORE = "group_item_more";
 	
+	@OnClick(R.id.find_txt_recommed_more)
+	void onRecommendMoreClick(View v){
+		accessFindMoreActivity(mServerData.get(RECOMMED).getList());
+	}
+	
+	@OnClick(R.id.find_txt_area_more)
+	void onAreaMoreClick(View v){
+		accessFindMoreActivity(mServerData.get(AREA).getList());
+	}
+	
+	@OnClick(R.id.find_txt_category_more)
+	void onCategoryMoreClick(View v){
+		accessFindMoreActivity(mServerData.get(CATEGORY).getList());
+	}
+	
+	private void accessFindMoreActivity(List<GroupItem> groupItem){
+		Intent intent = new Intent(getActivity(), FindMoreActivity.class);
+		intent.putParcelableArrayListExtra(GROUP_ITEM_MORE, (ArrayList<? extends Parcelable>) groupItem);
+		startActivity(intent);
+	}
 }

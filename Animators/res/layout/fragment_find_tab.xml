@@ -9,4 +9,5 @@
     android:paddingRight="10dp"
     android:scrollbarStyle="outsideOverlay"
     android:stretchMode="columnWidth"
-    android:verticalSpacing="12dp" />
+    android:verticalSpacing="12dp" 
+    />

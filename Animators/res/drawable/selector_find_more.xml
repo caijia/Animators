@@ -2,19 +2,19 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:state_focused="true">
         <shape >
-            <solid android:color="@color/orange_dark"/>
+            <solid android:color="#60168FFA"/>
         </shape>
     </item>
     
     <item android:state_pressed="true">
         <shape >
-            <solid android:color="@color/orange_dark"/>
+            <solid android:color="#60168FFA"/>
         </shape>
     </item>
     
     <item >
         <shape >
-            <solid android:color="@color/orange_light"/>
+            <solid android:color="@android:color/transparent"/>
         </shape>
     </item>
 

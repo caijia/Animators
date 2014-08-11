@@ -50,9 +50,9 @@ public class GroupItemActivity extends BaseActivity {
 	@OnItemClick(R.id.groupitem_gv)
 	void themeItemClick(AdapterView<?> parent , View v, int position , long id){
 		GroupItem item = (GroupItem) parent.getAdapter().getItem(position);
-		Intent intent = new Intent(this, AllCategoryActivity.class);
+//		Intent intent = new Intent(this, AllCategoryActivity.class);
 //		intent.putExtra(FindFragment.ID_KEY, item.getId());
-		startActivity(intent);
+//		startActivity(intent);
 	}
 	
 	@Override

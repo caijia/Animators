@@ -38,7 +38,7 @@ public class VideoCollectAdapter extends ActionModeAdapter<VideoCollect> {
 		VideoCollect item = getItem(position);
 		if(item != null)
 		{
-			ImageLoader.getInstance().displayImage(item.getCover(), holder.cover, ImageLoaderUtil.roundImageLoaderOptions(4));
+			ImageLoader.getInstance().displayImage(item.getCover(), holder.cover, ImageLoaderUtil.roundImageLoaderOptions(0));
 			holder.name.setText(item.getName());
 			holder.category.setText(item.getCategory());
 			holder.series.setText("更新至" + item.getCurSeries() +"集  ");
