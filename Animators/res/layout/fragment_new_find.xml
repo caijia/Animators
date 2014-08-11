@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.cs.cj.view.CustomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.cs.animators"
+    android:id="@+id/find_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDFDFD" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp" >
+
+        <com.cs.cj.view.AutoScrollViewPager
+            android:id="@+id/find_autoscroll_vpager"
+            android:layout_width="match_parent"
+            android:layout_height="170dp" />
+
+        <com.cs.cj.view.CircleLoopPageIndicator
+            android:id="@+id/find_pageindicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/find_autoscroll_vpager"
+            android:layout_alignParentRight="true"
+            android:padding="8dp"
+            app:fillColor="@color/play_normal"
+            app:pageColor="@color/white"
+            app:snap="true"
+            app:strokeWidth="0dp"
+            app:vpiradius="4dp" />
+
+        <RelativeLayout
+            android:id="@+id/find_rlayout_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@+id/find_autoscroll_vpager"
+            android:layout_marginTop="8dp"
+            android:background="#EBE7EB" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:background="#DBDADB" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:background="#47AA2F" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/view1"
+                android:text="推荐"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#4B4A4B" />
+
+            <com.cs.cj.view.PagerTabStrip
+                android:id="@+id/find_pts_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_toRightOf="@+id/textView1"
+                app:ptsDividerColor="#C6C5C6"
+                app:ptsIndicatorHeight="0dp"
+                app:ptsTabBackground="@drawable/selector_find_tab"
+                app:ptsTabPaddingLeftRight="15dp"
+                app:ptsUnderlineHeight="0dp" />
+
+            <TextView
+                android:id="@+id/find_txt_recommed_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/more_icon"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/find_ll_recommend_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/find_rlayout_recommend"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" />
+
+        <RelativeLayout
+            android:id="@+id/rlayout_area"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@+id/find_ll_recommend_container"
+            android:layout_marginTop="8dp"
+            android:background="#EBE7EB" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:background="#DBDADB" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:background="#376EFA" />
+
+            <TextView
+                android:id="@+id/area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/view2"
+                android:text="地区"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#4B4A4B" />
+
+            <com.cs.cj.view.PagerTabStrip
+                android:id="@+id/find_pts_area"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_toRightOf="@+id/area"
+                app:ptsDividerColor="#C6C5C6"
+                app:ptsIndicatorHeight="0dp"
+                app:ptsTabBackground="@drawable/selector_find_tab"
+                app:ptsTabPaddingLeftRight="15dp"
+                app:ptsUnderlineHeight="0dp" />
+
+            <TextView
+                android:id="@+id/find_txt_area_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/more_icon"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/find_ll_area_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlayout_area"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" />
+
+        <RelativeLayout
+            android:id="@+id/rlayout_category"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@+id/find_ll_area_container"
+            android:layout_marginTop="8dp"
+            android:background="#EBE7EB" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:background="#DBDADB" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:background="#E38300" />
+
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/view3"
+                android:text="分类"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#4B4A4B" />
+
+            <com.cs.cj.view.PagerTabStrip
+                android:id="@+id/find_pts_category"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_toRightOf="@+id/category"
+                app:ptsDividerColor="#C6C5C6"
+                app:ptsIndicatorHeight="0dp"
+                app:ptsTabBackground="@drawable/selector_find_tab"
+                app:ptsTabPaddingLeftRight="15dp"
+                app:ptsUnderlineHeight="0dp" />
+
+            <TextView
+                android:id="@+id/find_txt_category_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/more_icon"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/find_ll_category_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlayout_category"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" />
+    </RelativeLayout>
+
+</com.cs.cj.view.CustomScrollView>
