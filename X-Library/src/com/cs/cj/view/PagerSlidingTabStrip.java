@@ -377,12 +377,14 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 		// draw underline
 
 		rectPaint.setColor(underlineColor);
-//		canvas.drawRect(0, height - underlineHeight, tabsContainer.getWidth(), height, rectPaint);
-		//此处表示最下面的线的宽度为屏幕宽度
-		canvas.drawRect(0, height - underlineHeight, getResources().getDisplayMetrics().widthPixels, height, rectPaint);
-
+		if(shouldExpand){
+			//此处表示最下面的线的宽度为屏幕宽度
+			canvas.drawRect(0, height - underlineHeight, getResources().getDisplayMetrics().widthPixels, height, rectPaint);
+		}else{
+			canvas.drawRect(0, height - underlineHeight, tabsContainer.getWidth(), height, rectPaint);
+		}
+		
 		// draw divider
-
 		dividerPaint.setColor(dividerColor);
 		for (int i = 0; i < tabCount - 1; i++) {
 			View tab = tabsContainer.getChildAt(i);
