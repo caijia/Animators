@@ -1,14 +1,18 @@
 package com.cs.animators.adapter;
 
 import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
 import com.cs.animators.R;
 import com.cs.animators.entity.HotItem;
 import com.cs.animators.util.CommonUtil;
 import com.cs.cj.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +61,7 @@ public class FindAdapter extends ArrayAdapter<HotItem> {
 		HotItem item = getItem(position);
 		if(item != null)
 		{
-			holder.name.setText(item.getName());
+			holder.name.setText(TextUtils.isEmpty(item.getName()) ? "":item.getName());
 			ImageLoader.getInstance().displayImage(item.getCover(), holder.pic, ImageLoaderUtil.roundImageLoaderOptions(0));
 		}
 		return convertView;
