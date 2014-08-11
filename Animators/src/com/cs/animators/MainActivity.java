@@ -1,10 +1,7 @@
 package com.cs.animators;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -12,8 +9,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.PopupMenu.OnMenuItemClickListener;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.view.Menu;
@@ -23,12 +18,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-
 import com.cs.animators.adapter.DrawerAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.DrawerItem;
 import com.cs.animators.fragment.MainFragment;
-import com.cs.animators.util.CommonUtil;
 import com.cs.cj.service.FragmentService;
 
 public class MainActivity extends BaseActivity {

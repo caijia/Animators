@@ -22,8 +22,8 @@
     
     
     <string-array name="main_slidetab_title">
-        <item >主题</item>
         <item >发现</item>
+        <item >主题</item>
         <item >最新</item>
         <item >热门</item>
     </string-array>

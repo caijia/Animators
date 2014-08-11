@@ -46,8 +46,10 @@ public class FindBannerAdapter extends RecyclingPagerAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
+		//宽高比是 1280 *　800
 		holder.pic.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 		holder.pic.setScaleType(ScaleType.FIT_XY);
+//		holder.pic.setAdjustViewBounds(true);
 		
 		final BannerItem item = mAreaList.get(position % mAreaList.size());
 		if(item != null)

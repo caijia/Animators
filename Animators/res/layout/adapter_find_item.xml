@@ -13,21 +13,15 @@
     <TextView
         android:id="@+id/find_txt_name"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="32dp"
         android:layout_alignLeft="@+id/find_img_pic"
         android:layout_alignRight="@+id/find_img_pic"
         android:layout_below="@+id/find_img_pic"
         android:background="@drawable/selector_find_item"
-        android:gravity="center"
+        android:gravity="left|center_vertical"
+        android:singleLine="true"
+        android:paddingLeft="5dp"
         android:textColor="@color/gray_light"
-        android:textSize="16sp" />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@color/grey_light"
-        android:layout_alignLeft="@+id/find_img_pic"
-        android:layout_alignRight="@+id/find_img_pic"
-        android:layout_below="@+id/find_txt_name" />
+        android:textSize="14sp" />
 
 </RelativeLayout>

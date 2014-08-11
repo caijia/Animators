@@ -1,18 +1,14 @@
 package com.cs.animators.fragment;
 
-import java.util.ArrayList;
 import java.util.List;
-import android.content.Intent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.widget.TextView;
 import butterknife.InjectView;
-import butterknife.OnClick;
-import butterknife.OnItemClick;
-import com.cs.animators.AllCategoryActivity;
-import com.cs.animators.GroupItemActivity;
+
 import com.cs.animators.R;
-import com.cs.animators.adapter.FindAdapter;
 import com.cs.animators.adapter.FindBannerAdapter;
 import com.cs.animators.base.BaseFragment;
 import com.cs.animators.constants.Constants;
@@ -28,6 +24,8 @@ import com.cs.cj.http.work.Response;
 import com.cs.cj.view.AutoScrollViewPager;
 import com.cs.cj.view.CircleLoopPageIndicator;
 import com.cs.cj.view.CustomScrollView;
+import com.cs.cj.view.FragmentTabAdapter;
+import com.cs.cj.view.PagerTabStrip;
 
 public class FindFragment extends BaseFragment {
 	
@@ -41,35 +39,38 @@ public class FindFragment extends BaseFragment {
 	CustomScrollView mCustomScrollView ;
 	
 	//推荐
-	@InjectView(R.id.find_gv_recommend)
-	GridView mGvRecommend ;
+	@InjectView(R.id.find_pts_recommend)
+	PagerTabStrip mPtsRecommend ;
+	
+	@InjectView(R.id.find_txt_recommed_more)
+	TextView mTxtRecommendMore ;
 	
 	//地区
-	@InjectView(R.id.find_gv_area)
-	GridView mGvArea ;
+	@InjectView(R.id.find_pts_area)
+	PagerTabStrip mPtsArea ;
+	
+	@InjectView(R.id.find_txt_area_more)
+	TextView mTxtAreaMore ;
 	
 	//类型
-	@InjectView(R.id.find_gv_category)
-	GridView mGvCategory ;
-	 
-	//题材
-	@InjectView(R.id.find_gv_theme)
-	GridView mGvTheme ;
+	@InjectView(R.id.find_pts_category)
+	PagerTabStrip mPtsCategory ;
 	
+	@InjectView(R.id.find_txt_category_more)
+	TextView mTxtCategoryMore ;
+	 
 
 	@Override
 	protected void loadLayout() {
-		setContentView(R.layout.fragment_find);
-		
+		setContentView(R.layout.fragment_new_find);
 	}
-	
 	
 	//业务逻辑
 	@Override
 	protected void processLogic(){
 		//加载数据
 		loadData();
-		
+		//加载Banner
 		loadBanner();
 	}
 	
@@ -91,7 +92,7 @@ public class FindFragment extends BaseFragment {
 	}
 
 	private void setBanner(List<BannerItem> banners){
-		//主界面Bannder
+		//主界面Banner
 		FindBannerAdapter bannerAdapter = new FindBannerAdapter(getActivity(), banners);
 		mViewPager.startAutoScroll(4000);
 		mViewPager.setInterval(4000);
@@ -103,10 +104,7 @@ public class FindFragment extends BaseFragment {
 	}
 
 	void loadData() {
-		RequestParams params = new RequestParams();
-		params.put("m", "Cartoon");
-		params.put("a", "channelgroup");
-		get(Constants.host, params, new FastJsonParserArray<Group>(Group.class), new JDataCallback<List<Group>>() {
+		get(Constants.group_url, null, new FastJsonParserArray<Group>(Group.class), new JDataCallback<List<Group>>() {
 
 			@Override
 			public void onSuccess(Response<List<Group>> data) {
@@ -114,94 +112,61 @@ public class FindFragment extends BaseFragment {
 			}
 		});
 	}
-	
-	private static final int RECOMMEND = 0 ;
-	private static final int AREA = 1 ;
+
+	public static final int RECOMMED = 0 ;
+	public static final int AREA = 1 ;
 	public static final int CATEGORY = 2 ;
-	public static final int THEME = 3 ;
-	private List<Group> mResult ;
+	public static final String TAB_ID_KEY = "tab_id_key";
 	
-	private void bindData(Response<List<Group>> data) { 
-		//服务器返回的数据
-		mResult = data.getResult();
+	protected void bindData(Response<List<Group>> data) {
+		List<Group> serverData = data.getResult();
 		
-		//生成与主界面匹配的数据
-		List<List<GroupItem>> newResult = new ArrayList<List<GroupItem>>();
+		List<GroupItem> recommed = serverData.get(RECOMMED).getList().subList(0, 3);
+		List<GroupItem> area = serverData.get(AREA).getList().subList(0, 3);
+		List<GroupItem> category = serverData.get(CATEGORY).getList().subList(0, 3);
 		
-		ArrayList<GroupItem> recommend = (ArrayList<GroupItem>) mResult.get(RECOMMEND).getList();
+		mPtsRecommend.setAdapter(new TabAdapter(getChildFragmentManager(), recommed, R.id.find_ll_recommend_container));
+		mPtsArea.setAdapter(new TabAdapter(getChildFragmentManager(), area, R.id.find_ll_area_container));
+		mPtsCategory.setAdapter(new TabAdapter(getChildFragmentManager(), category, R.id.find_ll_category_container));
 		
-		List<GroupItem> totalArea = mResult.get(AREA).getList();
-		List<GroupItem> area = totalArea.subList(0, 2);
+	}
+	
+	private class TabAdapter extends FragmentTabAdapter{
+
+		private List<GroupItem> list ;
+		private int containerId ;
 		
-		List<GroupItem> totalCategory = mResult.get(CATEGORY).getList();
-		List<GroupItem> category = totalCategory.subList(0, 3);
-		
-		List<GroupItem> totalTheme = mResult.get(THEME).getList();
-		List<GroupItem> theme = totalTheme.subList(0, 2);
-		
-		newResult.add(recommend);
-		newResult.add(area);
-		newResult.add(category);
-		newResult.add(theme);
-		
-		GridView gridView[] = new GridView[]{mGvRecommend , mGvArea , mGvCategory , mGvTheme};
-			
-		for (int i = 0; i < gridView.length; i++) {
-			FindAdapter adapter = new FindAdapter(getActivity(), i == 1 || i == 3 ? 2 : 3, newResult.get(i) , gridView[i]);
-			gridView[i].setAdapter(adapter);
+		public TabAdapter(FragmentManager manager , List<GroupItem> list , int containerId) {
+			super(manager);
+			this.list = list ;
+			this.containerId = containerId ;
 		}
+
+		@Override
+		public int getContainerId() {
+			return containerId;
+		}
+
+		@Override
+		public int getCount() {
+			return list.size();
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			FindTabItemFragment fragment = new FindTabItemFragment();
+			Bundle args = new Bundle();
+			args.putString(TAB_ID_KEY, list.get(position).getId());
+			fragment.setArguments(args);
+			return fragment;
+		}
+
+		@Override
+		public String getPagetTitle(int position) {
+			return list.get(position).getName().substring(0, 2);
+		}
+		
 	}
 	
-	public static final String EXTRA_GROUPITEM_KEY = "groupitem_key";
-	
-	@OnClick(R.id.find_txt_category_more)
-	void categoryMore(){
-		Intent intent = new Intent(getActivity(), GroupItemActivity.class);
-		intent.putParcelableArrayListExtra(EXTRA_GROUPITEM_KEY,(ArrayList<GroupItem>) mResult.get(CATEGORY).getList());
-		startActivity(intent);
-	}
-	
-	@OnClick(R.id.find_txt_theme_more)
-	void themeMore(){
-		Intent intent = new Intent(getActivity(), GroupItemActivity.class);
-		intent.putParcelableArrayListExtra(EXTRA_GROUPITEM_KEY,(ArrayList<GroupItem>) mResult.get(THEME).getList());
-		startActivity(intent);
-	}
-	
-	@OnClick(R.id.find_txt_area_more)
-	void areaMore(){
-		Intent intent = new Intent(getActivity(), GroupItemActivity.class);
-		intent.putParcelableArrayListExtra(EXTRA_GROUPITEM_KEY,(ArrayList<GroupItem>) mResult.get(AREA).getList());
-		startActivity(intent);
-	}
-	
-	public static final String ID_KEY = "id_key";
-	
-	@OnItemClick(R.id.find_gv_recommend)
-	void recommendItemClick(AdapterView<?> parent , View v, int position , long id){
-		accessAllCategoryActivity(parent, position);
-	}
-	
-	@OnItemClick(R.id.find_gv_category)
-	void categoryItemClick(AdapterView<?> parent , View v, int position , long id){
-		accessAllCategoryActivity(parent, position);
-	}
-	
-	@OnItemClick(R.id.find_gv_theme)
-	void themeItemClick(AdapterView<?> parent , View v, int position , long id){
-		accessAllCategoryActivity(parent, position);
-	}
-	
-	@OnItemClick(R.id.find_gv_area)
-	void areaItemClick(AdapterView<?> parent , View v, int position , long id){
-		accessAllCategoryActivity(parent, position);
-	}
-	
-	public void accessAllCategoryActivity(AdapterView<?> parent, int position) {
-		GroupItem item = (GroupItem) parent.getAdapter().getItem(position);
-		Intent intent = new Intent(getActivity(), AllCategoryActivity.class);
-		intent.putExtra(ID_KEY, item.getId());
-		startActivity(intent);
-	}
 	
 }

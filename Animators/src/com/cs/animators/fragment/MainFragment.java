@@ -30,15 +30,14 @@ public class MainFragment extends BaseFragment {
 		
 		//Tab标签
 		List<Fragment> fragments = new ArrayList<Fragment>();
-		fragments.add(new ThemeFragment());
 		fragments.add(new FindFragment());
+		fragments.add(new ThemeFragment());
 		fragments.add(new NewUpdateFragment());
 		fragments.add(new HotFragment());
 		
 		PagerAdapter adapter = new MainSlideTabFragmentAdapter(getChildFragmentManager(),fragments);
 		mViewPager.setAdapter(adapter);
 		mPagerSlideTab.setViewPager(mViewPager);
-		mViewPager.setCurrentItem(1);
 		
 	}
 

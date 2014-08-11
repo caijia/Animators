@@ -4,7 +4,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.cs.animators.R;
-import com.cs.animators.entity.GroupItem;
+import com.cs.animators.entity.HotItem;
 import com.cs.animators.util.CommonUtil;
 import com.cs.cj.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -19,12 +19,14 @@ import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class FindAdapter extends ArrayAdapter<GroupItem> {
+public class FindAdapter extends ArrayAdapter<HotItem> {
 
 	private int mNumColumns ;
-	private static final int HORIZONTAL_SPACING = 8 ;
+	private static final int HORIZONTAL_SPACING = 5 ;
+	private static final int PADDING = 10 ;
 	
-	public FindAdapter(Context context, int numColumns, List<GroupItem> objects , GridView gridview) {
+	
+	public FindAdapter(Context context, int numColumns, List<HotItem> objects , GridView gridview) {
 		super(context, 0, objects);
 		mNumColumns = numColumns ;
 		gridview.setNumColumns(numColumns);
@@ -43,18 +45,20 @@ public class FindAdapter extends ArrayAdapter<GroupItem> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		//表示平分为几列
-		holder.pic.setLayoutParams(new RelativeLayout.LayoutParams(CommonUtil.getWidthMetrics(getContext()) / mNumColumns,CommonUtil.getWidthMetrics(getContext()) / mNumColumns - CommonUtil.dip2px(getContext(), HORIZONTAL_SPACING)));
+		
+		//200 * 240 左右两边的padding == 10  间隔是5dp
+		int imageItemWidth = (int) ((CommonUtil.getWidthMetrics(getContext())
+				- CommonUtil.dip2px(getContext(), PADDING) * 2
+				- (mNumColumns - 1)* CommonUtil.dip2px(getContext(), HORIZONTAL_SPACING)) / (float)3);
+		int imageItemHeight = (int) (imageItemWidth * 240 / (float)200) ;
+		holder.pic.setLayoutParams(new RelativeLayout.LayoutParams(imageItemWidth,imageItemHeight));
 		holder.pic.setScaleType(ScaleType.FIT_XY);
 		
-		//note : 因为在xml文件中如果设置singleLine = true gravity = center 会导致触摸TextView区域ViewPager不能滑动 所有用这种方式设计单行
-		holder.name.setMaxLines(1);
-		
-		GroupItem item = getItem(position);
+		HotItem item = getItem(position);
 		if(item != null)
 		{
 			holder.name.setText(item.getName());
-			ImageLoader.getInstance().displayImage(item.getPic(), holder.pic, ImageLoaderUtil.roundImageLoaderOptions(0));
+			ImageLoader.getInstance().displayImage(item.getCover(), holder.pic, ImageLoaderUtil.roundImageLoaderOptions(0));
 		}
 		return convertView;
 	}

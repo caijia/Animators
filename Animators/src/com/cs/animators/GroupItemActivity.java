@@ -33,11 +33,11 @@ public class GroupItemActivity extends BaseActivity {
 		Bundle bundle = getIntent().getExtras();
 		if(bundle != null)
 		{
-			List<GroupItem> groupItems = new ArrayList<GroupItem>();
-			groupItems = bundle.getParcelableArrayList(FindFragment.EXTRA_GROUPITEM_KEY);
-			
-			FindAdapter adapter = new FindAdapter(mContext, 3, groupItems,mGridView);
-			mGridView.setAdapter(adapter);
+//			List<GroupItem> groupItems = new ArrayList<GroupItem>();
+//			groupItems = bundle.getParcelableArrayList(FindFragment.EXTRA_GROUPITEM_KEY);
+//			
+//			FindAdapter adapter = new FindAdapter(mContext, 3, groupItems,mGridView);
+//			mGridView.setAdapter(adapter);
 			
 		}
 	}
@@ -51,7 +51,7 @@ public class GroupItemActivity extends BaseActivity {
 	void themeItemClick(AdapterView<?> parent , View v, int position , long id){
 		GroupItem item = (GroupItem) parent.getAdapter().getItem(position);
 		Intent intent = new Intent(this, AllCategoryActivity.class);
-		intent.putExtra(FindFragment.ID_KEY, item.getId());
+//		intent.putExtra(FindFragment.ID_KEY, item.getId());
 		startActivity(intent);
 	}
 	

@@ -132,7 +132,7 @@ public class AllCategoryActivity extends BaseActivity implements IXListViewListe
 		Bundle bundle = getIntent().getExtras();
 		if(bundle != null)
 		{
-			mId = bundle.getString(FindFragment.ID_KEY);
+//			mId = bundle.getString(FindFragment.ID_KEY);
 		}
 	}
 	

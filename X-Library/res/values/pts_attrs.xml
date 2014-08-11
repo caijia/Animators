@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PagerTabStrip">
+        <attr name="ptsIndicatorColor" format="color" />
+        <attr name="ptsUnderlineColor" format="color" />
+        <attr name="ptsDividerColor" format="color" />
+        <attr name="ptsIndicatorHeight" format="dimension" />
+        <attr name="ptsUnderlineHeight" format="dimension" />
+        <attr name="ptsDividerPadding" format="dimension" />
+        <attr name="ptsTabPaddingLeftRight" format="dimension" />
+        <attr name="ptsTabBackground" format="reference" />
+        <attr name="ptsShouldExpand" format="boolean" />
+        <attr name="ptsTextColor" format="color|reference" />
+        <attr name="ptsTextSize" format="dimension" />
+    </declare-styleable>
+
+</resources>
