@@ -21,6 +21,12 @@
     <string name="action_video_cancel">取消</string>
     
     
+    <string-array name="detail_indicator_title">
+        <item >剧集</item>
+        <item >类似</item>
+        <item >简介</item>
+    </string-array>
+    
     <string-array name="main_slidetab_title">
         <item >发现</item>
         <item >主题</item>

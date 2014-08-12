@@ -2,40 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/com.cs.animators"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/detail_series_bg" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
-    <com.cs.cj.view.PagerSlidingTabStrip
-        android:id="@+id/detail_series_slide_tab"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
-        app:pstsDividerColor="@color/transparent"
-        app:pstsIndicatorColor="@color/transparent"
-        app:pstsIndicatorHeight="0dp"
-        app:pstsUnderlineColor="@color/transparent"
-        app:pstsUnderlineHeight="0dp"
-        app:pstsTabBackground="@drawable/selector_series_title" 
-        app:pstsTextColor="@drawable/selector_series_title_textcolor"
-        app:pstsDividerWidth="15dp"
-        app:pstsTabPaddingLeftRight="12dp"/>
+    <com.cs.cj.view.PagerTabStrip
+        android:id="@+id/detail_series_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_margin="12dp"
+        app:ptsIndicatorColor="@color/play_normal"
+        app:ptsIndicatorHeight="4dp" />
 
-    <View
-        android:id="@+id/detail_series_divider"
+    <LinearLayout
+        android:id="@+id/detail_series_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/detail_series_divider" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/detail_series_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
 
 </LinearLayout>

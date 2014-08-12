@@ -30,7 +30,7 @@ public class FindMoreActivity extends BaseActivity {
 	protected void processLogic() {
 		getExtra();
 		
-		mTabindicator.setShouldExpand(mMoreGroupItem.size() <= 4);
+		mTabindicator.setShouldExpand(mMoreGroupItem.size() < 4);
 		mViewPager.setAdapter(new GroupItemMoreAdapter(getSupportFragmentManager()));
 		mTabindicator.setViewPager(mViewPager);
 	}

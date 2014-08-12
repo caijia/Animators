@@ -2,7 +2,6 @@ package com.cs.animators.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -10,11 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
-
 import com.cs.animators.FindMoreActivity;
 import com.cs.animators.R;
 import com.cs.animators.adapter.FindBannerAdapter;
