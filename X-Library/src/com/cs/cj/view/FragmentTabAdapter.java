@@ -40,14 +40,15 @@ public abstract class FragmentTabAdapter {
 		if (oldFragment == null) {
 			if (mCurFragment == null) {
 				mFragmentManager.beginTransaction().add(getContainerId(), nextFragment, defaultTag).commit();
-				System.out.println(11);
+				System.out.println(11+"--"+defaultTag);
 			} else {
 				mFragmentManager.beginTransaction().add(getContainerId(), nextFragment, defaultTag).hide(mCurFragment).commit();
-				System.out.println(22);
+				System.out.println(22+"--"+defaultTag);
 			}
 			oldFragment = nextFragment;
 		} else if (oldFragment != mCurFragment) {
 			mFragmentManager.beginTransaction().show(oldFragment).hide(mCurFragment).commit();
+			System.out.println(33+"--"+defaultTag);
 		}
 		mCurFragment = oldFragment ;
 	}

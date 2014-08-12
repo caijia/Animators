@@ -165,11 +165,9 @@ public class PagerTabStrip extends HorizontalScrollView {
 		
 		for (int i = 0; i < mAdapter.getCount(); i++) {
 			addTab(i);
-			mAdapter.switchFragment(mAdapter.getItem(i), i);
+			mAdapter.switchFragment(mAdapter.getItem(mAdapter.getCount() - 1 -i), mAdapter.getCount() - 1 -i);
 		}
 		
-		//default select position == 0
-		setCurrentTab(mSelectedTabPosition);
 	}
 	
 	
@@ -207,8 +205,7 @@ public class PagerTabStrip extends HorizontalScrollView {
 			this.setTextColor(cls);
 			this.setBackgroundResource(mTabBackground);
 			this.setGravity(Gravity.CENTER);
-			this.setSingleLine();
+			this.setMaxLines(1);
 		}
 	}
-
 }
