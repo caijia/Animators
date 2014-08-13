@@ -1,99 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="10dp"
     >
 
     <ImageView
         android:id="@+id/hot_anim_image_cover"
-        android:layout_width="59dp"
-        android:layout_height="59dp"
+        android:layout_width="75dp"
+        android:layout_height="90dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/icon" />
+        android:scaleType="fitXY"
+        android:src="@drawable/defalut_loadimage_icon" />
 
     <TextView
         android:id="@+id/hot_txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/hot_txt_score"
         android:layout_marginLeft="6dp"
-        android:layout_marginTop="3dp"
-        android:layout_toLeftOf="@+id/textView1"
         android:layout_toRightOf="@+id/hot_anim_image_cover"
         android:singleLine="true"
         android:text="name"
-        android:maxLength="11"
-        android:layout_marginRight="5dp"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/hot_txt_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/hot_txt_name"
-        android:layout_below="@+id/hot_txt_name"
-        android:layout_toRightOf="@+id/hot_anim_image_cover"
-        android:text="全"
-        android:layout_marginTop="3dp"
-        android:textColor="#aaa"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/hot_txt_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/hot_anim_image_cover"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="3dp"
-        android:text="catetory"
-        android:textColor="#919191"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/hot_txt_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/hot_txt_total"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="3dp"
-        android:text="score"
-        android:textColor="@color/indicator_color"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/hot_txt_name"
-        android:layout_alignBottom="@+id/hot_txt_name"
-        android:layout_toLeftOf="@+id/hot_txt_score"
-        android:text="评分:"
-        android:textColor="#aaa"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/hot_txt_series"
-        android:layout_alignBottom="@+id/hot_txt_series"
-        android:layout_toRightOf="@+id/hot_txt_series"
-        android:text="集" 
-        android:textColor="#aaa"
-        android:textSize="14sp"/>
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/hot_txt_series"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/hot_txt_total"
-        android:layout_alignBottom="@+id/hot_txt_total"
-        android:layout_toRightOf="@+id/hot_txt_total"
-        android:text="3" 
-        android:textColor="@color/indicator_color"/>
+        android:layout_alignLeft="@+id/hot_txt_name"
+        android:layout_alignRight="@+id/hot_txt_name"
+        android:layout_below="@+id/hot_txt_name"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@+id/hot_anim_image_cover"
+        android:text="更新至"
+        android:textColor="#aaa"
+        android:textSize="14sp" />
+    
+    <TextView
+        android:id="@+id/hot_txt_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hot_txt_series"
+        android:layout_below="@+id/hot_txt_series"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/hot_txt_score"
+        android:text="catetory"
+        android:layout_marginRight="3dp"
+        android:textColor="#919191"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/hot_txt_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/hot_txt_category"
+        android:layout_alignBottom="@+id/hot_txt_category"
+        android:layout_alignParentRight="true"
+        android:text="5.3"
+        android:drawableTop="@drawable/videoscore_image_level"
+        android:layout_marginRight="6dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

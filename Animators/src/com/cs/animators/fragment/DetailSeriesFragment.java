@@ -3,7 +3,9 @@ package com.cs.animators.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
 import butterknife.InjectView;
+
 import com.cs.animators.R;
 import com.cs.animators.VideoDetailActivity;
 import com.cs.animators.base.BaseFragment;
@@ -33,6 +35,12 @@ public class DetailSeriesFragment extends BaseFragment {
 		mVideoDetail = ((VideoDetailActivity)getActivity()).getVideoDetail();
 		mTotalVideoNum = mVideoDetail.getEpisode().size();
 		mTotalPage = mTotalVideoNum / PAGE_COUNT + (mTotalVideoNum % PAGE_COUNT == 0 ? 0 : 1);
+		
+		//当只有一页的时候去掉tab 指示器
+		if(mTotalPage == 1)
+		{
+			mPtsIndicator.setVisibility(View.GONE);
+		}
 		
 		mPtsIndicator.setAdapter(new DetailSeriesTabAdapter(getChildFragmentManager()));
 	}
@@ -75,11 +83,11 @@ public class DetailSeriesFragment extends BaseFragment {
 	private String getTabTitle(int position) {
 		if(position == mTotalPage - 1)
 		{
-			return (position) * PAGE_COUNT + " - " + mTotalVideoNum ;
+			return ((position) * PAGE_COUNT + 1 )+ " - " + mTotalVideoNum;
 		}
 		else
 		{
-			return (position) * PAGE_COUNT + " - " + (position + 1) * PAGE_COUNT ;
+			return ((position) * PAGE_COUNT + 1 )+ " - " + (position + 1) * PAGE_COUNT;
 		}
 	}
 	

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.cs.animators.view.FloatScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.cs.animators"
     android:id="@+id/video_detail_scrollview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res/com.cs.animators">
+    android:layout_height="match_parent" 
+    android:background="@color/detail_slide_tab_bg">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp" >
 
             <FrameLayout
                 android:id="@+id/frameLayout1"
@@ -80,6 +85,7 @@
                         android:id="@+id/linearLayout1"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:orientation="horizontal"
                         android:layout_alignBottom="@+id/detail_img_cover"
                         android:layout_alignLeft="@+id/detail_txt_year" >
 
@@ -138,19 +144,18 @@
                 android:id="@+id/detail_fragment_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/video_detail_mirror_indicator"
-                android:background="@color/detail_slide_tab_bg" >
+                android:layout_below="@+id/video_detail_mirror_indicator" >
             </RelativeLayout>
         </RelativeLayout>
-        
-         <com.cs.cj.view.PagerTabStrip
+
+        <com.cs.cj.view.PagerTabStrip
             android:id="@+id/video_detail_indicator"
             android:layout_width="match_parent"
-            android:layout_height="48dp" 
-            app:ptsIndicatorHeight="4dp"
+            android:layout_height="48dp"
+            android:background="#FFFFFF"
             app:ptsIndicatorColor="@color/play_normal"
-            app:ptsShouldExpand="true"
-            android:background="#FFFFFF"/>
+            app:ptsIndicatorHeight="4dp"
+            app:ptsShouldExpand="true" />
     </FrameLayout>
 
 </com.cs.animators.view.FloatScrollView>

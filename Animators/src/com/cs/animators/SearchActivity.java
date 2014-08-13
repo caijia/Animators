@@ -1,5 +1,8 @@
 package com.cs.animators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
+
 import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
@@ -43,7 +47,16 @@ public class SearchActivity extends BaseActivity {
 
 			@Override
 			public void onSuccess(Response<Search> data) {
-				HotAdapter adapter = new HotAdapter(mContext, data.getResult().getList());
+				
+				List<HotItem> filterVideoList = new ArrayList<HotItem>();
+				List<HotItem> list = data.getResult().getList();
+				for (HotItem hotItem : list) {
+					boolean notVideo = hotItem.getUpdate().contains("话");
+					if(!notVideo){
+						filterVideoList.add(hotItem);
+					}
+				}
+				HotAdapter adapter = new HotAdapter(mContext, filterVideoList);
 				mListView.setAdapter(adapter);
 			}
 		});

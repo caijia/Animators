@@ -20,7 +20,6 @@ import com.cs.animators.VideoDetailActivity;
 import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseFragment;
 import com.cs.animators.constants.Constants;
-import com.cs.animators.dao.bean.VideoCollect;
 import com.cs.animators.dao.service.DaoFactory;
 import com.cs.animators.entity.AllCategory;
 import com.cs.animators.entity.HotItem;
@@ -209,11 +208,7 @@ public class FindMoreItemFragment extends BaseFragment implements IXListViewList
 					{
 						int position = selectedItems.keyAt(i);
 						HotItem hotItem = mAdapter.getItem(position);
-						//将选中的保存
-						VideoCollect vc = new VideoCollect(
-								hotItem.getVideoId()+"", hotItem.getName(), hotItem.getCover(), hotItem.getCurNum(),
-								hotItem.getTotalNum(), hotItem.getCategory(), hotItem.getScore(), null);
-						DaoFactory.getVideoCollectInstance(getActivity()).saveOrUpdate(vc);
+						DaoFactory.getVideoCollectInstance(getActivity()).saveOrUpdate(hotItem);
 					}
 				}
 				

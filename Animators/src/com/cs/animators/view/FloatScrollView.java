@@ -41,5 +41,6 @@ public class FloatScrollView extends ScrollView {
 	public void SetOnScrollListener(OnScrollListener l){
 		this.scrollListener = l ;
 	}
+	
 
 }

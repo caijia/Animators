@@ -1,6 +1,7 @@
 package com.cs.animators;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 import android.content.Intent;
 import android.os.Handler;
@@ -14,10 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-import com.cs.animators.adapter.VideoCollectAdapter;
+import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseActivity;
-import com.cs.animators.dao.bean.VideoCollect;
 import com.cs.animators.dao.service.DaoFactory;
+import com.cs.animators.entity.HotItem;
 import com.cs.animators.fragment.HotFragment;
 import com.cs.animators.util.CommonUtil;
 
@@ -30,7 +31,7 @@ public class VideoCollectActivity extends BaseActivity {
 	
 	private ActionMode mActionMode ;
 	
-	private VideoCollectAdapter mAdapter ;
+	private HotAdapter mAdapter ;
 	
 	@Override
 	protected void loadLayout() {
@@ -51,7 +52,7 @@ public class VideoCollectActivity extends BaseActivity {
 
 		@Override
 		public void run() {
-			List<VideoCollect> videoCollects = getVideoCollect();
+			List<HotItem> videoCollects = getHotItem();
 			Message msg = new Message();
 			msg.what = 100 ;
 			msg.obj = videoCollects ;
@@ -78,16 +79,16 @@ public class VideoCollectActivity extends BaseActivity {
 				if(msg.what == 100)
 				{
 					activity.dismiss();
-					List<VideoCollect> localVideos = (List<VideoCollect>) msg.obj;
-					activity.mAdapter = new VideoCollectAdapter(activity, localVideos);
+					List<HotItem> localVideos = (List<HotItem>) msg.obj;
+					activity.mAdapter = new HotAdapter(activity, localVideos);
 					activity.mListView.setAdapter(activity.mAdapter);
 				}
 			}
 		}
 	}
 
-	public List<VideoCollect> getVideoCollect() {
-		List<VideoCollect> collects = DaoFactory.getVideoCollectInstance(mContext).queryAll();
+	public List<HotItem> getHotItem() {
+		List<HotItem> collects = DaoFactory.getVideoCollectInstance(mContext).queryAll();
 		return collects;
 	}
 	
@@ -96,7 +97,7 @@ public class VideoCollectActivity extends BaseActivity {
 		
 		if(mActionMode == null)
 		{
-			VideoCollect video = (VideoCollect) parent.getAdapter().getItem(position);
+			HotItem video = (HotItem) parent.getAdapter().getItem(position);
 			String videoId = video.getVideoId()+"";
 			Intent detailIntent = new Intent(this, VideoDetailActivity.class);
 			detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
@@ -163,19 +164,23 @@ public class VideoCollectActivity extends BaseActivity {
 				//删除已经收藏的Video 并刷新ListView
 				//将选中的视频删除
 				SparseBooleanArray selectedItems = mAdapter.getSelectedItemIds();
+				List<HotItem> needRemoveVideos = new ArrayList<HotItem>();
 				for (int i = 0; i < selectedItems.size(); i++) {
 					boolean selected = selectedItems.valueAt(i);
 					if(selected)
 					{
 						int position = selectedItems.keyAt(i);
-						VideoCollect collect = mAdapter.getItem(position);
+						HotItem collect = mAdapter.getItem(position);
+						needRemoveVideos.add(collect);
 						//将选中的视频删除
 						DaoFactory.getVideoCollectInstance(mContext).delete(collect.getVideoId());
-						mAdapter.remove(collect);
 					}
 				}
 				
 				//刷新ListView
+				for (HotItem videoCollect : needRemoveVideos) {
+					mAdapter.remove(videoCollect);
+				}
 				mAdapter.notifyDataSetChanged();
 				
 				//提示用户删除成功

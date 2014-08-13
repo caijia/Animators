@@ -3,7 +3,9 @@ package com.cs.animators.adapter;
 import io.vov.vitamio.ThumbnailUtils;
 import io.vov.vitamio.provider.MediaStore.Video.Thumbnails;
 import io.vov.vitamio.utils.StringUtils;
+
 import java.util.List;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -11,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
 import com.cs.animators.R;
 import com.cs.animators.entity.LocalVideo;
 import com.cs.cj.util.FileUtils;
@@ -37,6 +41,11 @@ public class LocalVideoAdapter extends ArrayAdapter<LocalVideo> {
 		{
 			holder = (ViewHolder) convertView.getTag();
 		}
+		
+		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) holder.thumb.getLayoutParams();
+		int height = (int) (params.width * 240 / (float)200) ;
+		params.height = height ;
+		holder.thumb.setLayoutParams(params);
 		
 		//表示平分为几列
 		LocalVideo localVideo = getItem(position);

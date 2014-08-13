@@ -5,7 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class HotItem {
 
 	@JSONField(name="video_id")
-	private int videoId;
+	private String videoId;
 	private String name;
 	private String intro;
 	private String area;
@@ -23,6 +23,38 @@ public class HotItem {
 	@JSONField(name="total_num")
 	private String totalNum;
 
+	@JSONField(name="update_time")
+	private String updateYear ;
+	
+	
+	public HotItem() {
+	}
+	
+	
+
+	public HotItem(String videoId, String name, String cover, String category,
+			String score,  String curNum, String totalNum,
+			String updateYear) {
+		this.videoId = videoId;
+		this.name = name;
+		this.cover = cover;
+		this.category = category;
+		this.score = score;
+		this.curNum = curNum;
+		this.totalNum = totalNum;
+		this.updateYear = updateYear;
+	}
+
+
+
+	public String getUpdateYear() {
+		return updateYear;
+	}
+
+	public void setUpdateYear(String updateYear) {
+		this.updateYear = updateYear;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -32,7 +64,7 @@ public class HotItem {
 	}
 
 
-	public int getVideoId() {
+	public String getVideoId() {
 		return videoId;
 	}
 
@@ -49,7 +81,7 @@ public class HotItem {
 
 
 
-	public void setVideoId(int videoId) {
+	public void setVideoId(String videoId) {
 		this.videoId = videoId;
 	}
 

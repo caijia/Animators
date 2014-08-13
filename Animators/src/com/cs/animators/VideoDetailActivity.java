@@ -2,7 +2,6 @@ package com.cs.animators;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import io.vov.vitamio.utils.StringUtils;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
-
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
@@ -62,6 +60,7 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 	private String[] mIndicatorTitle ;
 	
 	private List<Fragment> mFragmentTabs ;
+	
 	
 	@Override
 	protected void loadLayout() {
@@ -208,5 +207,5 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		mPtsIndicator.layout(0, indicatorToParentTop, mPtsIndicator.getWidth(),
 				indicatorToParentTop + mPtsIndicator.getHeight());
 	}
-	
+
 }

@@ -57,4 +57,9 @@
         <item>@drawable/ic_about_menu</item>
     </array>
     
+    <string name="score_red">#E12C1A</string>
+    <string name="score_orange">#FF9611</string>
+    <string name="score_green">#9EB540</string>
+    <string name="score_gray">#A4A3A3</string>
+    
 </resources>

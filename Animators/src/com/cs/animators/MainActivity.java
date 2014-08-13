@@ -55,8 +55,6 @@ public class MainActivity extends BaseActivity {
 				super.onDrawerClosed(drawerView);
 				ActivityCompat.invalidateOptionsMenu(MainActivity.this);
 				
-				//界面跳转逻辑
-				drawerLayoutClick();
 			}
 
 			@Override
@@ -103,8 +101,10 @@ public class MainActivity extends BaseActivity {
 	@OnItemClick(R.id.main_lv_left_drawer)
 	void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 		mDrawerLayout.closeDrawer(mListView);
-//		getSupportActionBar().setTitle(mDrawerTextItem[position]);
 		mDrawerPosition = position ;
+
+		//界面跳转逻辑
+		drawerLayoutClick();
 	}
 	
 	@Override

@@ -54,7 +54,7 @@ public class HotFragment extends BaseFragment implements IXListViewListener {
 		RequestParams params = new RequestParams();
 		params.put("m", "Cartoon");
 		params.put("a", "newListVideo");
-		params.put("tab", "1");
+		params.put("tab", "2");
 		params.put("limit", "15");
 		params.put("page", page);
 		get(Constants.host, params, Hot.class, new JDataCallback<Hot>() {

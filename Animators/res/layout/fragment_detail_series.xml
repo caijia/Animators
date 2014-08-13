@@ -9,11 +9,14 @@
         android:id="@+id/detail_series_indicator"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_margin="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="12dp"
         app:ptsIndicatorColor="@color/play_normal"
         app:ptsIndicatorHeight="4dp" />
 
     <LinearLayout
+        android:layout_marginTop="8dp"
         android:id="@+id/detail_series_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

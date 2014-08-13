@@ -1,8 +1,8 @@
 package com.cs.animators.dao.db;
 
-import com.cs.animators.dao.bean.VideoCollect;
+import com.cs.animators.entity.HotItem;
 
-public interface VideoCollectDao extends Dao<String,VideoCollect> {
+public interface VideoCollectDao extends Dao<String,HotItem> {
 	
-	void saveOrUpdate(VideoCollect collect);
+	void saveOrUpdate(HotItem collect);
 }
