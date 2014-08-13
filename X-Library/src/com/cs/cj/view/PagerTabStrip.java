@@ -138,7 +138,12 @@ public class PagerTabStrip extends HorizontalScrollView {
 		canvas.drawRect(lineLeft, height - mIndicatorHeight, lineRight, height, mIndicatorPaint);
 		
 		//画最下面的线
-		canvas.drawRect(0, height - mUnderlineHeight, getResources().getDisplayMetrics().widthPixels, height, mUnderlinePaint);
+		if (mShouldExpand) {
+			canvas.drawRect(0, height - mUnderlineHeight, getResources().getDisplayMetrics().widthPixels, height, mUnderlinePaint);
+		} else {
+			canvas.drawRect(0, height - mUnderlineHeight, mTabsContainer.getWidth(), height, mUnderlinePaint);
+		}
+		
 		
 		//画两个Tab的分割线
 		for (int i = 0; i < mTabCount - 1; i++) {
@@ -194,7 +199,12 @@ public class PagerTabStrip extends HorizontalScrollView {
 	{
 		mSelectedTabPosition = position ;
 		invalidate();
+		
+		if(pageListener != null){
+			pageListener.pageSelected(position);
+		}
 		mAdapter.switchFragment(mAdapter.getItem(position), position);
+		
 	}
 
 	private class TabView extends TextView {
@@ -207,5 +217,15 @@ public class PagerTabStrip extends HorizontalScrollView {
 			this.setGravity(Gravity.CENTER);
 			this.setMaxLines(1);
 		}
+	}
+	
+	public interface OnPageSelectListener{
+		void pageSelected(int position);
+	}
+	
+	private OnPageSelectListener pageListener ;
+	
+	public void setOnPageSelectListener(OnPageSelectListener l){
+		pageListener = l ;
 	}
 }
