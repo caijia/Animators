@@ -1,0 +1,38 @@
+<level-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:drawable="@drawable/fanqie_icon_gray"
+        android:maxLevel="0"/>
+    <item
+        android:drawable="@drawable/fanqie_icon_green"
+        android:maxLevel="1"/>
+    <item
+        android:drawable="@drawable/fanqie_icon_green"
+        android:maxLevel="2"/>
+    <item
+        android:drawable="@drawable/fanqie_icon_green"
+        android:maxLevel="3"/>
+    <item
+        android:drawable="@drawable/fanqie_icon_orange"
+        android:maxLevel="4"/>
+    <item
+        android:drawable="@drawable/fanqie_icon_orange"
+        android:maxLevel="5"/>
+    <item
+        android:drawable="@drawable/fanqie_icon_orange"
+        android:maxLevel="6"/>
+    
+    <item
+        android:drawable="@drawable/fanqie_icon_red"
+        android:maxLevel="7"/>
+     <item
+        android:drawable="@drawable/fanqie_icon_red"
+        android:maxLevel="8"/>
+     <item
+        android:drawable="@drawable/fanqie_icon_red"
+        android:maxLevel="9"/>
+      <item
+        android:drawable="@drawable/fanqie_icon_red"
+        android:maxLevel="10"/>
+
+</level-list>
