@@ -82,13 +82,8 @@ public class MainActivity extends BaseActivity {
 	}
 	
 	protected void drawerLayoutClick() {
-		if(mDrawerPosition == 2)
-		{
-			Intent intent = new Intent(mContext, LocalVideoActivity.class);
-			startActivity(intent);
-		}
 		//动漫收藏
-		else if(mDrawerPosition == 1)
+		 if(mDrawerPosition == 1)
 		{
 			Intent intent = new Intent(mContext, VideoCollectActivity.class);
 			startActivity(intent);
@@ -121,9 +116,13 @@ public class MainActivity extends BaseActivity {
 		}
 		
 		switch (item.getItemId()) {
-		case R.id.action_userinfo:
+		case R.id.action_offline:
+			Intent intent = new Intent(mContext, LocalVideoActivity.class);
+			startActivity(intent);
 			break;
 
+		case R.id.action_playrecorder:
+			break ;
 		default:
 			break;
 		}
@@ -176,9 +175,8 @@ public class MainActivity extends BaseActivity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mListView);
 		menu.findItem(R.id.action_search).setVisible(!drawerOpen);
-		menu.findItem(R.id.action_edit).setVisible(!drawerOpen);
-		menu.findItem(R.id.action_delete).setVisible(!drawerOpen);
-		menu.findItem(R.id.action_add).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_offline).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_playrecorder).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
 	

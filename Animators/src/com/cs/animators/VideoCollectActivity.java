@@ -3,6 +3,7 @@ package com.cs.animators;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -12,20 +13,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
+
 import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.dao.service.DaoFactory;
 import com.cs.animators.entity.HotItem;
 import com.cs.animators.fragment.HotFragment;
 import com.cs.animators.util.CommonUtil;
+import com.markmao.pulltorefresh.widget.XListView;
 
 public class VideoCollectActivity extends BaseActivity {
 
 	@InjectView(R.id.video_collect_lv)
-	ListView mListView;
+	XListView mListView;
 	
 	private Handler mHandler ;
 	
@@ -88,7 +90,7 @@ public class VideoCollectActivity extends BaseActivity {
 	}
 
 	public List<HotItem> getHotItem() {
-		List<HotItem> collects = DaoFactory.getVideoCollectInstance(mContext).queryAll();
+		List<HotItem> collects = DaoFactory.getVideoCollectInstance(mContext).query(2, 1);
 		return collects;
 	}
 	
@@ -101,6 +103,7 @@ public class VideoCollectActivity extends BaseActivity {
 			String videoId = video.getVideoId()+"";
 			Intent detailIntent = new Intent(this, VideoDetailActivity.class);
 			detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
+			detailIntent.putExtra("video_name", video.getName());
 			startActivity(detailIntent);
 		}
 		else

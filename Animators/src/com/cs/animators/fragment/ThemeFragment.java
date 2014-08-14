@@ -1,27 +1,20 @@
 package com.cs.animators.fragment;
 
-import android.content.Intent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import butterknife.InjectView;
-import butterknife.OnItemClick;
-
 import com.cs.animators.R;
-import com.cs.animators.VideoDetailActivity;
-import com.cs.animators.adapter.ThemeAdapter;
 import com.cs.animators.base.BaseFragment;
-import com.cs.animators.constants.Constants;
-import com.cs.animators.entity.Theme;
-import com.cs.animators.entity.ThemeItem;
-import com.cs.cj.http.httplibrary.RequestParams;
-import com.cs.cj.http.work.JDataCallback;
-import com.cs.cj.http.work.Response;
+import com.cs.cj.view.FragmentTabAdapter;
+import com.cs.cj.view.PagerTabStrip;
 
 public class ThemeFragment extends BaseFragment {
 	
-	@InjectView(R.id.newupdate_lv)
-	ListView mListView ;
+	@InjectView(R.id.theme_tab_indicator)
+	PagerTabStrip mPtsIndicator ;
+	
+	private String [] mTabTitle ;
 
 	@Override
 	protected void loadLayout() {
@@ -30,35 +23,44 @@ public class ThemeFragment extends BaseFragment {
 	
 	@Override
 	protected void processLogic(){
-		loadData();
-	}
-
-	void loadData() {
-		//m=Cartoon&a=index&limit=10&tab=3&page=1
-		RequestParams params = new RequestParams();
-		params.put("m", "Cartoon");
-		params.put("a", "index");
-		params.put("limit", "10");
-		params.put("tab", "3");
-		params.put("page", "1");
-		get(Constants.host, params, Theme.class, new JDataCallback<Theme>() {
-
-			@Override
-			public void onSuccess(Response<Theme> data) {
-				ThemeAdapter adapter = new ThemeAdapter(getActivity(), data.getResult().getList());
-				mListView.setAdapter(adapter);
-			}
-		});
+		
+		mTabTitle = getResources().getStringArray(R.array.theme_tab_title);
+		mPtsIndicator.setAdapter(new ThemeTabFragmentAdapter(getChildFragmentManager()));
 	}
 	
-	@OnItemClick(R.id.newupdate_lv)
-	void onItemClickListener(AdapterView<?> parent , View v , int position , long id)
-	{
-		ThemeItem hotItem  = (ThemeItem) parent.getAdapter().getItem(position);
-		String videoId = hotItem.getId()+"";
-		Intent detailIntent = new Intent(getActivity(), VideoDetailActivity.class);
-		detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
-		startActivity(detailIntent);
+	public static final String THEME_TAB_POSITION = "theme_tab_position";
+	
+	private class ThemeTabFragmentAdapter extends FragmentTabAdapter{
+
+		public ThemeTabFragmentAdapter(FragmentManager manager) {
+			super(manager);
+		}
+
+		@Override
+		public int getContainerId() {
+			return R.id.theme_tab_container;
+		}
+
+		@Override
+		public int getCount() {
+			return mTabTitle.length;
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			ThemeTabFragment fragment = new ThemeTabFragment();
+			Bundle args = new Bundle();
+			args.putInt(THEME_TAB_POSITION, position + 1);
+			fragment.setArguments(args);
+			return fragment;
+		}
+
+		@Override
+		public String getPagetTitle(int position) {
+			return mTabTitle[position];
+		}
+		
 	}
+
 	
 }

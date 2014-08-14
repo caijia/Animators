@@ -43,7 +43,7 @@ public class FindTabItemFragment extends BaseFragment {
 	protected void processLogic() {
 		getExtra();
 		
-		mAdapter = new FindAdapter(getActivity(), 3, mList, mGridView);
+//		mAdapter = new FindAdapter(getActivity(), 3, mList, mGridView);
 		
 		//这里的目的是让GridView初始有六个数据  防止第一次加载数据时 填充出现界面跳动
 		if(mList.size() == 0)
@@ -93,6 +93,7 @@ public class FindTabItemFragment extends BaseFragment {
 			String videoId = hotItem.getVideoId()+"";
 			Intent detailIntent = new Intent(getActivity(), VideoDetailActivity.class);
 			detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
+			detailIntent.putExtra("video_name", hotItem.getName());
 			startActivity(detailIntent);
 		}
 	}

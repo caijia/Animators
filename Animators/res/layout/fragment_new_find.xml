@@ -4,7 +4,7 @@
     android:id="@+id/find_scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFDFD" >
+    android:background="#eee" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,14 +14,15 @@
         <com.cs.cj.view.AutoScrollViewPager
             android:id="@+id/find_autoscroll_vpager"
             android:layout_width="match_parent"
-            android:layout_height="170dp" />
+            android:layout_height="170dp"
+            android:layout_margin="8dp" />
 
         <com.cs.cj.view.CircleLoopPageIndicator
             android:id="@+id/find_pageindicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/find_autoscroll_vpager"
-            android:layout_alignParentRight="true"
+            android:layout_alignRight="@+id/find_autoscroll_vpager"
             android:padding="8dp"
             app:fillColor="@color/play_normal"
             app:pageColor="@color/white"
@@ -34,18 +35,13 @@
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:layout_below="@+id/find_autoscroll_vpager"
-            android:layout_marginTop="8dp"
-            android:background="#EBE7EB" >
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="#DBDADB" />
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#FBFBFB" >
 
             <View
                 android:id="@+id/view1"
-                android:layout_width="10dp"
+                android:layout_width="8dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
@@ -62,20 +58,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#4B4A4B" />
 
-            <com.cs.cj.view.PagerTabStrip
-                android:id="@+id/find_pts_recommend"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="1dp"
-                android:layout_toRightOf="@+id/textView1"
-                app:ptsDividerColor="#C6C5C6"
-                app:ptsIndicatorHeight="0dp"
-                app:ptsTabBackground="@drawable/selector_find_tab"
-                app:ptsTabPaddingLeftRight="15dp"
-                app:ptsUnderlineHeight="0dp" />
-
             <TextView
                 android:id="@+id/find_txt_recommed_more"
                 android:layout_width="wrap_content"
@@ -87,31 +69,33 @@
                 android:paddingRight="8dp" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/find_ll_recommend_container"
+        <com.cs.animators.view.WrapContentGridView
+            android:id="@+id/find_recommed_gv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/find_rlayout_recommend"
             android:layout_marginTop="10dp"
-            android:orientation="vertical" />
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="8dp" />
 
         <RelativeLayout
             android:id="@+id/rlayout_area"
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:layout_below="@+id/find_ll_recommend_container"
+            android:layout_below="@+id/find_recommed_gv"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:background="#EBE7EB" >
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="#DBDADB" />
+            android:background="#FBFBFB" >
 
             <View
                 android:id="@+id/view2"
-                android:layout_width="10dp"
+                android:layout_width="8dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
@@ -127,21 +111,7 @@
                 android:text="地区"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#4B4A4B" />
-
-            <com.cs.cj.view.PagerTabStrip
-                android:id="@+id/find_pts_area"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="1dp"
-                android:layout_toRightOf="@+id/area"
-                app:ptsDividerColor="#C6C5C6"
-                app:ptsIndicatorHeight="0dp"
-                app:ptsTabBackground="@drawable/selector_find_tab"
-                app:ptsTabPaddingLeftRight="15dp"
-                app:ptsUnderlineHeight="0dp" />
-
+            
             <TextView
                 android:id="@+id/find_txt_area_more"
                 android:layout_width="wrap_content"
@@ -151,33 +121,36 @@
                 android:drawableLeft="@drawable/more_icon"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp" />
+            
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/find_ll_area_container"
+        <com.cs.animators.view.WrapContentGridView
+            android:id="@+id/find_area_gv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlayout_area"
             android:layout_marginTop="10dp"
-            android:orientation="vertical" />
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="8dp" />
 
         <RelativeLayout
             android:id="@+id/rlayout_category"
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:layout_below="@+id/find_ll_area_container"
+            android:layout_below="@+id/find_area_gv"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:background="#EBE7EB" >
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="#DBDADB" />
+            android:background="#FBFBFB" >
 
             <View
                 android:id="@+id/view3"
-                android:layout_width="10dp"
+                android:layout_width="8dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
@@ -194,20 +167,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#4B4A4B" />
 
-            <com.cs.cj.view.PagerTabStrip
-                android:id="@+id/find_pts_category"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="1dp"
-                android:layout_toRightOf="@+id/category"
-                app:ptsDividerColor="#C6C5C6"
-                app:ptsIndicatorHeight="0dp"
-                app:ptsTabBackground="@drawable/selector_find_tab"
-                app:ptsTabPaddingLeftRight="15dp"
-                app:ptsUnderlineHeight="0dp" />
-
             <TextView
                 android:id="@+id/find_txt_category_more"
                 android:layout_width="wrap_content"
@@ -219,13 +178,19 @@
                 android:paddingRight="8dp" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/find_ll_category_container"
+        <com.cs.animators.view.WrapContentGridView
+            android:id="@+id/find_category_gv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlayout_category"
             android:layout_marginTop="10dp"
-            android:orientation="vertical" />
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="8dp" />
     </RelativeLayout>
 
 </com.cs.cj.view.CustomScrollView>

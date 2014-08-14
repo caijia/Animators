@@ -124,6 +124,13 @@ public class XListView extends ListView implements OnScrollListener {
                             observer.removeOnGlobalLayoutListener(this);
                         }
                     }
+                    
+                    //当ListView 的 Item 少于10()项时  认为是不充满屏幕的 删除FooterView
+                    System.out.println("listview count = " + getAdapter().getCount());
+                    if(getAdapter().getCount() - getHeaderViewsCount() - getFooterViewsCount() <= 10){
+                    	removeFooterView(mFooterLayout);
+                    }
+                    
                 }
             });
         }

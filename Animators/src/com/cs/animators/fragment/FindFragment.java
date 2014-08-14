@@ -3,17 +3,19 @@ package com.cs.animators.fragment;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 import com.cs.animators.FindMoreActivity;
 import com.cs.animators.R;
+import com.cs.animators.adapter.FindAdapter;
 import com.cs.animators.adapter.FindBannerAdapter;
 import com.cs.animators.base.BaseFragment;
 import com.cs.animators.constants.Constants;
@@ -30,8 +32,6 @@ import com.cs.cj.http.work.Response;
 import com.cs.cj.view.AutoScrollViewPager;
 import com.cs.cj.view.CircleLoopPageIndicator;
 import com.cs.cj.view.CustomScrollView;
-import com.cs.cj.view.FragmentTabAdapter;
-import com.cs.cj.view.PagerTabStrip;
 
 public class FindFragment extends BaseFragment {
 	
@@ -45,22 +45,19 @@ public class FindFragment extends BaseFragment {
 	CustomScrollView mCustomScrollView ;
 	
 	//推荐
-	@InjectView(R.id.find_pts_recommend)
-	PagerTabStrip mPtsRecommend ;
+	@InjectView(R.id.find_recommed_gv)
+	GridView mGvRecommend ;
 	
 	@InjectView(R.id.find_txt_recommed_more)
 	TextView mTxtRecommendMore ;
 	
 	//地区
-	@InjectView(R.id.find_pts_area)
-	PagerTabStrip mPtsArea ;
-	
-	@InjectView(R.id.find_txt_area_more)
-	TextView mTxtAreaMore ;
+	@InjectView(R.id.find_area_gv)
+	GridView mGvArea ;
 	
 	//类型
-	@InjectView(R.id.find_pts_category)
-	PagerTabStrip mPtsCategory ;
+	@InjectView(R.id.find_category_gv)
+	GridView mGvCategory ;
 	
 	@InjectView(R.id.find_txt_category_more)
 	TextView mTxtCategoryMore ;
@@ -77,9 +74,11 @@ public class FindFragment extends BaseFragment {
 	protected void processLogic(){
 		
 		//为了保持图片的宽高比
-		int width = CommonUtil.getWidthMetrics(getActivity());
-		int height = width / 2 ;
-		mViewPager.setLayoutParams(new RelativeLayout.LayoutParams(width, height));
+		
+		RelativeLayout.LayoutParams params = (LayoutParams) mViewPager.getLayoutParams();
+		params.width = CommonUtil.getWidthMetrics(getActivity())- CommonUtil.dip2px(getActivity(), 16);
+		params.height = params.width / 2 ;
+		mViewPager.setLayoutParams(params);
 		
 		//加载数据
 		loadData();
@@ -134,77 +133,54 @@ public class FindFragment extends BaseFragment {
 	protected void bindData(Response<List<Group>> data) {
 		mServerData = data.getResult();
 		
-		List<GroupItem> recommed = mServerData.get(RECOMMED).getList().subList(0, 3);
+		List<GroupItem> recommed = mServerData.get(RECOMMED).getList().subList(0, 4);
 		List<GroupItem> area = mServerData.get(AREA).getList().subList(0, 3);
-		List<GroupItem> category = mServerData.get(CATEGORY).getList().subList(0, 3);
+		List<GroupItem> category = mServerData.get(CATEGORY).getList().subList(0, 18);
 		
-		mPtsRecommend.setAdapter(new TabAdapter(getChildFragmentManager(), recommed, R.id.find_ll_recommend_container));
-		mPtsArea.setAdapter(new TabAdapter(getChildFragmentManager(), area, R.id.find_ll_area_container));
-		mPtsCategory.setAdapter(new TabAdapter(getChildFragmentManager(), category, R.id.find_ll_category_container));
-		
-	}
-	
-	private class TabAdapter extends FragmentTabAdapter{
-
-		private List<GroupItem> list ;
-		private int containerId ;
-		
-		public TabAdapter(FragmentManager manager , List<GroupItem> list , int containerId) {
-			super(manager);
-			this.list = list ;
-			this.containerId = containerId ;
-		}
-
-		@Override
-		public int getContainerId() {
-			return containerId;
-		}
-
-		@Override
-		public int getCount() {
-			return list.size();
-		}
-
-		@Override
-		public Fragment getItem(int position) {
-			FindTabItemFragment fragment = new FindTabItemFragment();
-			Bundle args = new Bundle();
-			args.putString(TAB_ID_KEY, list.get(position).getId());
-			fragment.setArguments(args);
-			return fragment;
-		}
-
-		@Override
-		public String getPagetTitle(int position) {
-			if(list.get(position).getName().length() > 2)
-			{
-				return list.get(position).getName().substring(0, 2);
-			}
-			return list.get(position).getName();
-		}
+		mGvRecommend.setAdapter(new FindAdapter(getActivity(), 2, recommed, mGvRecommend));
+		mGvArea.setAdapter(new FindAdapter(getActivity(), 3, area, mGvArea));
+		mGvCategory.setAdapter(new FindAdapter(getActivity(), 3, category, mGvCategory));
 		
 	}
 	
-	public static final String GROUP_ITEM_MORE = "group_item_more";
 	
 	@OnClick(R.id.find_txt_recommed_more)
 	void onRecommendMoreClick(View v){
-		accessFindMoreActivity(mServerData.get(RECOMMED).getList());
+		accessFindMoreActivity(mServerData.get(RECOMMED).getList(),0);
 	}
 	
 	@OnClick(R.id.find_txt_area_more)
 	void onAreaMoreClick(View v){
-		accessFindMoreActivity(mServerData.get(AREA).getList());
+		accessFindMoreActivity(mServerData.get(AREA).getList(),0);
 	}
 	
 	@OnClick(R.id.find_txt_category_more)
 	void onCategoryMoreClick(View v){
-		accessFindMoreActivity(mServerData.get(CATEGORY).getList());
+		accessFindMoreActivity(mServerData.get(CATEGORY).getList(),0);
 	}
 	
-	private void accessFindMoreActivity(List<GroupItem> groupItem){
+	@OnItemClick(R.id.find_recommed_gv)
+	void onRecommendItemClick(AdapterView<?> parent , View v , int position , long id ){
+		accessFindMoreActivity(mServerData.get(RECOMMED).getList(),position);
+	}
+	
+	@OnItemClick(R.id.find_area_gv)
+	void onAreaItemClick(AdapterView<?> parent , View v , int position , long id ){
+		accessFindMoreActivity(mServerData.get(AREA).getList(),position);
+	}
+	
+	@OnItemClick(R.id.find_category_gv)
+	void onCategoryItemClick(AdapterView<?> parent , View v , int position , long id ){
+		accessFindMoreActivity(mServerData.get(CATEGORY).getList(),position);
+	}
+	
+	public static final String  GROUP_ITEM_MORE = "group_item_more";
+	public static final String  GROUP_TAB_ITEM = "group_tab_item";
+	
+	private void accessFindMoreActivity(List<GroupItem> groupItem,int position){
 		Intent intent = new Intent(getActivity(), FindMoreActivity.class);
 		intent.putParcelableArrayListExtra(GROUP_ITEM_MORE, (ArrayList<? extends Parcelable>) groupItem);
+		intent.putExtra(GROUP_TAB_ITEM, position);
 		startActivity(intent);
 	}
 }

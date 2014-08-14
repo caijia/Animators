@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.markmao.pulltorefresh.widget.XListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/hot_lv"
+    android:id="@+id/theme_tab_lv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true" />
+    android:layout_alignParentTop="true"
+    android:listSelector="@drawable/selector_newupdate_item"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:scrollbarStyle="outsideOverlay" />

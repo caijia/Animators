@@ -102,6 +102,7 @@ public class HotFragment extends BaseFragment implements IXListViewListener {
 		String videoId = hotItem.getVideoId()+"";
 		Intent detailIntent = new Intent(getActivity(), VideoDetailActivity.class);
 		detailIntent.putExtra(VIDEO_ID, videoId);
+		detailIntent.putExtra("video_name", hotItem.getName());
 		startActivity(detailIntent);
 	}
 	

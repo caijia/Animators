@@ -64,6 +64,7 @@ public class FindBannerAdapter extends RecyclingPagerAdapter {
 				String videoId = item.getId()+"";
 				Intent detailIntent = new Intent(mContext , VideoDetailActivity.class);
 				detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
+				detailIntent.putExtra("video_name", item.getName());
 				mContext.startActivity(detailIntent);
 			}
 		});

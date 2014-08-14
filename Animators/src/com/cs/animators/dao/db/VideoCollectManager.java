@@ -148,4 +148,34 @@ public class VideoCollectManager implements VideoCollectDao {
 		}
 	}
 
+	@Override
+	public List<HotItem> query(int limit, int page) {
+		List<HotItem> lists = new ArrayList<HotItem>();
+		SQLiteDatabase db = helper.getWritableDatabase();
+		String sql = "select * from " + TableUtil.TableVideoCollect.TABLE_NAME +" limit ? , ? ";
+		int startOffset = limit * page ;  //表示跳过前面多少钱记录
+		int endOffset = limit ;  //从跳过的记录取多少条数据
+		Cursor cs = db.rawQuery(sql,new String[]{String.valueOf(startOffset), String.valueOf((endOffset))});
+		while(cs != null && cs.moveToNext())
+		{
+			String videoId = cs.getString(cs.getColumnIndex(TableUtil.TableVideoCollect.VIDEO_ID));
+			String name = cs.getString(cs.getColumnIndex(TableUtil.TableVideoCollect.NAME));
+			String cover = cs.getString(cs.getColumnIndex(TableUtil.TableVideoCollect.COVER));
+			String curSeries = cs.getString(cs.getColumnIndex(TableUtil.TableVideoCollect.CUR_SERIES));
+			String totalSeries = cs.getString(cs.getColumnIndex(TableUtil.TableVideoCollect.TOTAL_SERIES));
+			String category = cs.getString(cs.getColumnIndex(TableUtil.TableVideoCollect.CATEGORY));
+			String score = cs.getString(cs.getColumnIndex(TableUtil.TableVideoCollect.SCORE));
+			String updateYear = cs.getString(cs.getColumnIndex(TableUtil.TableVideoCollect.UPDATE_YEAR));
+			HotItem videoCollect = new HotItem(videoId, name, cover, category, score, curSeries, totalSeries, updateYear);
+			lists.add(videoCollect);
+		}
+		if (cs != null) {
+			cs.close();
+		}
+		if (db != null) {
+			db.close();
+		}
+		return lists;
+	}
+
 }

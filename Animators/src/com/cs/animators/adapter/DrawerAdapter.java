@@ -64,7 +64,7 @@ public class DrawerAdapter extends ArrayAdapter<DrawerItem> {
 	
 	@Override
 	public int getItemViewType(int position) {
-		if(position == 0 || position == 1 || position == 2)
+		if(position == 0 || position == 1)
 		{
 			return ABOVE;
 		}

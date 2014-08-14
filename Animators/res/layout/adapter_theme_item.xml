@@ -4,21 +4,21 @@
     android:layout_height="match_parent"
     android:background="@color/layout_bg" >
 
-    <TextView
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:background="@color/white"/>
-
     <ImageView
         android:id="@+id/newupdate_img_pic"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:layout_below="@+id/divider"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:src="@drawable/shape_loading_image" />
+    
+      <TextView
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/newupdate_img_pic"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="#F3EFF3"/>
 
     <LinearLayout
         android:layout_width="match_parent"

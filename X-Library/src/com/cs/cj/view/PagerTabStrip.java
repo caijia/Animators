@@ -179,7 +179,7 @@ public class PagerTabStrip extends HorizontalScrollView {
 	private void addTab(final int position) {
 		TabView tabView = new TabView(getContext());
 		tabView.setText(mAdapter.getPagetTitle(position));
-		tabView.setFocusable(true);
+		tabView.setFocusable(false);
 		tabView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -215,7 +215,6 @@ public class PagerTabStrip extends HorizontalScrollView {
 			this.setTextColor(cls);
 			this.setBackgroundResource(mTabBackground);
 			this.setGravity(Gravity.CENTER);
-			this.setMaxLines(1);
 		}
 	}
 	

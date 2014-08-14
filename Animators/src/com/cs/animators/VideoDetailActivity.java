@@ -2,17 +2,20 @@ package com.cs.animators;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import io.vov.vitamio.utils.StringUtils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
+
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
@@ -21,8 +24,8 @@ import com.cs.animators.entity.VideoDetail;
 import com.cs.animators.eventbus.PlayRecordEvent;
 import com.cs.animators.fragment.DetailIntroFragment;
 import com.cs.animators.fragment.DetailSeriesFragment;
-import com.cs.animators.fragment.DetailSimilarFragment;
 import com.cs.animators.fragment.HotFragment;
+import com.cs.animators.fragment.SearchFragment;
 import com.cs.animators.view.FloatScrollView;
 import com.cs.animators.view.FloatScrollView.OnScrollListener;
 import com.cs.cj.http.httplibrary.RequestParams;
@@ -61,6 +64,8 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 	
 	private List<Fragment> mFragmentTabs ;
 	
+	private String mVideoName ;
+	
 	
 	@Override
 	protected void loadLayout() {
@@ -81,8 +86,9 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		
 		//onCreate的时候注册  onDestroy的时候销毁
 		EventBus.getDefault().register(this);
-		mActionBar.setDisplayHomeAsUpEnabled(true);
 		getExtra();
+		mActionBar.setDisplayHomeAsUpEnabled(true);
+		mActionBar.setTitle(TextUtils.isEmpty(mVideoName) ? "动漫家" : mVideoName);
 		
 		//查找播放记录
 		VideoPlayRecord lastPlayRecord = DaoFactory.getVideoRecordInstance(mContext).queryLastPlayRecord(mVideoId);
@@ -121,7 +127,12 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		
 		DetailSeriesFragment series = new DetailSeriesFragment();
 		DetailIntroFragment intro = new DetailIntroFragment();
-		DetailSimilarFragment similar = new DetailSimilarFragment();
+		
+		SearchFragment similar = new SearchFragment();
+		Bundle args = new Bundle();
+		String searchWord = mVideoDetail.getName();
+		args.putString(MainActivity.SEARCH_WORD, searchWord.length() > 1 ? searchWord.substring(0, 2) :searchWord);
+		similar.setArguments(args);
 		
 		mFragmentTabs.add(series);
 		mFragmentTabs.add(similar);
@@ -146,6 +157,7 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		if(bundle != null)
 		{
 			mVideoId = bundle.getString(HotFragment.VIDEO_ID);
+			mVideoName = bundle.getString("video_name");
 		}
 	}
 	

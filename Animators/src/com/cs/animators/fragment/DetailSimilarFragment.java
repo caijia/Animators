@@ -6,7 +6,7 @@ public class DetailSimilarFragment extends BaseFragment {
 
 	@Override
 	protected void loadLayout() {
-
+		
 	}
 
 	@Override

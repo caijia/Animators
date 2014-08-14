@@ -49,7 +49,7 @@
         android:layout_toLeftOf="@+id/hot_txt_score"
         android:text="catetory"
         android:layout_marginRight="3dp"
-        android:textColor="#919191"
+        android:textColor="#aaa"
         android:textSize="14sp" />
 
     <TextView

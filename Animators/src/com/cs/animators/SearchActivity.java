@@ -1,29 +1,13 @@
 package com.cs.animators;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import butterknife.InjectView;
-import butterknife.OnItemClick;
-
-import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseActivity;
-import com.cs.animators.constants.Constants;
-import com.cs.animators.entity.HotItem;
-import com.cs.animators.entity.Search;
-import com.cs.animators.fragment.HotFragment;
-import com.cs.cj.http.httplibrary.RequestParams;
-import com.cs.cj.http.work.JDataCallback;
-import com.cs.cj.http.work.Response;
+import com.cs.animators.fragment.SearchFragment;
+import com.cs.cj.service.FragmentService;
 
 public class SearchActivity extends BaseActivity {
 	
-	@InjectView(R.id.search_lv) ListView mListView ;
 	private String mSearchWord ;
 	
 	@Override
@@ -33,33 +17,16 @@ public class SearchActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
-		mActionBar.setDisplayHomeAsUpEnabled(true);
 		getExtra();
-		//m=Cartoon&a=search&limit=10&word=航海王&page=1&type=0
-		RequestParams params = new RequestParams();
-		params.put("m", "Cartoon");
-		params.put("a", "search");
-		params.put("limit", "10");
-		params.put("word", mSearchWord);
-		params.put("page", "1");
-		params.put("type", "0");
-		get(Constants.host, params, Search.class, new JDataCallback<Search>() {
-
-			@Override
-			public void onSuccess(Response<Search> data) {
-				
-				List<HotItem> filterVideoList = new ArrayList<HotItem>();
-				List<HotItem> list = data.getResult().getList();
-				for (HotItem hotItem : list) {
-					boolean notVideo = hotItem.getUpdate().contains("话");
-					if(!notVideo){
-						filterVideoList.add(hotItem);
-					}
-				}
-				HotAdapter adapter = new HotAdapter(mContext, filterVideoList);
-				mListView.setAdapter(adapter);
-			}
-		});
+		mActionBar.setDisplayHomeAsUpEnabled(true);
+		
+		SearchFragment fragment = new SearchFragment();
+		Bundle args = new Bundle();
+		args.putString(MainActivity.SEARCH_WORD, mSearchWord);
+		fragment.setArguments(args);
+		
+		FragmentService.getInstance().switchToFragment(mContext, R.id.search_fragment_container, fragment, null);
+		
 	}
 	
 	private void getExtra(){
@@ -70,15 +37,6 @@ public class SearchActivity extends BaseActivity {
 		}
 	}
 	
-	@OnItemClick(R.id.search_lv)
-	void onItemClickListener(AdapterView<?> parent , View v , int position , long id)
-	{
-		HotItem hotItem  = (HotItem) parent.getAdapter().getItem(position);
-		String videoId = hotItem.getId()+"";
-		Intent detailIntent = new Intent(this, VideoDetailActivity.class);
-		detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
-		startActivity(detailIntent);
-	}
 	
 	@Override
 	public Intent getSupportParentActivityIntent() {

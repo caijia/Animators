@@ -27,17 +27,22 @@
         <item >简介</item>
     </string-array>
     
-    <string-array name="main_slidetab_title">
-        <item >发现</item>
-        <item >主题</item>
+    <string-array name="theme_tab_title">
         <item >最新</item>
+        <item >经典</item>
+        <item >国漫</item>
+    </string-array>
+    
+    <string-array name="main_slidetab_title">
+        <item >首页</item>
+        <item >专题</item>
+        <item >追剧</item>
         <item >热门</item>
     </string-array>
     
     <string-array name="main_drawer_title">
         <item >动漫首页</item>
         <item >动漫收藏</item>
-        <item >本地缓存</item>
         <item >帮助</item>
         <item >设置</item>
         <item >关于</item>
@@ -51,7 +56,6 @@
     <array name="main_drawer_img">
         <item>@drawable/ic_ringtones_menu</item>
         <item>@drawable/ic_actionbar_myrings</item>
-        <item>@drawable/ic_actionbar_myrings</item>
         <item>@drawable/ic_help_menu</item>
         <item>@drawable/ic_setting_menu</item>
         <item>@drawable/ic_about_menu</item>
@@ -61,5 +65,8 @@
     <string name="score_orange">#FF9611</string>
     <string name="score_green">#9EB540</string>
     <string name="score_gray">#A4A3A3</string>
+    
+    <string name="main_menu_playrecorder">播放记录</string>
+    <string name="main_menu_offline">本地视频</string>
     
 </resources>

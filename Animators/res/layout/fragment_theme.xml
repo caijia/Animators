@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/newupdate_lv"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.cs.animators"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:listSelector="@drawable/selector_newupdate_item"
-    android:paddingLeft="10dp"
-    android:paddingBottom="10dp"
-    android:paddingRight="10dp"
-    android:scrollbarStyle="outsideOverlay"
-     >
+    android:background="#F3EFF3" >
 
-</ListView>
+    <com.cs.cj.view.PagerTabStrip
+        android:id="@+id/theme_tab_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_margin="8dp"
+        app:ptsDividerPadding="0dp"
+        app:ptsIndicatorHeight="0dp"
+        app:ptsShouldExpand="true"
+        app:ptsUnderlineHeight="0dp"
+        app:ptsDividerColor="#DEDDDE"
+        app:ptsTextColor="@drawable/selector_theme_tab_textcolor"
+        android:background="@drawable/shape_theme_tab_indicator_bg"
+        app:ptsTabBackground="@drawable/selector_theme_tab_indicator" />
+
+    <LinearLayout
+        android:id="@+id/theme_tab_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/theme_tab_indicator"
+        android:orientation="vertical" />
+
+</RelativeLayout>

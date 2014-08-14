@@ -1,8 +1,5 @@
 package com.cs.animators;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,11 +7,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-
-import com.cs.animators.adapter.FindAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.GroupItem;
-import com.cs.animators.fragment.FindFragment;
 
 /**
  * 点击FindFragment中加载更多跳转而来

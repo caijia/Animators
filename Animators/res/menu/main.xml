@@ -8,19 +8,12 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"/>
     <item
-        android:id="@+id/action_edit"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/main_user_info"
+        android:id="@+id/action_offline"
+        android:title="@string/main_menu_offline"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/action_delete"
-        android:icon="@android:drawable/ic_menu_delete"
-        android:title="@string/main_user_info"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_add"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/main_user_info"
+        android:id="@+id/action_playrecorder"
+        android:title="@string/main_menu_playrecorder"
         app:showAsAction="never"/>
 
 </menu>

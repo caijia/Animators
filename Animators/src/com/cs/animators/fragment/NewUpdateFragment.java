@@ -63,6 +63,7 @@ public class NewUpdateFragment extends BaseFragment {
 				String videoId = hotItem.getVideoId()+"";
 				Intent detailIntent = new Intent(getActivity(), VideoDetailActivity.class);
 				detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
+				detailIntent.putExtra("video_name", hotItem.getName());
 				startActivity(detailIntent);
 			}
 		});
