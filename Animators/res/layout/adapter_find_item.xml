@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="1dp"
+    android:background="@drawable/selector_find_image_border">
 
     <ImageView
         android:id="@+id/find_img_pic"
@@ -13,14 +15,15 @@
     <TextView
         android:id="@+id/find_txt_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_alignLeft="@+id/find_img_pic"
         android:layout_alignRight="@+id/find_img_pic"
         android:layout_below="@+id/find_img_pic"
         android:background="@drawable/selector_find_item"
         android:gravity="center"
-        android:padding="5dp"
+        android:text="推荐"
         android:textColor="@color/gray_light"
         android:textSize="14sp" />
+    
 
 </RelativeLayout>

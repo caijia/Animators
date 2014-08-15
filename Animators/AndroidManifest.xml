@@ -61,6 +61,7 @@
              android:screenOrientation="portrait" ></activity>
          <activity android:name="VideoCollectActivity"></activity>
          <activity android:name="FindMoreActivity"></activity>
+         <activity android:name="VideoPlayRecordActivity"></activity>
     </application>
 
 </manifest>

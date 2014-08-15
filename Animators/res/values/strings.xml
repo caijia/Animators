@@ -33,6 +33,13 @@
         <item >国漫</item>
     </string-array>
     
+    
+    <string-array name="hot_tab_title">
+        <item >最新</item>
+        <item >经典</item>
+        <item >国漫</item>
+    </string-array>
+    
     <string-array name="main_slidetab_title">
         <item >首页</item>
         <item >专题</item>
@@ -66,7 +73,20 @@
     <string name="score_green">#9EB540</string>
     <string name="score_gray">#A4A3A3</string>
     
-    <string name="main_menu_playrecorder">播放记录</string>
-    <string name="main_menu_offline">本地视频</string>
+    <string name="main_menu_playrecorder">播放记录&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="main_menu_offline">本地视频&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    
+    
+    <!-- 
+    空格 -> &#160;
+    换行 -> \n;
+    缩进 -> \t;
+    " -> &#34; 或 &quot; 
+    ' -> &#39; 或 &apos;
+    & -> &#38; 或 &amp;
+    lt(<) -> &#60; 或 &lt;
+    gt(>) -> &#62; 或 &gt;
+    
+     -->
     
 </resources>

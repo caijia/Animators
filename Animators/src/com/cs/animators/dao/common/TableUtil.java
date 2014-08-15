@@ -15,6 +15,7 @@ public class TableUtil {
 		public static final String SERIES = "series";
 		public static final String RECORD_TIME = "record_time";
 		public static final String DURATION = "duration";
+		public static final String VIDEO_NAME = "video_name";
 	}
 	
 	//VideoCollect 的数据表的定义

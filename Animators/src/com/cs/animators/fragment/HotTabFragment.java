@@ -20,7 +20,7 @@ import com.cs.cj.http.work.Response;
 import com.markmao.pulltorefresh.widget.XListView;
 import com.markmao.pulltorefresh.widget.XListView.IXListViewListener;
 
-public class HotFragment extends BaseFragment implements IXListViewListener {
+public class HotTabFragment extends BaseFragment implements IXListViewListener {
 	
 	@InjectView(R.id.hot_lv)
 	XListView mXListView ;
@@ -55,7 +55,7 @@ public class HotFragment extends BaseFragment implements IXListViewListener {
 		params.put("m", "Cartoon");
 		params.put("a", "newListVideo");
 		params.put("tab", "2");
-		params.put("limit", "15");
+		params.put("limit", "12");
 		params.put("page", page);
 		get(Constants.host, params, Hot.class, new JDataCallback<Hot>() {
 
@@ -93,15 +93,13 @@ public class HotFragment extends BaseFragment implements IXListViewListener {
 		mXListView.setRefreshTime("刚刚");
 	}
 	
-	public static final String VIDEO_ID = "video_id";
-	
 	@OnItemClick(R.id.hot_lv)
 	void onItemClickListener(AdapterView<?> parent , View v , int position , long id)
 	{
 		HotItem hotItem  = (HotItem) parent.getAdapter().getItem(position);
 		String videoId = hotItem.getVideoId()+"";
 		Intent detailIntent = new Intent(getActivity(), VideoDetailActivity.class);
-		detailIntent.putExtra(VIDEO_ID, videoId);
+		detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
 		detailIntent.putExtra("video_name", hotItem.getName());
 		startActivity(detailIntent);
 	}

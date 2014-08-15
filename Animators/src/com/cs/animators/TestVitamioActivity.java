@@ -444,7 +444,7 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 			VideoPlayRecord record = null ;
 			if(mCurPlaySeries != null)
 			{
-				record = new VideoPlayRecord(Long.parseLong(mCurPlaySeries.getId()),mVideoId, mediaPlayer.getCurrentPosition(), mCurSeries, System.currentTimeMillis(), mediaPlayer.getDuration());
+				record = new VideoPlayRecord(Long.parseLong(mCurPlaySeries.getId()),mVideoId, mediaPlayer.getCurrentPosition(), mCurSeries, System.currentTimeMillis(), mediaPlayer.getDuration(),mCurPlaySeries.getName());
 			}
 			if(record != null ){
 				//退出界面后 要将播放记录显示在前一个界面上

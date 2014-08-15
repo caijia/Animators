@@ -73,7 +73,7 @@ public class LocalVideoActivity extends BaseActivity {
 				{
 					activity.dismiss();
 					List<LocalVideo> localVideos = (List<LocalVideo>) msg.obj;
-					LocalVideoAdapter adapter = new LocalVideoAdapter(activity, localVideos);
+					LocalVideoAdapter adapter = new LocalVideoAdapter(activity,localVideos);
 					activity.mListView.setAdapter(adapter);
 				}
 			}

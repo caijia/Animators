@@ -41,6 +41,7 @@ public class PlayRecordManager implements PlayRecordDao {
 		values.put(TableUtil.TablePlayRecord.SERIES, playRecord.getSeries());
 		values.put(TableUtil.TablePlayRecord.RECORD_TIME, playRecord.getRecordTime());
 		values.put(TableUtil.TablePlayRecord.DURATION, playRecord.getDuration());
+		values.put(TableUtil.TablePlayRecord.VIDEO_NAME, playRecord.getVideoName());
 		db.insert(TableUtil.TablePlayRecord.TABLE_NAME, null, values);
 		db.close();
 	}
@@ -67,11 +68,12 @@ public class PlayRecordManager implements PlayRecordDao {
 				+ TableUtil.TablePlayRecord.DURATION + " = ? , "
 				+ TableUtil.TablePlayRecord.PLAY_RECORD + " = ? , "
 				+ TableUtil.TablePlayRecord.RECORD_TIME + " = ? , "
-				+ TableUtil.TablePlayRecord.SERIES + " = ?  where " 
+				+ TableUtil.TablePlayRecord.SERIES + " = ? , "
+				+ TableUtil.TablePlayRecord.VIDEO_NAME + " = ? where " 
 				+ TableUtil.TablePlayRecord.VIDEO_ID + " = ? and "
 				+ TableUtil.TablePlayRecord.ID + " = ?";
 		db.execSQL(sql, new Object[]{record.getDuration(),record.getPlayRecord(),record.getRecordTime(),
-				record.getSeries(),record.getVideoId(),record.getId()});
+				record.getSeries(),record.getVideoName() ,record.getVideoId(),record.getId()});
 		db.close();
 	}
 
@@ -98,7 +100,8 @@ public class PlayRecordManager implements PlayRecordDao {
 			int series = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.SERIES));
 			int recordTime = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.RECORD_TIME));
 			int duration = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.DURATION));
-			VideoPlayRecord record = new VideoPlayRecord(id, videoId, playRecord, series, recordTime, duration);
+			String videoName = cursor.getString(cursor.getColumnIndex(TableUtil.TablePlayRecord.VIDEO_NAME));
+			VideoPlayRecord record = new VideoPlayRecord(id, videoId, playRecord, series, recordTime, duration,videoName);
 			lists.add(record);
 		}
 		if(cursor != null)
@@ -124,7 +127,8 @@ public class PlayRecordManager implements PlayRecordDao {
 			int series = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.SERIES));
 			long recordTime = cursor.getLong(cursor.getColumnIndex(TableUtil.TablePlayRecord.RECORD_TIME));
 			long duration = cursor.getLong(cursor.getColumnIndex(TableUtil.TablePlayRecord.DURATION));
-			record = new VideoPlayRecord(id, videoId, playRecord, series, recordTime, duration);
+			String videoName = cursor.getString(cursor.getColumnIndex(TableUtil.TablePlayRecord.VIDEO_NAME));
+			record = new VideoPlayRecord(id, videoId, playRecord, series, recordTime, duration,videoName);
 		}
 		if(cursor != null)
 			cursor.close();
@@ -147,7 +151,8 @@ public class PlayRecordManager implements PlayRecordDao {
 			int series = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.SERIES));
 			long recordTime = cursor.getLong(cursor.getColumnIndex(TableUtil.TablePlayRecord.RECORD_TIME));
 			long duration = cursor.getLong(cursor.getColumnIndex(TableUtil.TablePlayRecord.DURATION));
-			record = new VideoPlayRecord(id, videoId, playRecord, series, recordTime, duration);
+			String videoName = cursor.getString(cursor.getColumnIndex(TableUtil.TablePlayRecord.VIDEO_NAME));
+			record = new VideoPlayRecord(id, videoId, playRecord, series, recordTime, duration,videoName);
 		}
 		if(cursor != null)
 			cursor.close();

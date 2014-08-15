@@ -25,18 +25,22 @@ public class VideoPlayRecord {
 
 	//视频播放的总时间
 	private long duration ;
+	
+	//视频的名字
+	private String videoName ;
 
 	public VideoPlayRecord() {
 	}
-
+	
 	public VideoPlayRecord(long id, String videoId, long playRecord,
-			int series, long recordTime, long duration) {
+			int series, long recordTime, long duration, String videoName) {
 		this.id = id;
 		this.videoId = videoId;
 		this.playRecord = playRecord;
 		this.series = series;
 		this.recordTime = recordTime;
 		this.duration = duration;
+		this.videoName = videoName;
 	}
 
 	public long getId() {
@@ -86,6 +90,13 @@ public class VideoPlayRecord {
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
-	
+
+	public String getVideoName() {
+		return videoName;
+	}
+
+	public void setVideoName(String videoName) {
+		this.videoName = videoName;
+	}
 	
 }
