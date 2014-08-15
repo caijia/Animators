@@ -105,6 +105,7 @@ public class XListView extends ListView implements OnScrollListener {
                 .LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         params.gravity = Gravity.CENTER;
         mFooterLayout.addView(mFooterView, params);
+        mFooterLayout.setVisibility(View.GONE);
 
         // init header height
         ViewTreeObserver observer = mHeader.getViewTreeObserver();
@@ -127,8 +128,12 @@ public class XListView extends ListView implements OnScrollListener {
                     
                     //当ListView 的 Item 少于10()项时  认为是不充满屏幕的 删除FooterView
                     System.out.println("listview count = " + getAdapter().getCount());
-                    if(getAdapter().getCount() - getHeaderViewsCount() - getFooterViewsCount() <= 10){
+                    System.out.println("footerview count = " + getFooterViewsCount());
+                    System.out.println("headerview count = " + getHeaderViewsCount());
+                    if(getAdapter().getCount() - getHeaderViewsCount() - getFooterViewsCount() < 10){
                     	removeFooterView(mFooterLayout);
+                    }else{
+                    	mFooterLayout.setVisibility(View.VISIBLE);
                     }
                     
                 }

@@ -153,7 +153,7 @@ public class VideoCollectManager implements VideoCollectDao {
 		List<HotItem> lists = new ArrayList<HotItem>();
 		SQLiteDatabase db = helper.getWritableDatabase();
 		String sql = "select * from " + TableUtil.TableVideoCollect.TABLE_NAME +" limit ? , ? ";
-		int startOffset = limit * page ;  //表示跳过前面多少钱记录
+		int startOffset = limit * (page - 1) ;  //表示跳过前面多少钱记录
 		int endOffset = limit ;  //从跳过的记录取多少条数据
 		Cursor cs = db.rawQuery(sql,new String[]{String.valueOf(startOffset), String.valueOf((endOffset))});
 		while(cs != null && cs.moveToNext())

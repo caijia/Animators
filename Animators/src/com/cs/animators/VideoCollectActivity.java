@@ -23,17 +23,24 @@ import com.cs.animators.entity.HotItem;
 import com.cs.animators.fragment.HotFragment;
 import com.cs.animators.util.CommonUtil;
 import com.markmao.pulltorefresh.widget.XListView;
+import com.markmao.pulltorefresh.widget.XListView.IXListViewListener;
 
-public class VideoCollectActivity extends BaseActivity {
+public class VideoCollectActivity extends BaseActivity implements IXListViewListener {
 
 	@InjectView(R.id.video_collect_lv)
-	XListView mListView;
+	XListView mXListView;
 	
 	private Handler mHandler ;
 	
 	private ActionMode mActionMode ;
 	
 	private HotAdapter mAdapter ;
+	
+	private int mLoadPage = 1;
+	
+	private int mLimit = 10 ;
+	
+	private List<HotItem> mHotItems = new ArrayList<HotItem>();
 	
 	@Override
 	protected void loadLayout() {
@@ -45,16 +52,47 @@ public class VideoCollectActivity extends BaseActivity {
 		mActionBar.setTitle("动漫收藏");
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		
+		//XListView 的属性配置
+		configXListView();
+		bindData();
+		
 		mHandler = new GetLocalVideoHandler(this);
 		showProgress();
-		new Thread(new GetLocalVideoRunnable()).start();
+		new Thread(new GetLocalVideoRunnable(mLimit , mLoadPage)).start();
 	}
 	
+	public void bindData() {
+		mAdapter = new HotAdapter(this, mHotItems);
+		mXListView.setAdapter(mAdapter);
+	}
+	
+	private void configXListView() {
+		mXListView.setPullLoadEnable(true);
+		mXListView.setPullRefreshEnable(false);
+		mXListView.setXListViewListener(this);
+		mXListView.setRefreshTime("刚刚");
+	}
+	
+	private void onLoad(){
+		mXListView.stopRefresh();
+		mXListView.stopLoadMore();
+		mXListView.setRefreshTime("刚刚");
+	}
+	
+	
 	private class GetLocalVideoRunnable implements Runnable{
+		
+		private int limit ; 
+		private int page ;
+		
+		public GetLocalVideoRunnable(int limit , int page){
+			this.limit = limit ;
+			this.page = page ;
+		}
 
 		@Override
 		public void run() {
-			List<HotItem> videoCollects = getHotItem();
+			List<HotItem> videoCollects = getHotItem(limit , page);
 			Message msg = new Message();
 			msg.what = 100 ;
 			msg.obj = videoCollects ;
@@ -80,17 +118,18 @@ public class VideoCollectActivity extends BaseActivity {
 				//do something
 				if(msg.what == 100)
 				{
+					activity.onLoad();
 					activity.dismiss();
 					List<HotItem> localVideos = (List<HotItem>) msg.obj;
-					activity.mAdapter = new HotAdapter(activity, localVideos);
-					activity.mListView.setAdapter(activity.mAdapter);
+					activity.mHotItems.addAll(localVideos);
+					activity.mAdapter.notifyDataSetChanged();
 				}
 			}
 		}
 	}
 
-	public List<HotItem> getHotItem() {
-		List<HotItem> collects = DaoFactory.getVideoCollectInstance(mContext).query(2, 1);
+	public List<HotItem> getHotItem(int limit , int page) {
+		List<HotItem> collects = DaoFactory.getVideoCollectInstance(mContext).query(limit,page);
 		return collects;
 	}
 	
@@ -115,7 +154,7 @@ public class VideoCollectActivity extends BaseActivity {
 	
 	
 	private void onCheckedItem(AdapterView<?> parent , View v , int position , long id){
-		mAdapter.toggleSelection(position - mListView.getHeaderViewsCount());  //让被选中的Item 保持高亮
+		mAdapter.toggleSelection(position - mXListView.getHeaderViewsCount());  //让被选中的Item 保持高亮
 		boolean hasSelectItem = mAdapter.getSelectedItemCount() > 0 ;
 		if(hasSelectItem && mActionMode == null)
 		{
@@ -224,6 +263,17 @@ public class VideoCollectActivity extends BaseActivity {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onLoadMore() {
+		mLoadPage ++ ;
+		new Thread(new GetLocalVideoRunnable(mLimit , mLoadPage)).start();
+	}
+
+	@Override
+	public void onRefresh() {
+		
 	}
 	
 }

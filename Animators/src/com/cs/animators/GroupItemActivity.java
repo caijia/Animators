@@ -8,7 +8,6 @@ import android.widget.GridView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
 import com.cs.animators.base.BaseActivity;
-import com.cs.animators.entity.GroupItem;
 
 /**
  * 点击FindFragment中加载更多跳转而来
@@ -43,7 +42,7 @@ public class GroupItemActivity extends BaseActivity {
 	
 	@OnItemClick(R.id.groupitem_gv)
 	void themeItemClick(AdapterView<?> parent , View v, int position , long id){
-		GroupItem item = (GroupItem) parent.getAdapter().getItem(position);
+//		GroupItem item = (GroupItem) parent.getAdapter().getItem(position);
 //		Intent intent = new Intent(this, AllCategoryActivity.class);
 //		intent.putExtra(FindFragment.ID_KEY, item.getId());
 //		startActivity(intent);
