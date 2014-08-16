@@ -1,17 +1,13 @@
 package com.cs.animators.adapter;
 
 import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
 import com.cs.animators.R;
 import com.cs.animators.entity.HotItem;
 import com.cs.cj.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
 import android.content.Context;
-import android.graphics.Color;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -68,7 +64,7 @@ public class HotAdapter extends ActionModeAdapter<HotItem> {
 		}
 		
 		//设置高亮的颜色 变化
-		setBackGroundColor(convertView, position, 0x9934B5E4, Color.TRANSPARENT);
+		setBackGroundColor(convertView, position, 0x9934B5E4, R.drawable.selector_adapter_video_record);
 		return convertView;
 	}
 	

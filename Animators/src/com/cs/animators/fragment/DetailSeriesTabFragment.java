@@ -40,7 +40,6 @@ public class DetailSeriesTabFragment extends BaseFragment {
 
 	@Override
 	protected void processLogic() {
-		getExtra();
 		
 		mVideoDetail = ((VideoDetailActivity)getActivity()).getVideoDetail();
 		mTotalVideoNum = mVideoDetail.getEpisode().size();
@@ -52,10 +51,10 @@ public class DetailSeriesTabFragment extends BaseFragment {
 		
 	}
 	
-	private void getExtra(){
-		Bundle args = getArguments();
-		if(args != null){
-			mCurrentPage = args.getInt(DetailSeriesFragment.CURRENT_PAGER);
+	@Override
+	protected void getExtra(Bundle arguments) {
+		if(arguments != null){
+			mCurrentPage = arguments.getInt(DetailSeriesFragment.CURRENT_PAGER);
 		}
 	}
 	

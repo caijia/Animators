@@ -1,14 +1,11 @@
 package com.cs.animators;
 
 import java.util.List;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import butterknife.InjectView;
-
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.GroupItem;
 import com.cs.animators.fragment.FindFragment;
@@ -34,17 +31,14 @@ public class FindMoreActivity extends BaseActivity {
 	@Override
 	protected void processLogic() {
 		
-		mActionBar.setDisplayHomeAsUpEnabled(true);
-		getExtra();
-		
 		mTabindicator.setShouldExpand(mMoreGroupItem.size() < 4);
 		mViewPager.setAdapter(new GroupItemMoreAdapter(getSupportFragmentManager()));
 		mTabindicator.setViewPager(mViewPager);
 		mViewPager.setCurrentItem(mCurTabPosition);
 	}
 	
-	private void getExtra(){
-		Bundle bundle = getIntent().getExtras();
+	@Override
+	public void getExtra(Bundle bundle){
 		if(bundle != null){
 			mMoreGroupItem = bundle.getParcelableArrayList(FindFragment.GROUP_ITEM_MORE);
 			mCurTabPosition = bundle.getInt(FindFragment.GROUP_TAB_ITEM);
@@ -81,9 +75,8 @@ public class FindMoreActivity extends BaseActivity {
 	}
 	
 	@Override
-	public Intent getSupportParentActivityIntent() {
-		finish();
-		return super.getSupportParentActivityIntent();
+	protected boolean displayHomeAsUpEnabled() {
+		return true;
 	}
 
 }

@@ -14,7 +14,7 @@ public class VideoPlayRecord {
 	//视频的Videoid  (根据videoId 查找 播放记录大于 0 的记录 表示有播放记录  )
 	private String videoId ;
 	
-	//播放记录 时间
+	//播放至多少分钟
 	private long playRecord;
 
 	//播放的哪一集

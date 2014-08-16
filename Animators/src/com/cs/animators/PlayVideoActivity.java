@@ -8,6 +8,7 @@ import io.vov.vitamio.widget.VideoView;
 import android.os.Bundle;
 import android.text.TextUtils;
 import butterknife.InjectView;
+
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.entity.PlayVideo;
@@ -36,7 +37,6 @@ public class PlayVideoActivity extends BaseActivity {
 	@Override
 	protected void processLogic() {
 		mActionBar.hide();
-		getExtra() ;
 		requestPlayUrl();
 		
 	}
@@ -81,13 +81,14 @@ public class PlayVideoActivity extends BaseActivity {
 		}
 	}
 	
-	private void getExtra(){
-		Bundle bundle = getIntent().getExtras();
+	@Override
+	public void getExtra(Bundle bundle){
 		if(bundle !=  null)
 		{
 			mVideoId = bundle.getString(VIDEO_ID);
 			mId = bundle.getString(ID);
 		}
 	}
+	
 	
 }

@@ -96,10 +96,10 @@ public class PlayRecordManager implements PlayRecordDao {
 		{
 			int id = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.ID));
 			String videoId = cursor.getString(cursor.getColumnIndex(TableUtil.TablePlayRecord.VIDEO_ID));
-			int playRecord = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.PLAY_RECORD));
+			long playRecord = cursor.getLong(cursor.getColumnIndex(TableUtil.TablePlayRecord.PLAY_RECORD));
 			int series = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.SERIES));
-			int recordTime = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.RECORD_TIME));
-			int duration = cursor.getInt(cursor.getColumnIndex(TableUtil.TablePlayRecord.DURATION));
+			long recordTime = cursor.getLong(cursor.getColumnIndex(TableUtil.TablePlayRecord.RECORD_TIME));
+			long duration = cursor.getLong(cursor.getColumnIndex(TableUtil.TablePlayRecord.DURATION));
 			String videoName = cursor.getString(cursor.getColumnIndex(TableUtil.TablePlayRecord.VIDEO_NAME));
 			VideoPlayRecord record = new VideoPlayRecord(id, videoId, playRecord, series, recordTime, duration,videoName);
 			lists.add(record);
@@ -171,6 +171,15 @@ public class PlayRecordManager implements PlayRecordDao {
 		{
 			save(record);
 		}
+	}
+
+	@Override
+	public void delete(String videoId, long id) {
+		SQLiteDatabase db = helper.getWritableDatabase();
+		String whereClause = TableUtil.TablePlayRecord.ID + " = ? and "
+				+ TableUtil.TablePlayRecord.VIDEO_ID + " = ? ";
+		db.delete(TableUtil.TablePlayRecord.TABLE_NAME, whereClause, new String[]{id + "",videoId});
+		db.close();
 	}
 
 

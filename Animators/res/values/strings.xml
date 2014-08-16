@@ -20,6 +20,12 @@
     <string name="action_video_delete">删除</string>
     <string name="action_video_cancel">取消</string>
     
+    <string-array name="find_catorgy_tab_title">
+        <item >热血</item>
+        <item >悬疑</item>
+        <item >唯美</item>
+    </string-array>
+    
     
     <string-array name="detail_indicator_title">
         <item >剧集</item>
@@ -73,8 +79,8 @@
     <string name="score_green">#9EB540</string>
     <string name="score_gray">#A4A3A3</string>
     
-    <string name="main_menu_playrecorder">播放记录&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
-    <string name="main_menu_offline">本地视频&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="main_menu_playrecorder">播放记录&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="main_menu_offline">本地视频&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
     
     
     <!-- 

@@ -40,6 +40,9 @@ public abstract class BaseFragment extends Fragment{
 		
 		//没有这句在Fragment中显示不出ActionBar
 		setHasOptionsMenu(true);
+		
+		//取得传递过来的参数
+		getExtra(getArguments());
 	}
 	
 	/**
@@ -106,7 +109,9 @@ public abstract class BaseFragment extends Fragment{
 	
 	protected abstract void loadLayout() ;
 	protected abstract void processLogic() ;
-	
+	protected void getExtra(Bundle arguments) {
+		
+	}
 	
 	protected <T> void get( String url , RequestParams params ,  BaseParser<T> parser ,  DataCallback<T> callback )
     {

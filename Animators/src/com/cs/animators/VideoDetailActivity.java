@@ -2,9 +2,7 @@ package com.cs.animators;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import io.vov.vitamio.utils.StringUtils;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
-
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
@@ -35,7 +32,6 @@ import com.cs.cj.util.ImageLoaderUtil;
 import com.cs.cj.view.FragmentTabAdapter;
 import com.cs.cj.view.PagerTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
 import de.greenrobot.event.EventBus;
 
 public class VideoDetailActivity extends BaseActivity implements OnScrollListener {
@@ -86,8 +82,6 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		
 		//onCreate的时候注册  onDestroy的时候销毁
 		EventBus.getDefault().register(this);
-		getExtra();
-		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mActionBar.setTitle(TextUtils.isEmpty(mVideoName) ? "动漫家" : mVideoName);
 		
 		//查找播放记录
@@ -152,8 +146,8 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		mPtsIndicator.setAdapter(new VideoDetailTabFragment(getSupportFragmentManager()));
 	}
 
-	private void getExtra(){
-		Bundle bundle = getIntent().getExtras();
+	@Override
+	public void getExtra(Bundle bundle){
 		if(bundle != null)
 		{
 			mVideoId = bundle.getString(HotFragment.VIDEO_ID);
@@ -162,9 +156,8 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 	}
 	
 	@Override
-	public Intent getSupportParentActivityIntent() {
-		finish();
-		return super.getSupportParentActivityIntent();
+	protected boolean displayHomeAsUpEnabled() {
+		return true;
 	}
 	
 	

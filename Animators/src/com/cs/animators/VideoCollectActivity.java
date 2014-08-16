@@ -50,7 +50,6 @@ public class VideoCollectActivity extends BaseActivity implements IXListViewList
 	@Override
 	protected void processLogic() {
 		mActionBar.setTitle("动漫收藏");
-		mActionBar.setDisplayHomeAsUpEnabled(true);
 		
 		//XListView 的属性配置
 		configXListView();
@@ -174,9 +173,8 @@ public class VideoCollectActivity extends BaseActivity implements IXListViewList
 	
 	
 	@Override
-	public Intent getSupportParentActivityIntent() {
-		finish();
-		return super.getSupportParentActivityIntent();
+	protected boolean displayHomeAsUpEnabled() {
+		return true;
 	}
 
 	//ActionMode

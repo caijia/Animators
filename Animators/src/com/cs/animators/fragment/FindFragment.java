@@ -3,7 +3,10 @@ package com.cs.animators.fragment;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -32,6 +35,8 @@ import com.cs.cj.http.work.Response;
 import com.cs.cj.view.AutoScrollViewPager;
 import com.cs.cj.view.CircleLoopPageIndicator;
 import com.cs.cj.view.CustomScrollView;
+import com.cs.cj.view.FragmentTabAdapter;
+import com.cs.cj.view.PagerTabStrip;
 
 public class FindFragment extends BaseFragment {
 	
@@ -56,13 +61,16 @@ public class FindFragment extends BaseFragment {
 	GridView mGvArea ;
 	
 	//类型
-	@InjectView(R.id.find_category_gv)
-	GridView mGvCategory ;
+	@InjectView(R.id.find_category_pts)
+	PagerTabStrip mPtsCategory ;
 	
 	@InjectView(R.id.find_txt_category_more)
 	TextView mTxtCategoryMore ;
 	
 	private List<Group> mServerData ;
+	
+	//分类布局里面的Tab标题
+	private String [] mCategoryTitle ;
 	
 	@Override
 	protected void loadLayout() {
@@ -74,11 +82,13 @@ public class FindFragment extends BaseFragment {
 	protected void processLogic(){
 		
 		//为了保持图片的宽高比
-		
 		RelativeLayout.LayoutParams params = (LayoutParams) mViewPager.getLayoutParams();
 		params.width = CommonUtil.getWidthMetrics(getActivity())- CommonUtil.dip2px(getActivity(), 16);
 		params.height = params.width / 2 ;
 		mViewPager.setLayoutParams(params);
+		
+		//初始化category Tab 标题
+		mCategoryTitle = getResources().getStringArray(R.array.find_catorgy_tab_title);
 		
 		//加载数据
 		loadData();
@@ -129,17 +139,51 @@ public class FindFragment extends BaseFragment {
 	public static final int AREA = 1 ;
 	public static final int CATEGORY = 2 ;
 	public static final String TAB_ID_KEY = "tab_id_key";
+	public static final String TAB_DATA = "tab_data";
+	public static final String TAB_CURRENT_PAGE = "tab_current_page";
 	
 	protected void bindData(Response<List<Group>> data) {
 		mServerData = data.getResult();
 		
 		List<GroupItem> recommed = mServerData.get(RECOMMED).getList().subList(0, 4);
-		List<GroupItem> area = mServerData.get(AREA).getList().subList(0, 3);
-		List<GroupItem> category = mServerData.get(CATEGORY).getList().subList(0, 18);
+		List<GroupItem> area = mServerData.get(AREA).getList().subList(0, 2);
 		
 		mGvRecommend.setAdapter(new FindAdapter(getActivity(), 2, recommed, mGvRecommend));
-		mGvArea.setAdapter(new FindAdapter(getActivity(), 3, area, mGvArea));
-		mGvCategory.setAdapter(new FindAdapter(getActivity(), 3, category, mGvCategory));
+		mGvArea.setAdapter(new FindAdapter(getActivity(), 2, area, mGvArea));
+		mPtsCategory.setAdapter(new FindCategoryTabAdapter(getChildFragmentManager()));
+		
+	}
+	
+	private class FindCategoryTabAdapter extends FragmentTabAdapter{
+		
+		public FindCategoryTabAdapter(FragmentManager manager) {
+			super(manager);
+		}
+
+		@Override
+		public int getContainerId() {
+			return R.id.find_category_container;
+		}
+
+		@Override
+		public int getCount() {
+			return mCategoryTitle.length;
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			FindTabItemFragment fragment = new FindTabItemFragment();
+			Bundle args = new Bundle();
+			args.putParcelableArrayList(TAB_DATA,(ArrayList<? extends Parcelable>) mServerData.get(CATEGORY).getList());
+			args.putInt(TAB_CURRENT_PAGE, position);
+			fragment.setArguments(args);
+			return fragment;
+		}
+
+		@Override
+		public String getPagetTitle(int position) {
+			return mCategoryTitle[position];
+		}
 		
 	}
 	
@@ -167,11 +211,6 @@ public class FindFragment extends BaseFragment {
 	@OnItemClick(R.id.find_area_gv)
 	void onAreaItemClick(AdapterView<?> parent , View v , int position , long id ){
 		accessFindMoreActivity(mServerData.get(AREA).getList(),position);
-	}
-	
-	@OnItemClick(R.id.find_category_gv)
-	void onCategoryItemClick(AdapterView<?> parent , View v , int position , long id ){
-		accessFindMoreActivity(mServerData.get(CATEGORY).getList(),position);
 	}
 	
 	public static final String  GROUP_ITEM_MORE = "group_item_more";

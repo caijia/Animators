@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
+    android:layout_height="56dp"
+    android:background="@drawable/selector_adapter_video_record"
+     >
+
+    <TextView
+        android:id="@+id/video_record_videoname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:text="Medium Text"
+        android:textColor="#5F5F5F"
+        android:textSize="17sp" 
+        android:layout_marginTop="6dp"/>
+
+    <TextView
+        android:id="@+id/video_record_recordtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/video_record_videoname"
+        android:layout_marginLeft="20dp"
+        android:text="TextView"
+        android:textColor="#B8B4B8"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_alignParentBottom="true"
+        android:background="#D5D6D5" />
 
 </RelativeLayout>

@@ -40,4 +40,11 @@ public class Utils {
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm",Locale.CHINA);
 		return format.format(new Date());
 	}
+	
+	
+	public static String formatTime(long time){
+		SimpleDateFormat format = new SimpleDateFormat("MM月dd日",Locale.CHINA);
+		return format.format(new Date(time));
+	}
+	
 }

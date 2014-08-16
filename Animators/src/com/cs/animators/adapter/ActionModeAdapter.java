@@ -1,7 +1,9 @@
 package com.cs.animators.adapter;
 
 import java.util.List;
+
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -73,9 +75,10 @@ public class ActionModeAdapter<T> extends ArrayAdapter<T> {
 		return mSelectedItemIds ;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void setBackGroundColor(View convertView ,int position ,int pressedColor , int normalColor)
 	{
-		convertView.setBackgroundColor(mSelectedItemIds.get(position) ? pressedColor : normalColor);
+		convertView.setBackgroundDrawable(mSelectedItemIds.get(position) ? new ColorDrawable(pressedColor) :  getContext().getResources().getDrawable(normalColor));
 	}
 
 }

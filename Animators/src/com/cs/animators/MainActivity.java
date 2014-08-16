@@ -122,6 +122,8 @@ public class MainActivity extends BaseActivity {
 			break;
 
 		case R.id.action_playrecorder:
+			Intent videorecord = new Intent(mContext, VideoPlayRecordActivity.class);
+			startActivity(videorecord);
 			break ;
 		default:
 			break;

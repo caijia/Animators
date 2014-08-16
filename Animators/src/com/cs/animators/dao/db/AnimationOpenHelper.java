@@ -15,19 +15,20 @@ public class AnimationOpenHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		//创建PlayVideo表
-		String playvideo_sql = "create table " + TableUtil.TablePlayRecord.TABLE_NAME +"( " 
+		String playvideo_sql = "create table if not exists " + TableUtil.TablePlayRecord.TABLE_NAME +"( " 
 				+ TableUtil.TablePlayRecord.PLAYRECORD_ID + " integer primary key autoincrement,"
 				+ TableUtil.TablePlayRecord.ID + " long ,"
 				+ TableUtil.TablePlayRecord.VIDEO_ID +" long ,"
 				+ TableUtil.TablePlayRecord.PLAY_RECORD + " long ,"
 				+ TableUtil.TablePlayRecord.SERIES + " integer ,"
 				+ TableUtil.TablePlayRecord.RECORD_TIME +" long , "
-				+ TableUtil.TablePlayRecord.DURATION + " long )";
+				+ TableUtil.TablePlayRecord.DURATION + " long , "
+				+ TableUtil.TablePlayRecord.VIDEO_NAME + " text )";
 		Log.i("playvideo_table_sql", playvideo_sql);
 		db.execSQL(playvideo_sql);
 		
 		//创建VideoCollect表
-		String videoCollect_sql = "create table " + TableUtil.TableVideoCollect.TABLE_NAME +"( "
+		String videoCollect_sql = "create table if not exists " + TableUtil.TableVideoCollect.TABLE_NAME +"( "
 				+ TableUtil.TableVideoCollect.VIDEO_ID + " text primary key , "
 				+ TableUtil.TableVideoCollect.NAME + " text , "
 				+ TableUtil.TableVideoCollect.COVER + " text ,"

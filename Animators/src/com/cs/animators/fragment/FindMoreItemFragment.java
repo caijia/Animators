@@ -63,7 +63,6 @@ public class FindMoreItemFragment extends BaseFragment implements IXListViewList
 
 	@Override
 	protected void processLogic() {
-		getExtra();
 		configXListView();
 		bindData();
 		loadData(mLoadPage, true);
@@ -127,8 +126,9 @@ public class FindMoreItemFragment extends BaseFragment implements IXListViewList
 		mXListView.setRefreshTime("刚刚");
 	}
 	
-	private void getExtra(){
-		Bundle bundle = getArguments();
+	
+	@Override
+	protected void getExtra(Bundle bundle) {
 		if(bundle != null)
 		{
 			mId = bundle.getString(FindMoreActivity.GROUP_IMTE_ID);

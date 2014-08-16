@@ -33,7 +33,6 @@ public class SearchFragment extends BaseFragment {
 
 	@Override
 	protected void processLogic() {
-		getExtra();
 		//m=Cartoon&a=search&limit=10&word=航海王&page=1&type=0
 		RequestParams params = new RequestParams();
 		params.put("m", "Cartoon");
@@ -61,8 +60,8 @@ public class SearchFragment extends BaseFragment {
 		});
 	}
 	
-	private void getExtra(){
-		Bundle bundle = getArguments();
+	@Override
+	protected void getExtra(Bundle bundle) {
 		if(bundle !=null)
 		{
 			mSearchWord = bundle.getString(MainActivity.SEARCH_WORD);

@@ -1,6 +1,5 @@
 package com.cs.animators;
 
-import android.content.Intent;
 import android.os.Bundle;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.fragment.SearchFragment;
@@ -17,8 +16,6 @@ public class SearchActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
-		getExtra();
-		mActionBar.setDisplayHomeAsUpEnabled(true);
 		
 		SearchFragment fragment = new SearchFragment();
 		Bundle args = new Bundle();
@@ -29,19 +26,17 @@ public class SearchActivity extends BaseActivity {
 		
 	}
 	
-	private void getExtra(){
-		Bundle bundle = getIntent().getExtras();
+	@Override
+	public void getExtra(Bundle bundle){
 		if(bundle !=null)
 		{
 			mSearchWord = bundle.getString(MainActivity.SEARCH_WORD);
 		}
 	}
 	
-	
 	@Override
-	public Intent getSupportParentActivityIntent() {
-		finish();
-		return super.getSupportParentActivityIntent();
+	protected boolean displayHomeAsUpEnabled() {
+		return true;
 	}
 	
 }

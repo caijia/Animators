@@ -1,10 +1,13 @@
 package com.cs.animators.base;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -20,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
 import com.cs.animators.R;
 import com.cs.cj.http.httplibrary.RequestParams;
 import com.cs.cj.http.parserinterface.BaseParser;
@@ -37,6 +39,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     private View mProgress ;
     private View mError  ;
     private ViewHolder mHolder ;
+    private BaseHandler mHandler ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,12 +64,45 @@ public abstract class BaseActivity extends ActionBarActivity {
         
         ButterKnife.inject(this);
         
-        //逻辑
-        processLogic();
+        //是否有返回键
+        mActionBar.setDisplayHomeAsUpEnabled(displayHomeAsUpEnabled());
+        
+        //取得传递过来的参数
+        getExtra(getIntent().getExtras());
+        
+        if(switchThread()){
+        	
+        	mHandler = new BaseHandler(this);
+        	 Runnable runnable = new Runnable() {
+     			public void run() {
+     				mHandler.sendMessage(doInBackground());
+     			}
+     		};
+             new Thread(runnable).start();
+        }
+        
+		// 逻辑
+		processLogic();
         
     }
     
-    /**
+	static class BaseHandler extends Handler{
+    	
+    	private final WeakReference<? extends BaseActivity> mTarget ;
+		
+		public BaseHandler(BaseActivity target)
+		{
+			mTarget = new WeakReference<BaseActivity>(target);
+		}
+    	
+    	@Override
+    	public void handleMessage(Message msg) {
+    		BaseActivity activity = mTarget.get();
+    		activity.onPostExecute(msg);
+    	}
+    }
+    
+	/**
      * supportV7 里面的ActionBar overFlowMenu 如果有实体菜单键 就不会显示OverFlowMenu  
      * 这个方法是让有实体菜单键的手机显示OverFlowMenu
      */
@@ -94,6 +130,22 @@ public abstract class BaseActivity extends ActionBarActivity {
 
 	protected abstract void loadLayout();
     protected abstract void processLogic();
+    protected void getExtra(Bundle bundle) {
+		
+	}
+    protected boolean displayHomeAsUpEnabled() {
+		return false;
+	}
+    protected Message doInBackground() {
+		return null ;
+	}
+    protected void onPostExecute(Message msg) {
+		
+	}
+    protected boolean switchThread() {
+		return false;
+	}
+    
     
 	class ViewHolder {
 
@@ -244,5 +296,12 @@ public abstract class BaseActivity extends ActionBarActivity {
 	    }
 	    return super.onMenuOpened(featureId , menu);
 	}
+    
+    @Override
+    public Intent getSupportParentActivityIntent() {
+    	finish();
+    	return super.getSupportParentActivityIntent();
+    }
+    
 
 }

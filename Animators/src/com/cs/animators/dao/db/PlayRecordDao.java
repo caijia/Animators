@@ -12,5 +12,7 @@ public interface PlayRecordDao extends Dao<Integer,VideoPlayRecord> {
 	
 	//根据videoid 和 id 查找是否有记录
 	void saveOrUpdate(VideoPlayRecord record);
+	
+	void delete(String videoId , long id );
 
 }

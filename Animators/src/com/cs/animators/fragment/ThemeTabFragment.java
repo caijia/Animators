@@ -41,7 +41,6 @@ public class ThemeTabFragment extends BaseFragment implements IXListViewListener
 	
 	@Override
 	protected void processLogic(){
-		getExtra();
 		configXListView();
 		bindData();
 		loadData(mLoadPage,true);
@@ -83,8 +82,9 @@ public class ThemeTabFragment extends BaseFragment implements IXListViewListener
 		startActivity(detailIntent);
 	}
 	
-	private void getExtra(){
-		Bundle args = getArguments();
+	
+	@Override
+	protected void getExtra(Bundle args) {
 		if(args != null){
 			mTabPosition = args.getInt(ThemeFragment.THEME_TAB_POSITION);
 			mLoadPage = mTabPosition == 1 ? mLoadPage + 1 : mLoadPage;
