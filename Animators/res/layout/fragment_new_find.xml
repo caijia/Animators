@@ -180,8 +180,16 @@
                 android:layout_marginLeft="12dp"
                 app:ptsIndicatorColor="@color/play_normal"
                 app:ptsIndicatorHeight="4dp"
-                app:ptsTabPaddingLeftRight="16dp"
+                app:ptsTabPaddingLeftRight="18dp"
+                app:ptsUnderlineHeight="0dp"
                 android:layout_toRightOf="@+id/category" />
+            
+            <View
+                android:id="@+id/diveder"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:background="#1A000000" />
         </RelativeLayout>
 
         <RelativeLayout
