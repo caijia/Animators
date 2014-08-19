@@ -122,9 +122,9 @@ public class LocalVideoActivity extends BaseActivity {
 	void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 		LocalVideo video = (LocalVideo) parent.getAdapter().getItem(position);
 		String videoPath = video.getVideoPath();
-		Intent intent = new Intent(mContext, TestVitamioActivity.class);
-		intent.putExtra(TestVitamioActivity.VIDEO_PATH, videoPath);
-		intent.putExtra(TestVitamioActivity.VEDIO_TITLE, video.getVideoTitle());
+		Intent intent = new Intent(mContext, VideoPlayActivity.class);
+		intent.putExtra(VideoPlayActivity.VIDEO_PATH, videoPath);
+		intent.putExtra(VideoPlayActivity.VIDEO_NAME, video.getVideoTitle());
 		startActivity(intent);
 	}
 	

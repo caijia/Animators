@@ -31,7 +31,7 @@
     
     <color name="player_seek_bg">#585C5D</color>
     <color name="player_seek_second_progress">#9B9B9B</color>
-    <color name="player_seek_progress">#4094EB</color>
+    <color name="player_seek_progress">#2A9C32</color>
     
     <color name="default_screen_bg">#20324a</color>
     <color name="rounded_container_bg">#80000000</color>

@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -11,6 +12,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
@@ -311,5 +313,27 @@ public class CommonUtil {
 		}
 		 return out.toString();
 	 }
+	 
+	/**
+	 * 获取状态栏的高度 
+	 * @param context
+	 * @return
+	 */
+	public static int getStatusBarHeight(Context context) {
+		int statusBarHeight = 0 ;
+		
+		if (statusBarHeight == 0) {
+			try {
+				Class<?> c = Class.forName("com.android.internal.R$dimen");
+				Object o = c.newInstance();
+				Field field = c.getField("status_bar_height");
+				int x = (Integer) field.get(o);
+				statusBarHeight = context.getResources().getDimensionPixelSize(x);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return statusBarHeight;
+	}
 	 
 }

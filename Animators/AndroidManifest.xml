@@ -43,7 +43,9 @@
             android:launchMode="singleTop"
             android:label="@string/app_name"
             android:theme="@style/Theme.Base.AppCompat.Light.DarkActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" >
+            
+        </activity>
         <activity 
             android:name="TestVitamioActivity" 
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
@@ -62,6 +64,13 @@
          <activity android:name="VideoCollectActivity"></activity>
          <activity android:name="FindMoreActivity"></activity>
          <activity android:name="VideoPlayRecordActivity"></activity>
+         <activity android:name="VideoPlayActivity"
+             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Base.AppCompat"
+            android:screenOrientation="landscape">
+         </activity>
     </application>
 
 </manifest>

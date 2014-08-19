@@ -2,6 +2,7 @@ package com.cs.animators;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import io.vov.vitamio.utils.StringUtils;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,11 +14,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
+
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
 import com.cs.animators.dao.service.DaoFactory;
 import com.cs.animators.entity.VideoDetail;
+import com.cs.animators.entity.VideoDetailSeries;
 import com.cs.animators.eventbus.PlayRecordEvent;
 import com.cs.animators.fragment.DetailIntroFragment;
 import com.cs.animators.fragment.DetailSeriesFragment;
@@ -32,6 +35,7 @@ import com.cs.cj.util.ImageLoaderUtil;
 import com.cs.cj.view.FragmentTabAdapter;
 import com.cs.cj.view.PagerTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
 import de.greenrobot.event.EventBus;
 
 public class VideoDetailActivity extends BaseActivity implements OnScrollListener {
@@ -171,9 +175,17 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 	public void onEventMainThread(PlayRecordEvent event)
 	{
 		mTxtPlayRecord.setVisibility(View.VISIBLE);
-		VideoPlayRecord playRecord = event.getPlayRecord();
-		String note = "上次播放至第" + playRecord.getSeries() + "集" + StringUtils.generateTime(playRecord.getPlayRecord());
+		long playRecord = event.getPlayRecord();
+		long duration = event.getDuration();
+		String extra = event.getExtra();
+		int series = Integer.parseInt(extra);
+		String note = "上次播放至第" + series + "集" + StringUtils.generateTime(playRecord);
 		mTxtPlayRecord.setText(note);
+		
+		//保存播放记录
+		VideoDetailSeries detailSeries = mVideoDetail.getEpisode().get(series - 1);
+		VideoPlayRecord record = new VideoPlayRecord(Long.parseLong(detailSeries.getId()),mVideoId, playRecord, series, System.currentTimeMillis(), duration,detailSeries.getName());
+		DaoFactory.getVideoRecordInstance(this).saveOrUpdate(record);
 	}
 	
 	private class VideoDetailTabFragment extends FragmentTabAdapter{

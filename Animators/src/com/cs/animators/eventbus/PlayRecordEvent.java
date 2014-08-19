@@ -1,19 +1,30 @@
 package com.cs.animators.eventbus;
 
-import com.cs.animators.dao.bean.VideoPlayRecord;
-
 public class PlayRecordEvent {
 
-	private VideoPlayRecord record ;
+	private long playRecord ;
 	
+	private long duration ;
 	
-	public VideoPlayRecord getPlayRecord()
+	private String extra ;
+	
+	public long getPlayRecord()
 	{
-		return record ;
+		return playRecord ;
 	}
 	
-	public PlayRecordEvent(VideoPlayRecord record) {
-		this.record = record ;
+	public String getExtra(){
+		return extra ;
+	}
+	
+	public long getDuration(){
+		return duration ;
+	}
+	
+	public PlayRecordEvent(long playRecord, long duration, String extra) {
+		this.playRecord = playRecord ;
+		this.duration = duration ;
+		this.extra = extra ;
 	}
 
 }

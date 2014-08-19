@@ -10,14 +10,10 @@ import io.vov.vitamio.MediaPlayer.OnPreparedListener;
 import io.vov.vitamio.MediaPlayer.OnSeekCompleteListener;
 import io.vov.vitamio.MediaPlayer.OnVideoSizeChangedListener;
 import io.vov.vitamio.utils.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -48,7 +44,6 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
 import com.cs.animators.dao.service.DaoFactory;
@@ -448,8 +443,8 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 			}
 			if(record != null ){
 				//退出界面后 要将播放记录显示在前一个界面上
-				EventBus.getDefault().post(new PlayRecordEvent(record));
-				DaoFactory.getVideoRecordInstance(this).saveOrUpdate(record);
+//				EventBus.getDefault().post(new PlayRecordEvent(record));
+//				DaoFactory.getVideoRecordInstance(this).saveOrUpdate(record);
 			}
 		}
 	}

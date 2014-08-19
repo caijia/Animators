@@ -3,5 +3,7 @@
     <issue id="ContentDescription" severity="ignore" />
     <issue id="HandlerLeak" severity="ignore" />
     <issue id="HardcodedText" severity="ignore" />
+    <issue id="InlinedApi" severity="ignore" />
+    <issue id="NewApi" severity="ignore" />
     <issue id="OldTargetApi" severity="ignore" />
 </lint>
