@@ -209,9 +209,9 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		mContent.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 		
 		//由于显示的时候Activity上面是覆盖的状态栏 所有顶部的布局应该在状态栏的下面
-		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mControllerTop.getLayoutParams();
-		params.topMargin = CommonUtil.getStatusBarHeight(mContext);
-		mControllerTop.setLayoutParams(params);
+//		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mControllerTop.getLayoutParams();
+//		params.topMargin = CommonUtil.getStatusBarHeight(mContext);
+//		mControllerTop.setLayoutParams(params);
 		
 		mControllerLayouts.add(mControllerTop);
 		mControllerLayouts.add(mControllerBottom);
@@ -820,9 +820,10 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		}
 		mBrightness.setSelected(false);
 		mVolume.setSelected(false);
-		if(Build.VERSION.SDK_INT >= 11 ){
-			getWindow().getDecorView().setSystemUiVisibility(View.INVISIBLE);
-		}
+//		if(Build.VERSION.SDK_INT >= 11 ){
+//			getWindow().getDecorView().setSystemUiVisibility(View.INVISIBLE);
+//		}
+		full(true);
 		
 	}
 	
@@ -833,9 +834,10 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		
 		mControllerBrightness.setVisibility(View.GONE);
 		mControllerVolume.setVisibility(View.GONE);
-		if(Build.VERSION.SDK_INT >= 14 ){
-			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-		}
+//		if(Build.VERSION.SDK_INT >= 14 ){
+//			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+//		}
+		full(false);
 	}
 	
 	private void showCurGesture(TextView curGesture){
@@ -1058,5 +1060,24 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 			mAllVideo = bundle.getParcelable(ALL_VIDEO);
 		}
 	}
+	
+	/**
+	 * 动态显示和隐藏状态栏
+	 * @param enable
+	 */
+	private void full(boolean enable) {
+        if (enable) {
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            getWindow().setAttributes(lp);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        } else {
+            WindowManager.LayoutParams attr = getWindow().getAttributes();
+            attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().setAttributes(attr);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+    }
+	
 
 }
