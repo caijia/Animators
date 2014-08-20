@@ -1,6 +1,7 @@
 package com.cs.animators.adapter;
 
 import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
 import com.cs.animators.R;
 import com.cs.animators.entity.DrawerItem;
+import com.cs.cj.http.utils.CacheUtil;
 
 public class DrawerAdapter extends ArrayAdapter<DrawerItem> {
 
@@ -51,7 +54,11 @@ public class DrawerAdapter extends ArrayAdapter<DrawerItem> {
 		if(item != null)
 		{
 			holder.drawerImage.setImageDrawable(item.getDrawerImage());
-			holder.drawerTitle.setText(item.getDrawerTitle());
+			if(position == 1 ){
+				holder.drawerTitle.setText(item.getDrawerTitle()+"("+CacheUtil.getCacheSize(getContext())+")");
+			}else{
+				holder.drawerTitle.setText(item.getDrawerTitle());
+			}
 		}
 		
 		return convertView;
@@ -64,7 +71,7 @@ public class DrawerAdapter extends ArrayAdapter<DrawerItem> {
 	
 	@Override
 	public int getItemViewType(int position) {
-		if(position == 0 || position == 1)
+		if(position == 0 )
 		{
 			return ABOVE;
 		}

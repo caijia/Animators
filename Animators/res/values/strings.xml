@@ -19,13 +19,13 @@
     <string name="action_video_edit">编辑</string>
     <string name="action_video_delete">删除</string>
     <string name="action_video_cancel">取消</string>
+    <string name="about_text">Copyright 2014 ani , Inc All Rights Reserved</string>
     
     <string-array name="find_catorgy_tab_title">
         <item >热血</item>
         <item >悬疑</item>
         <item >唯美</item>
     </string-array>
-    
     
     <string-array name="detail_indicator_title">
         <item >剧集</item>
@@ -39,13 +39,6 @@
         <item >国漫</item>
     </string-array>
     
-    
-    <string-array name="hot_tab_title">
-        <item >最新</item>
-        <item >经典</item>
-        <item >国漫</item>
-    </string-array>
-    
     <string-array name="main_slidetab_title">
         <item >首页</item>
         <item >专题</item>
@@ -54,10 +47,9 @@
     </string-array>
     
     <string-array name="main_drawer_title">
-        <item >动漫首页</item>
         <item >动漫收藏</item>
-        <item >帮助</item>
-        <item >设置</item>
+        <item >清除缓存</item>
+        <item >检查更新</item>
         <item >关于</item>
     </string-array>
     
@@ -67,7 +59,6 @@
     </string-array>
     
     <array name="main_drawer_img">
-        <item>@drawable/ic_ringtones_menu</item>
         <item>@drawable/ic_actionbar_myrings</item>
         <item>@drawable/ic_help_menu</item>
         <item>@drawable/ic_setting_menu</item>

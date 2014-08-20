@@ -5,6 +5,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import com.baidu.frontia.FrontiaApplication;
 import com.cs.cj.application.JApplication;
 import com.cs.cj.http.cacheservice.CacheDatabaseHelper;
 
@@ -12,6 +14,7 @@ public class AnimApplication extends JApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		FrontiaApplication.initFrontiaApplication(this);
 		copyDataBase();
 	}
 	

@@ -2,6 +2,7 @@ package com.cs.animators;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -18,11 +19,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
+
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.cs.animators.adapter.DrawerAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.DrawerItem;
 import com.cs.animators.fragment.MainFragment;
+import com.cs.animators.util.PushUtils;
+import com.cs.cj.http.utils.CacheUtil;
 import com.cs.cj.service.FragmentService;
+import com.umeng.update.UmengUpdateAgent;
 
 public class MainActivity extends BaseActivity {
 	
@@ -33,6 +40,7 @@ public class MainActivity extends BaseActivity {
 	String [] mDrawerTextItem ;
 	
 	String mAppName ;
+	DrawerAdapter mDrawerAdapter ;
 
 	@Override
 	protected void loadLayout() {
@@ -41,6 +49,18 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
+		
+		//自动更新检查
+		UmengUpdateAgent.setUpdateOnlyWifi(false);
+		UmengUpdateAgent.update(this);
+		
+		//百度推送
+		if (!PushUtils.hasBind(getApplicationContext())) {
+            PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY ,PushUtils.getMetaValue(this, "api_key"));
+            // Push: 如果想基于地理位置推送，可以打开支持地理位置的推送的开关
+            // PushManager.enableLbs(getApplicationContext());
+        }
+		
 		mAppName = getResources().getString(R.string.app_name);
 		//ActionBar逻辑
 		mActionBar.setTitle(mAppName);
@@ -61,6 +81,8 @@ public class MainActivity extends BaseActivity {
 			public void onDrawerOpened(View drawerView) {
 				super.onDrawerOpened(drawerView);
 				ActivityCompat.invalidateOptionsMenu(MainActivity.this);
+				mDrawerAdapter.notifyDataSetChanged();
+				
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -76,16 +98,30 @@ public class MainActivity extends BaseActivity {
 			drawerData.add(new DrawerItem(mDrawerImgItem.getDrawable(i), mDrawerTextItem[i]));
 		}
 		mDrawerImgItem.recycle();
-		DrawerAdapter adapter = new DrawerAdapter(mContext, drawerData);
-		mListView.setAdapter(adapter);
+		mDrawerAdapter = new DrawerAdapter(mContext, drawerData);
+		mListView.setAdapter(mDrawerAdapter);
 		
 	}
 	
 	protected void drawerLayoutClick() {
+		
+		Intent intent = null ;
 		//动漫收藏
-		 if(mDrawerPosition == 1)
+		 if(mDrawerPosition == 0)
 		{
-			Intent intent = new Intent(mContext, VideoCollectActivity.class);
+			 intent = new Intent(mContext, VideoCollectActivity.class);
+			
+		}else if(mDrawerPosition == 1){
+			//清除缓存
+			CacheUtil.deleteCache(mContext);
+			
+		}else if(mDrawerPosition == 2){
+			//检查版本
+			 UmengUpdateAgent.forceUpdate(mContext);
+		}else if(mDrawerPosition == 3){
+			intent = new Intent(mContext, AboutActivity.class);
+		}
+		if (intent != null) {
 			startActivity(intent);
 		}
 		

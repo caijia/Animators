@@ -17,7 +17,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import com.cs.animators.R;
 import com.cs.animators.eventbus.PlayerSizeEvent;
-import com.cs.animators.util.Utils;
+import com.cs.animators.util.PlayerUtils;
 import de.greenrobot.event.EventBus;
 
 public class PlayerSettingFragment extends DialogFragment {
@@ -82,7 +82,7 @@ public class PlayerSettingFragment extends DialogFragment {
 		//brightness 30 - 255 (避免黑屏)
 		mSkbBrightness.setMax(255 - 30);
 		
-		int screenBrightness = Utils.getScreenBrightness(getActivity());
+		int screenBrightness = PlayerUtils.getScreenBrightness(getActivity());
 		setScreenBrightness(screenBrightness);
 		mSkbBrightness.setProgress(screenBrightness);
 		
@@ -144,7 +144,7 @@ public class PlayerSettingFragment extends DialogFragment {
 		}
 		params.screenBrightness = screenBrightness / (float) 255 ;
 		getActivity().getWindow().setAttributes(params);
-		Utils.setScreenBrightness(getActivity(), screenBrightness);
+		PlayerUtils.setScreenBrightness(getActivity(), screenBrightness);
 	}
 	
 	@OnClick(R.id.txt_setting_cancel)

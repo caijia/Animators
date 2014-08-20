@@ -5,9 +5,12 @@ import java.util.List;
 
 import io.vov.vitamio.utils.StringUtils;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
@@ -19,6 +22,7 @@ import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
 import com.cs.animators.dao.service.DaoFactory;
+import com.cs.animators.entity.HotItem;
 import com.cs.animators.entity.VideoDetail;
 import com.cs.animators.entity.VideoDetailSeries;
 import com.cs.animators.eventbus.PlayRecordEvent;
@@ -26,6 +30,7 @@ import com.cs.animators.fragment.DetailIntroFragment;
 import com.cs.animators.fragment.DetailSeriesFragment;
 import com.cs.animators.fragment.HotFragment;
 import com.cs.animators.fragment.SearchFragment;
+import com.cs.animators.util.CommonUtil;
 import com.cs.animators.view.FloatScrollView;
 import com.cs.animators.view.FloatScrollView.OnScrollListener;
 import com.cs.cj.http.httplibrary.RequestParams;
@@ -223,6 +228,56 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		int indicatorToParentTop = Math.max(scrollY, mMirrorIndicator.getTop());
 		mPtsIndicator.layout(0, indicatorToParentTop, mPtsIndicator.getWidth(),
 				indicatorToParentTop + mPtsIndicator.getHeight());
+	}
+	
+	private boolean mCollect ;
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.video_detail_menu, menu);
+		HotItem item = DaoFactory.getVideoCollectInstance(mContext).query(mVideoId);
+		if(item == null){
+			mCollect = false ;
+			menu.findItem(R.id.action_collect).setTitle("收藏");
+		}else{
+			mCollect = true ;
+			menu.findItem(R.id.action_collect).setTitle("取消收藏");
+		}
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		menu.findItem(R.id.action_collect).setTitle(mCollect ? "取消收藏":"收藏");
+		return super.onPrepareOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_collect:
+			if(mCollect){
+				DaoFactory.getVideoCollectInstance(mContext).delete(mVideoId);
+				CommonUtil.showMessage(mContext, "已取消收藏");
+				mCollect = false ;
+			}else{
+				HotItem videoCollect = new HotItem(mVideoId,
+						mVideoDetail.getName(), mVideoDetail.getCover(),
+						mVideoDetail.getCategory(), mVideoDetail.getScore(),
+						mVideoDetail.getCurNum(), mVideoDetail.getTotalNum(),
+						mVideoDetail.getUpdateTime());
+				DaoFactory.getVideoCollectInstance(mContext).save(videoCollect);
+				CommonUtil.showMessage(mContext, "收藏成功");
+				mCollect = true ;
+			}
+			break;
+
+		default:
+			break;
+		}
+		//将调用onPrepareOptionsMenu()
+		ActivityCompat.invalidateOptionsMenu(this);
+		return super.onOptionsItemSelected(item);
 	}
 
 }

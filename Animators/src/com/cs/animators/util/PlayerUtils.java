@@ -7,7 +7,7 @@ import java.util.Locale;
 import android.content.Context;
 import android.provider.Settings;
 
-public class Utils {
+public class PlayerUtils {
 	
 	public static int getScreenWidthPixels(Context context)
 	{

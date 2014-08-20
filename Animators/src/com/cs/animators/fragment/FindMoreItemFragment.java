@@ -193,7 +193,7 @@ public class FindMoreItemFragment extends BaseFragment implements IXListViewList
 		
 		@Override
 		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			mode.getMenuInflater().inflate(R.menu.allcategory_contextmenu, menu);
+			mode.getMenuInflater().inflate(R.menu.video_detail_menu, menu);
 			return true;
 		}
 		

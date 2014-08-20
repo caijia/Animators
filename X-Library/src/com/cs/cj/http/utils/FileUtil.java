@@ -135,7 +135,7 @@ public class FileUtil {
         return formatFileSize(getFileLength(file));
     }
 
-    private static long getFileLength(File file) {
+    public static long getFileLength(File file) {
         long fileSize = 0;
         if (file.isDirectory()) {
             File[] files = file.listFiles();

@@ -6,7 +6,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.cs.animators.R;
 import com.cs.animators.dao.bean.VideoPlayRecord;
-import com.cs.animators.util.Utils;
+import com.cs.animators.util.PlayerUtils;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +47,7 @@ public class VideoRecordAdapter extends ActionModeAdapter<VideoPlayRecord> imple
 		VideoPlayRecord item = getItem(position);
 		long headerId = 0 ;
 		if(item != null){
-			headerId = Utils.formatTime(item.getRecordTime()).hashCode();
+			headerId = PlayerUtils.formatTime(item.getRecordTime()).hashCode();
 		}
 		return headerId;
 	}
@@ -65,7 +65,7 @@ public class VideoRecordAdapter extends ActionModeAdapter<VideoPlayRecord> imple
 		
 		VideoPlayRecord item = getItem(position);
 		if(item != null){
-			holder.videoDate.setText(Utils.formatTime(item.getRecordTime()));
+			holder.videoDate.setText(PlayerUtils.formatTime(item.getRecordTime()));
 		}
 		
 		return convertView;

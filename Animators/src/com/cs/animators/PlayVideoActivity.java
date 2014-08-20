@@ -48,7 +48,7 @@ import com.cs.animators.eventbus.SelectSeriesEvent;
 import com.cs.animators.fragment.PlayerSeriesFragment;
 import com.cs.animators.fragment.PlayerSettingFragment;
 import com.cs.animators.util.CommonUtil;
-import com.cs.animators.util.Utils;
+import com.cs.animators.util.PlayerUtils;
 import com.cs.animators.view.VerticalSeekBar;
 import de.greenrobot.event.EventBus;
 
@@ -230,7 +230,7 @@ public class PlayVideoActivity extends ActionBarActivity implements Callback, On
 		mImgPlayState.setOnClickListener(new PlayStateListener());
 		
 		//设置系统时间
-		mTxtSystemTime.setText(Utils.getSystemTime());
+		mTxtSystemTime.setText(PlayerUtils.getSystemTime());
 		mTxtSetting.setOnClickListener(new SettingClick());
 		mTxtSeries.setOnClickListener(new SeriesClick());
 		
@@ -475,7 +475,7 @@ public class PlayVideoActivity extends ActionBarActivity implements Callback, On
 	private void startPlayVideo(){
 		if(mIsKnowVideoSize && mIsPrepare && !mIsError)
 		{
-			startPlayVideo(Utils.getScreenWidthPixels(this), Utils.getScreenHeightPixels(this));
+			startPlayVideo(PlayerUtils.getScreenWidthPixels(this), PlayerUtils.getScreenHeightPixels(this));
 		}
 	}
 	
@@ -557,7 +557,7 @@ public class PlayVideoActivity extends ActionBarActivity implements Callback, On
 			{
 				TOUCH_AREA_FLAG = TOUCH_AREA_VOLUME  ;
 			}
-			if(startX >= Utils.getScreenWidthPixels(this) - TOUCH_AREA_WIDTH)
+			if(startX >= PlayerUtils.getScreenWidthPixels(this) - TOUCH_AREA_WIDTH)
 			{
 				TOUCH_AREA_FLAG = TOUCH_AREA_BRIGTHNESS ;
 			}
@@ -606,7 +606,7 @@ public class PlayVideoActivity extends ActionBarActivity implements Callback, On
 			{
 //				System.out.println("brightness");
 				LayoutParams params = getWindow().getAttributes();
-				int curScreenBrightness = Utils.getScreenBrightness(this);
+				int curScreenBrightness = PlayerUtils.getScreenBrightness(this);
 				if(deltaY >= RADIO)
 				{
 					curScreenBrightness += 10;
@@ -633,7 +633,7 @@ public class PlayVideoActivity extends ActionBarActivity implements Callback, On
 				else{
 					params.screenBrightness = (float)curScreenBrightness / 255 ;
 				}
-				Utils.setScreenBrightness(this, curScreenBrightness);
+				PlayerUtils.setScreenBrightness(this, curScreenBrightness);
 				getWindow().setAttributes(params);
 				mTxtBrightness.setText((int)(brightnessPerfect * 100) + "%");
 				
@@ -951,7 +951,7 @@ public class PlayVideoActivity extends ActionBarActivity implements Callback, On
 		public void handleMessage(Message msg) {
 			if(msg.what == 100)
 			{
-				mTxtSystemTime.setText(Utils.getSystemTime());
+				mTxtSystemTime.setText(PlayerUtils.getSystemTime());
 			}
 		}
 	};

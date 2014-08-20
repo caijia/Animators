@@ -53,7 +53,6 @@ public class JHttpClient {
             throw new RuntimeException("BaseParse equals to null ,Please send a data parser");
         }
         if(!NetWorkUtil.isConnected(context)){
-            Toast.makeText(context, "网络不可用", Toast.LENGTH_SHORT).show();
             getCache(context, baseParser, dataCallback, cacheUrl);
             return;
         }

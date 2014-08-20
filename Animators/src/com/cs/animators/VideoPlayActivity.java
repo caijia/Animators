@@ -50,7 +50,7 @@ import com.cs.animators.eventbus.PlayerSizeEvent;
 import com.cs.animators.fragment.PlayerSeriesFragment;
 import com.cs.animators.fragment.PlayerSettingFragment;
 import com.cs.animators.util.CommonUtil;
-import com.cs.animators.util.Utils;
+import com.cs.animators.util.PlayerUtils;
 import com.cs.animators.view.VerticalSeekBar;
 import com.cs.cj.http.work.JDataCallback;
 import com.cs.cj.http.work.JHttpClient;
@@ -242,7 +242,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		
 		//亮度
 		mBrightnessProgress.setMax(255 - 30);
-		int screenBrightness = Utils.getScreenBrightness(mContext);
+		int screenBrightness = PlayerUtils.getScreenBrightness(mContext);
 		setScreenBrightness(screenBrightness);
 		mBrightnessProgress.setProgress(screenBrightness);
 		
@@ -271,7 +271,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		}
 		params.screenBrightness = screenBrightness / (float) 255 ;
 		getWindow().setAttributes(params);
-		Utils.setScreenBrightness(this, screenBrightness);
+		PlayerUtils.setScreenBrightness(this, screenBrightness);
 	}
 	
 	private final class JSeekBarChangeListener implements OnSeekBarChangeListener{
@@ -596,7 +596,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 			{
 				TOUCH_AREA_FLAG = TOUCH_AREA_BRIGTHNESS  ;
 			}
-			if(startX >= Utils.getScreenWidthPixels(this) - TOUCH_AREA_WIDTH)
+			if(startX >= PlayerUtils.getScreenWidthPixels(this) - TOUCH_AREA_WIDTH)
 			{
 				TOUCH_AREA_FLAG = TOUCH_AREA_VOLUME ;
 			}
@@ -644,7 +644,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 			if(GESTURE_FLAG == GESTURE_MODIFY_BRIGTHNESS)
 			{
 				LayoutParams params = getWindow().getAttributes();
-				int curScreenBrightness = Utils.getScreenBrightness(this);
+				int curScreenBrightness = PlayerUtils.getScreenBrightness(this);
 				if(deltaY >= RADIO)
 				{
 					curScreenBrightness += 10;
@@ -671,7 +671,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 				else{
 					params.screenBrightness = (float)curScreenBrightness / 255 ;
 				}
-				Utils.setScreenBrightness(this, curScreenBrightness);
+				PlayerUtils.setScreenBrightness(this, curScreenBrightness);
 				getWindow().setAttributes(params);
 				mGestureBrightness.setText((int)(brightnessPerfect * 100) + "%");
 				mBrightnessProgress.setProgressAndThumb(curScreenBrightness);

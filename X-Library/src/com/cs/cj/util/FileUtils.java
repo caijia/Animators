@@ -83,17 +83,18 @@ public class FileUtils {
 	 * @param fileS
 	 * @return
 	 */
-	private static String FormetFileSize(long fileS) {
+	public static String FormetFileSize(double fileS) {
 		DecimalFormat df = new DecimalFormat("#.00");
+		DecimalFormat df1 = new DecimalFormat("#");
 		String fileSizeString = "";
 		String wrongSize = "0B";
 		if (fileS == 0) {
 			return wrongSize;
 		}
 		if (fileS < 1024) {
-			fileSizeString = df.format((double) fileS) + "B";
+			fileSizeString = df1.format((double) fileS) + "B";
 		} else if (fileS < 1048576) {
-			fileSizeString = df.format((double) fileS / 1024) + "KB";
+			fileSizeString = df1.format((double) fileS / 1024) + "KB";
 		} else if (fileS < 1073741824) {
 			fileSizeString = df.format((double) fileS / 1048576) + "MB";
 		} else {
