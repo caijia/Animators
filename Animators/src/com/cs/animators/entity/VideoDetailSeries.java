@@ -12,12 +12,16 @@ public class VideoDetailSeries implements Parcelable{
 	@JSONField(name = "from_site")
 	private String fromSite;
 	private String vid;
+	
+	//自己加的属性
+	private boolean isCurPlay ;
 
 	public VideoDetailSeries(Parcel source) {
 		id = source.readString();
 		name = source.readString();
 		fromSite = source.readString();
 		vid = source.readString();
+		isCurPlay = source.readByte() != 0 ;
 	}
 
 	@Override
@@ -26,9 +30,18 @@ public class VideoDetailSeries implements Parcelable{
 		dest.writeString(name);
 		dest.writeString(fromSite);
 		dest.writeString(vid);
+		dest.writeByte((byte)(isCurPlay ? 1 : 0));
 	}
 	
 	public VideoDetailSeries() {
+	}
+	
+	public boolean isCurPlay() {
+		return isCurPlay;
+	}
+
+	public void setCurPlay(boolean isCurPlay) {
+		this.isCurPlay = isCurPlay;
 	}
 
 	public String getId() {

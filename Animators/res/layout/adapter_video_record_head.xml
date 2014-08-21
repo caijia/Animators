@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/video_record_head"
     android:layout_width="match_parent"
-    android:layout_height="34dp" 
-    android:background="#FFFFFF">
-
-    <TextView
-        android:id="@+id/video_record_head"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:paddingLeft="16dp"
-        android:textSize="15sp"
-        android:text="08月16日"
-        android:gravity="center_vertical"
-        android:textColor="@color/play_normal" />
-    
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:layout_alignParentBottom="true"
-        android:background="#D5D6D5" />
-
-</RelativeLayout>
+    android:layout_height="34dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="16dp"
+    android:text="08月16日"
+    android:background="#DFDFDF"
+    android:textColor="@color/play_normal"
+    android:textSize="15sp" />

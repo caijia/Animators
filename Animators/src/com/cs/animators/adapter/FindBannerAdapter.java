@@ -55,7 +55,7 @@ public class FindBannerAdapter extends RecyclingPagerAdapter {
 		if(item != null)
 		{
 			holder.name.setText(item.getName());
-			ImageLoader.getInstance().displayImage(item.getPic(), holder.pic, ImageLoaderUtil.roundImageLoaderOptions(0));
+			ImageLoader.getInstance().displayImage(item.getPic(), holder.pic, ImageLoaderUtil.roundImageLoaderOptions(0, R.drawable.image_loading));
 		}
 		
 		holder.pic.setOnClickListener(new OnClickListener() {

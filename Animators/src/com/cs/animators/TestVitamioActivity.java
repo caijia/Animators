@@ -1047,14 +1047,14 @@ public class TestVitamioActivity extends ActionBarActivity implements Callback, 
 	
 	//选集
 	public void onEventMainThread(SelectSeriesEvent event){
-		mCurPlaySeries = event.getVideoDetailSeries();
-		mVideoId = event.getVideoId();
-		
-		release();
-		clearStatus();
-		
-		requestPlayUrl(mVideoId, mCurPlaySeries.getId());
-		mTitle.setText(mCurPlaySeries.getName());
+//		mCurPlaySeries = event.getVideoDetailSeries();
+//		mVideoId = event.getVideoId();
+//		
+//		release();
+//		clearStatus();
+//		
+//		requestPlayUrl(mVideoId, mCurPlaySeries.getId());
+//		mTitle.setText(mCurPlaySeries.getName());
 	}
 
 	

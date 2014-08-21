@@ -20,12 +20,14 @@ import com.cs.animators.util.CommonUtil;
 public class SeriesAdapter extends ArrayAdapter<VideoDetailSeries> {
 	
 	private int mCurPage ;
+	private int mLastPlaySeries ;
 	private static final int NUM_COLUMN = 5;
 	private static final int HORIZONTAL_SPACING = 8 ;
 	
-	public SeriesAdapter(Context context,int curPage, List<VideoDetailSeries> objects) {
+	public SeriesAdapter(Context context, int lastPlaySeries,int curPage, List<VideoDetailSeries> objects) {
 		super(context, 0, objects);
 		mCurPage = curPage ;
+		mLastPlaySeries = lastPlaySeries ;
 	}
 	
 	@Override
@@ -47,7 +49,14 @@ public class SeriesAdapter extends ArrayAdapter<VideoDetailSeries> {
 		VideoDetailSeries item = getItem(position);
 		if(item != null)
 		{
-			holder.seriesNum.setText(mCurPage * DetailSeriesFragment.PAGE_COUNT + position + 1 + "");
+			int series = mCurPage * DetailSeriesFragment.PAGE_COUNT + position + 1;
+			holder.seriesNum.setText(series + "");
+			if(series == mLastPlaySeries){
+				holder.seriesNum.setBackgroundResource(R.drawable.selector_player_series_curpaly_series);
+				holder.seriesNum.setTextColor(getContext().getResources().getColor(R.color.white));
+			}else{
+				holder.seriesNum.setBackgroundResource(R.drawable.selector_seires_item);
+			}
 		}
 		return convertView;
 	}
@@ -61,6 +70,11 @@ public class SeriesAdapter extends ArrayAdapter<VideoDetailSeries> {
 			ButterKnife.inject(this, v);
 		}
 		
+	}
+	
+	public void setLastPlaySeries(int lastPlaySeries){
+		this.mLastPlaySeries = lastPlaySeries;
+		notifyDataSetChanged();
 	}
 
 }

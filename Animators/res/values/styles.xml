@@ -15,6 +15,8 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="@style/Theme.Example">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- 设置activity切换动画 -->  
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>  
     </style>
     
     <style name="Theme.Example" parent="@style/Theme.AppCompat.Light.DarkActionBar">
@@ -71,4 +73,14 @@
         <item name="dropDownListViewStyle">@style/DropDownListView.Example</item>
     </style>
 
+    
+    
+       <!-- animation 样式 -->  
+    <style name="activityAnimation" parent="@android:style/Animation">  
+        <item name="android:activityOpenEnterAnimation">@anim/cs_slide_right_in</item>  
+        <item name="android:activityOpenExitAnimation">@anim/cs_slide_left_out</item>  
+        <item name="android:activityCloseEnterAnimation">@anim/cs_slide_left_in</item>  
+        <item name="android:activityCloseExitAnimation">@anim/cs_slide_right_out</item>  
+    </style>  
+    
 </resources>

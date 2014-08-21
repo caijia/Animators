@@ -51,7 +51,7 @@ public class ThemeAdapter extends ArrayAdapter<ThemeItem> {
 		{
 			holder.name.setText(item.getName());
 			holder.lastup.setText(item.getLastup());
-			ImageLoader.getInstance().displayImage(item.getPic(), holder.pic, ImageLoaderUtil.roundImageLoaderOptions(0));
+			ImageLoader.getInstance().displayImage(item.getPic(), holder.pic, ImageLoaderUtil.roundImageLoaderOptions(0,R.drawable.image_loading));
 		}
 		
 		return convertView;

@@ -125,6 +125,37 @@ public class NetWorkUtil {
         }
         return NetworkType.NET_3G;
     }
+    
+    public static final int NO_NETWORK_TYPE = -1;
+    
+	public static int getNetType(Context context) {
+		int netStatus = NO_NETWORK_TYPE;
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mobileNetInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		NetworkInfo wifiNetInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		NetworkInfo allNetInfo = cm.getActiveNetworkInfo();
+
+		if (allNetInfo == null) {
+			if (mobileNetInfo != null&& (mobileNetInfo.isConnected() || mobileNetInfo.isConnectedOrConnecting())) {
+				netStatus = ConnectivityManager.TYPE_MOBILE;
+			} else if (wifiNetInfo != null && wifiNetInfo.isConnected()|| wifiNetInfo.isConnectedOrConnecting()) {
+				netStatus = ConnectivityManager.TYPE_WIFI;
+			} else {
+				netStatus = NO_NETWORK_TYPE;
+			}
+		} else {
+			if (allNetInfo.isConnected()|| allNetInfo.isConnectedOrConnecting()) {
+				if (mobileNetInfo.isConnected()|| mobileNetInfo.isConnectedOrConnecting()) {
+					netStatus = ConnectivityManager.TYPE_MOBILE;
+				} else {
+					netStatus = ConnectivityManager.TYPE_WIFI;
+				}
+			} else {
+				netStatus = NO_NETWORK_TYPE;
+			}
+		}
+		return netStatus ;
+	}
 
     /**
      *

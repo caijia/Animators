@@ -2,8 +2,8 @@ package com.cs.animators;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import io.vov.vitamio.utils.StringUtils;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
-
+import butterknife.OnClick;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
@@ -35,12 +35,12 @@ import com.cs.animators.view.FloatScrollView;
 import com.cs.animators.view.FloatScrollView.OnScrollListener;
 import com.cs.cj.http.httplibrary.RequestParams;
 import com.cs.cj.http.work.JDataCallback;
+import com.cs.cj.http.work.JHttpClient;
 import com.cs.cj.http.work.Response;
 import com.cs.cj.util.ImageLoaderUtil;
 import com.cs.cj.view.FragmentTabAdapter;
 import com.cs.cj.view.PagerTabStrip;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
 import de.greenrobot.event.EventBus;
 
 public class VideoDetailActivity extends BaseActivity implements OnScrollListener {
@@ -71,6 +71,8 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 	
 	private String mVideoName ;
 	
+	private VideoPlayRecord mLastPlayRecord ;
+	
 	
 	@Override
 	protected void loadLayout() {
@@ -94,12 +96,12 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		mActionBar.setTitle(TextUtils.isEmpty(mVideoName) ? "动漫家" : mVideoName);
 		
 		//查找播放记录
-		VideoPlayRecord lastPlayRecord = DaoFactory.getVideoRecordInstance(mContext).queryLastPlayRecord(mVideoId);
-		if(lastPlayRecord != null)
-		{
+		mLastPlayRecord = DaoFactory.getVideoRecordInstance(mContext).queryLastPlayRecord(mVideoId);
+		if(mLastPlayRecord != null){
 			mTxtPlayRecord.setVisibility(View.VISIBLE);
-			String note = "上次播放至第" + lastPlayRecord.getSeries() + "集" + StringUtils.generateTime(lastPlayRecord.getPlayRecord());
+			String note = "上次播放至第" + mLastPlayRecord.getSeries() + "集" + StringUtils.generateTime(mLastPlayRecord.getPlayRecord());
 			mTxtPlayRecord.setText(note);
+			mBtnPlay.setText("继续");
 		}
 		
 		loadData();
@@ -168,7 +170,6 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 	protected boolean displayHomeAsUpEnabled() {
 		return true;
 	}
-	
 	
 	@Override
 	protected void onDestroy() {
@@ -278,6 +279,47 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		//将调用onPrepareOptionsMenu()
 		ActivityCompat.invalidateOptionsMenu(this);
 		return super.onOptionsItemSelected(item);
+	}
+	
+	
+	@OnClick(R.id.detail_btn_play)
+	void onClickPlay(){
+		
+		if(mLastPlayRecord != null){
+			//继续播放
+			continuePlay(true);
+		}else{
+			//播放第一集
+			continuePlay(false);
+		}
+	}
+
+	private void continuePlay(boolean continueplay) {
+		
+		if(mVideoDetail == null){
+			return ;
+		}
+		
+		//拼接请求视频播放地址的url
+		String videoId = mVideoDetail.getVideoId();
+		String id = continueplay ? mLastPlayRecord.getId() + "" : mVideoDetail.getEpisode().get(0).getId();
+		
+		RequestParams params = new RequestParams();
+		params.put("m","Api");
+		params.put("a", "play");
+		params.put("ios", "1");
+		params.put("format", "2");
+		params.put("id",id );
+		params.put("video_id", videoId);
+		String loadVideoAddressUrl = JHttpClient.getUrlWithQueryString(Constants.host, params);
+		
+		Intent intent = new Intent(this, VideoPlayActivity.class);
+		intent.putExtra(VideoPlayActivity.VIDEO_NAME, continueplay ? mLastPlayRecord.getVideoName() : mVideoDetail.getEpisode().get(0).getName());
+		intent.putExtra(VideoPlayActivity.LOAD_VIDEO_URL, loadVideoAddressUrl);
+		intent.putExtra(VideoPlayActivity.VIDEO_EXTRA, continueplay ? mLastPlayRecord.getSeries()+"" : "1");
+		intent.putExtra(VideoPlayActivity.ALL_VIDEO, mVideoDetail);
+		intent.putExtra(VideoPlayActivity.VIDEO_RECORD, continueplay ? mLastPlayRecord.getPlayRecord() : 0);
+		startActivity(intent);
 	}
 
 }

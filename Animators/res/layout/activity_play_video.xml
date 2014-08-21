@@ -3,13 +3,14 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true" >
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
 
     <io.vov.vitamio.widget.CenterLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="#393939"  >
 
         <SurfaceView
             android:id="@+id/surface"
@@ -18,6 +19,26 @@
             android:layout_gravity="center" >
         </SurfaceView>
     </io.vov.vitamio.widget.CenterLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#393939" 
+        android:id="@+id/rlayout_loading">
+
+        <TextView
+            android:id="@+id/buffer_txt_percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/player_loading"
+            android:gravity="center"
+            android:text="视频加载中"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rlayout_player"
@@ -108,19 +129,6 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/buffer_txt_percentage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:drawablePadding="5dp"
-        android:drawableTop="@drawable/player_loading"
-        android:gravity="center"
-        android:text="视频加载中"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:visibility="gone" />
-
-    <TextView
         android:id="@+id/geture_tv_volume_percentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -197,12 +205,12 @@
             android:id="@+id/txt_series"
             android:layout_width="55dp"
             android:layout_height="32dp"
-            android:background="@drawable/player_panel_btn_selector"
             android:layout_centerVertical="true"
-            android:text="剧集"
-            android:gravity="center"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@+id/txt_setting"
+            android:background="@drawable/player_panel_btn_selector"
+            android:gravity="center"
+            android:text="剧集"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
 
@@ -210,12 +218,12 @@
             android:id="@+id/txt_setting"
             android:layout_width="55dp"
             android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
             android:background="@drawable/player_panel_btn_selector"
             android:gravity="center"
             android:padding="6dp"
-            android:layout_marginRight="12dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:text="设置"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
