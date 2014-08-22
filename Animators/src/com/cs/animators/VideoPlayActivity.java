@@ -214,6 +214,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		//显示加载视频的动画
 		initLoadingAnimation();
 		startLoadingAnimation();
+		showLoadingLayout();
 		
 		//Activity全屏显示，但状态栏不会被隐藏覆盖，状态栏依然可见，Activity顶端布局部分会被状态遮住
 		//设置成这样的目的是隐藏和显示状态栏的时候 视频不会随状态栏显示和隐藏时拉伸视频
@@ -468,21 +469,25 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		builder.create().show();
 	}
 
+	private boolean mBuffering ;
+	
 	@Override
 	public boolean onInfo(MediaPlayer mp, int what, int extra) {
 		switch (what) {
         case MediaPlayer.MEDIA_INFO_BUFFERING_START:
+        	mBuffering = true ;
+        	stopLoadingAnimation();
         	stopPlay();
-        	mPauseAll.setVisibility(View.GONE);
-        	mBufferProgress.setVisibility(View.VISIBLE);
         	startLoadingAnimation();
             break;
         case MediaPlayer.MEDIA_INFO_BUFFERING_END:
         	startPlay();
-        	mBufferProgress.setVisibility(View.GONE);
+        	mBuffering = false ;
         	stopLoadingAnimation();
+			hideLoadingLayout();
             break;
         case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
+        	setBufferPercentage(extra,mBufferPercent);
             break;
         }
         return true;
@@ -505,15 +510,15 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		mCurPlayTime.setText(StringUtils.generateTime(totalPlayTime));
 	}
 
+	private int mBufferPercent ;
 	@Override
 	public void onBufferingUpdate(MediaPlayer mp, int percent) {
-		setBufferPercentage(percent);
+		mBufferPercent = percent ;
 	}
 
 	@Override
 	public void onPrepared(MediaPlayer mp) {
 		mPrepare = true ;
-		stopLoadingAnimation();
 		startPlayVideo();
 	}
 
@@ -550,33 +555,62 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	}
 	
 	private void startPlay(){
-		if(canPlay()&& !mediaPlayer.isPlaying()){
-			mediaPlayer.start();
+		startPlay(false);
+	}
+	
+	private void startPlay(boolean buffering){
+		if(buffering){
 			mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_pause, 0, 0, 0);
 			mPauseAll.setVisibility(View.GONE);
-			hideLoadingLayout();
+			mBufferProgress.setVisibility(View.VISIBLE);
+		}else{
+			if(canPlay()&& !mediaPlayer.isPlaying()){
+				mediaPlayer.start();
+				mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_pause, 0, 0, 0);
+				mPauseAll.setVisibility(View.GONE);
+				mBufferProgress.setVisibility(View.GONE);
+			}
+		}
+	}
+	
+	private void stopPlay(boolean buffering){
+		if(buffering){
+			mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_start, 0, 0, 0);
+			mPauseAll.setVisibility(View.VISIBLE);
+			mBufferProgress.setVisibility(View.GONE);
+		}else{
+			if(mediaPlayer != null && !mError&& mediaPlayer.isPlaying()){
+				mediaPlayer.stop();
+				mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_start, 0, 0, 0);
+				mPauseAll.setVisibility(View.VISIBLE);
+				mBufferProgress.setVisibility(View.GONE);
+			}
 		}
 	}
 	
 	private void stopPlay(){
-		if(mediaPlayer != null && !mError&& mediaPlayer.isPlaying()){
-			mediaPlayer.stop();
-			mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_start, 0, 0, 0);
-			mPauseAll.setVisibility(View.VISIBLE);
+		stopPlay(false);
+	}
+	
+	private void togglePlay(boolean buffering){
+		if(buffering){
+			if(mPauseAll.isShown()){
+				startPlay(buffering);
+			}else{
+				stopPlay(buffering);
+			}
+		}else{
+			if(mediaPlayer != null && !mError&& mediaPlayer.isPlaying()){
+				stopPlay(buffering);
+			}else{
+				startPlay(buffering);
+			}
 		}
 	}
 	
 	private void seekToRecord(long record){
 		if(canPlay()){
 			mediaPlayer.seekTo(record);
-		}
-	}
-	
-	private void togglePlay(){
-		if(mediaPlayer.isPlaying()){
-			stopPlay();
-		}else{
-			startPlay();
 		}
 	}
 	
@@ -968,14 +1002,14 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	
 	@OnClick(R.id.txt_pause_all)
 	void onClickPauseAll(){
-		startPlay();
+		startPlay(mBuffering);
 	}
 	
 	
 	@OnClick(R.id.txt_play)
 	void onClickPlay(){
 		resetDimissTask();
-		togglePlay();
+		togglePlay(mBuffering);
 	}
 	
 	@OnClick(R.id.player_title)
@@ -1012,7 +1046,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	 */
 	private void startLoadingAnimation(){
 		if(mLoadingAnimation != null && !mLoadingAnimation.isRunning()){
-			showLoadingLayout();
+			mBufferProgress.setVisibility(View.VISIBLE);
 			mLoadingAnimation.start();
 			mPauseAll.setVisibility(View.GONE);
 		}
@@ -1024,18 +1058,19 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	private void stopLoadingAnimation(){
 		if(mLoadingAnimation != null && mLoadingAnimation.isRunning()){
 			mLoadingAnimation.stop();
-			hideLoadingLayout();
+			mBufferProgress.setVisibility(View.GONE);
 		}
 	}
 	
+	/**
+	 * 只有在选集和进入播放页面时才显示背景
+	 */
 	private void showLoadingLayout() {
 		mLoadingLayout.setVisibility(View.VISIBLE);
-		mBufferProgress.setVisibility(View.VISIBLE);
 	}
 
 	private void hideLoadingLayout() {
 		mLoadingLayout.setVisibility(View.GONE);
-		mBufferProgress.setVisibility(View.GONE);
 	}
 	
 	private void initLoadingAnimation(){
@@ -1043,9 +1078,9 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		mBufferProgress.setCompoundDrawablesWithIntrinsicBounds(null, mLoadingAnimation, null, null);
 	}
 	
-	private void setBufferPercentage(int percentage){
+	private void setBufferPercentage(int rate ,int percentage){
 		if(mBufferProgress.isShown()){
-			mBufferProgress.setText("缓冲("+percentage + "%)");
+			mBufferProgress.setText("("+rate+"KB/S)缓冲"+percentage + "%");
 		}
 	}
 	
@@ -1087,11 +1122,11 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		savePlayRecord();
 		
 		mUrl = event.getUrl() ;
-		mTitle.setText(event.getVideoName());
+		mVideoName = event.getVideoName();
 		mExtra = event.getSeries();
 		mRecord = event.getPlayRecord();
 		release();
-		mLoadingLayout.setVisibility(View.VISIBLE);
+		showLoadingLayout();
 		startLoadingAnimation();
 		requestVideoAddress();
 		

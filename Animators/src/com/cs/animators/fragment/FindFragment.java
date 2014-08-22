@@ -190,36 +190,38 @@ public class FindFragment extends BaseFragment {
 	
 	@OnClick(R.id.find_txt_recommed_more)
 	void onRecommendMoreClick(View v){
-		accessFindMoreActivity(mServerData.get(RECOMMED).getList(),0);
+		accessFindMoreActivity(mServerData.get(RECOMMED).getList(),0,mServerData.get(RECOMMED).getGroup());
 	}
 	
 	@OnClick(R.id.find_txt_area_more)
 	void onAreaMoreClick(View v){
-		accessFindMoreActivity(mServerData.get(AREA).getList(),0);
+		accessFindMoreActivity(mServerData.get(AREA).getList(),0,mServerData.get(AREA).getGroup());
 	}
 	
 	@OnClick(R.id.find_txt_category_more)
 	void onCategoryMoreClick(View v){
-		accessFindMoreActivity(mServerData.get(CATEGORY).getList(),0);
+		accessFindMoreActivity(mServerData.get(CATEGORY).getList(),0,mServerData.get(CATEGORY).getGroup());
 	}
 	
 	@OnItemClick(R.id.find_recommed_gv)
 	void onRecommendItemClick(AdapterView<?> parent , View v , int position , long id ){
-		accessFindMoreActivity(mServerData.get(RECOMMED).getList(),position);
+		accessFindMoreActivity(mServerData.get(RECOMMED).getList(),position,mServerData.get(RECOMMED).getGroup());
 	}
 	
 	@OnItemClick(R.id.find_area_gv)
 	void onAreaItemClick(AdapterView<?> parent , View v , int position , long id ){
-		accessFindMoreActivity(mServerData.get(AREA).getList(),position);
+		accessFindMoreActivity(mServerData.get(AREA).getList(),position,mServerData.get(AREA).getGroup());
 	}
 	
 	public static final String  GROUP_ITEM_MORE = "group_item_more";
 	public static final String  GROUP_TAB_ITEM = "group_tab_item";
+	public static final String  GROUP_TITLE = "group_title";
 	
-	private void accessFindMoreActivity(List<GroupItem> groupItem,int position){
+	private void accessFindMoreActivity(List<GroupItem> groupItem,int position,String groupName){
 		Intent intent = new Intent(getActivity(), FindMoreActivity.class);
 		intent.putParcelableArrayListExtra(GROUP_ITEM_MORE, (ArrayList<? extends Parcelable>) groupItem);
 		intent.putExtra(GROUP_TAB_ITEM, position);
+		intent.putExtra(GROUP_TITLE, groupName);
 		startActivity(intent);
 	}
 }

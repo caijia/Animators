@@ -23,6 +23,8 @@ public class FindMoreActivity extends BaseActivity {
 	
 	private int mCurTabPosition ;
 	
+	private String mActionBarTitle = "";
+	
 	@Override
 	protected void loadLayout() {
 		setContentView(R.layout.activity_find_more);
@@ -30,7 +32,7 @@ public class FindMoreActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
-		
+		mActionBar.setTitle(mActionBarTitle);
 		mTabindicator.setShouldExpand(mMoreGroupItem.size() < 4);
 		mViewPager.setAdapter(new GroupItemMoreAdapter(getSupportFragmentManager()));
 		mTabindicator.setViewPager(mViewPager);
@@ -42,6 +44,7 @@ public class FindMoreActivity extends BaseActivity {
 		if(bundle != null){
 			mMoreGroupItem = bundle.getParcelableArrayList(FindFragment.GROUP_ITEM_MORE);
 			mCurTabPosition = bundle.getInt(FindFragment.GROUP_TAB_ITEM);
+			mActionBarTitle = bundle.getString(FindFragment.GROUP_TITLE);
 		}
 	}
 	

@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="加载错误,触摸重新加载"
+        android:text="触摸重新加载"
         android:textColor="@color/gray_light"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

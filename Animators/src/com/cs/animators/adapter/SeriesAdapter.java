@@ -56,6 +56,7 @@ public class SeriesAdapter extends ArrayAdapter<VideoDetailSeries> {
 				holder.seriesNum.setTextColor(getContext().getResources().getColor(R.color.white));
 			}else{
 				holder.seriesNum.setBackgroundResource(R.drawable.selector_seires_item);
+				holder.seriesNum.setTextColor(getContext().getResources().getColor(R.color.gray_light));
 			}
 		}
 		return convertView;

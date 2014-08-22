@@ -20,6 +20,7 @@ import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
 import com.cs.animators.dao.service.DaoFactory;
+import com.cs.animators.fragment.HotFragment;
 import com.cs.animators.util.CommonUtil;
 import com.cs.cj.http.httplibrary.RequestParams;
 import com.cs.cj.http.work.JHttpClient;
@@ -81,9 +82,12 @@ public class VideoPlayRecordActivity extends BaseActivity implements OnItemClick
 	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 		if(mActionMode == null)
 		{
-			//播放视频
+			//进入视频详细界面
 			VideoPlayRecord record = (VideoPlayRecord) parent.getAdapter().getItem(position);
-			playVideo(record);
+//			playVideo(record);
+			if(record != null){
+				accessVideoDetail(record);
+			}
 		}
 		else
 		{
@@ -91,6 +95,16 @@ public class VideoPlayRecordActivity extends BaseActivity implements OnItemClick
 		}
 	}
 	
+	private void accessVideoDetail(VideoPlayRecord record) {
+		String videoId = record.getVideoId();
+		Intent detailIntent = new Intent(mContext , VideoDetailActivity.class);
+		detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
+		detailIntent.putExtra("video_name", record.getVideoName());
+		mContext.startActivity(detailIntent);
+		finish();
+	}
+
+	@SuppressWarnings("unused")
 	private void playVideo(VideoPlayRecord record) {
 		//拼接请求视频播放地址的url
 		String videoId = record.getVideoId();

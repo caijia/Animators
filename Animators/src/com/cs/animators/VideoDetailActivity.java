@@ -191,6 +191,8 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 		//保存播放记录
 		VideoDetailSeries detailSeries = mVideoDetail.getEpisode().get(series - 1);
 		VideoPlayRecord record = new VideoPlayRecord(Long.parseLong(detailSeries.getId()),mVideoId, playRecord, series, System.currentTimeMillis(), duration,detailSeries.getName());
+		mLastPlayRecord = record ;
+		mBtnPlay.setText("继续");
 		DaoFactory.getVideoRecordInstance(this).saveOrUpdate(record);
 	}
 	
@@ -262,14 +264,16 @@ public class VideoDetailActivity extends BaseActivity implements OnScrollListene
 				CommonUtil.showMessage(mContext, "已取消收藏");
 				mCollect = false ;
 			}else{
-				HotItem videoCollect = new HotItem(mVideoId,
-						mVideoDetail.getName(), mVideoDetail.getCover(),
-						mVideoDetail.getCategory(), mVideoDetail.getScore(),
-						mVideoDetail.getCurNum(), mVideoDetail.getTotalNum(),
-						mVideoDetail.getUpdateTime());
-				DaoFactory.getVideoCollectInstance(mContext).save(videoCollect);
-				CommonUtil.showMessage(mContext, "收藏成功");
-				mCollect = true ;
+				if(mVideoDetail != null){
+					HotItem videoCollect = new HotItem(mVideoId,
+							mVideoDetail.getName(), mVideoDetail.getCover(),
+							mVideoDetail.getCategory(), mVideoDetail.getScore(),
+							mVideoDetail.getCurNum(), mVideoDetail.getTotalNum(),
+							mVideoDetail.getUpdateTime());
+					DaoFactory.getVideoCollectInstance(mContext).save(videoCollect);
+					CommonUtil.showMessage(mContext, "收藏成功");
+					mCollect = true ;
+				}
 			}
 			break;
 

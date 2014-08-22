@@ -9,8 +9,8 @@
     <io.vov.vitamio.widget.CenterLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#393939"  >
+        android:background="#393939"
+        android:orientation="vertical" >
 
         <SurfaceView
             android:id="@+id/surface"
@@ -21,23 +21,10 @@
     </io.vov.vitamio.widget.CenterLayout>
 
     <RelativeLayout
+        android:id="@+id/rlayout_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#393939" 
-        android:id="@+id/rlayout_loading">
-
-        <TextView
-            android:id="@+id/buffer_txt_percentage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawablePadding="5dp"
-            android:drawableTop="@drawable/player_loading"
-            android:gravity="center"
-            android:text="视频加载中"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:visibility="gone" />
+        android:background="#393939" >
     </RelativeLayout>
 
     <RelativeLayout
@@ -127,6 +114,19 @@
             android:layout_above="@+id/seekbar_play_progress"
             android:background="@color/player_seek_bg" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/buffer_txt_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/player_loading"
+        android:gravity="center"
+        android:text="视频加载中"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+         />
 
     <TextView
         android:id="@+id/geture_tv_volume_percentage"

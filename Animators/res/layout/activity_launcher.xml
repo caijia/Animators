@@ -9,4 +9,19 @@
         android:src="@drawable/launcher_image"
         android:scaleType="fitXY" />
 
+    <ImageView
+        android:id="@+id/launcher_flower"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/icon_hua" />
+
+    <ImageView
+        android:id="@+id/launcher_flower_bomb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+
 </RelativeLayout>
