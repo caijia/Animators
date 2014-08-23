@@ -1,23 +1,34 @@
 package com.cs.animators.eventbus;
 
-import com.cs.animators.entity.VideoDetailSeries;
 
 public class SelectSeriesEvent {
 
-	private VideoDetailSeries series ;
-	private String videoId ;
+	private String videoName ;
+	private String series ;
+	private String url ;
+	private long record ;
 	
-	public SelectSeriesEvent(VideoDetailSeries series, String mVideoId) {
-		this.series = series ;
-		this.videoId = mVideoId ;
-	}
-	
-	public VideoDetailSeries getVideoDetailSeries(){
-		return series ;
+	public String getVideoName() {
+		return videoName;
 	}
 
-	public String getVideoId(){
-		return videoId ;
+	public String getSeries() {
+		return series;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 	
+	public long getPlayRecord(){
+		return record ;
+	}
+
+	public SelectSeriesEvent(String name, String series,long playRecord, String loadVideoAddressUrl) {
+		this.videoName = name ;
+		this.series = series ;
+		this.url = loadVideoAddressUrl ;
+		this.record = playRecord ;
+	}
+
 }

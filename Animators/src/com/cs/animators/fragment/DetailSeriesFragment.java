@@ -5,10 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import butterknife.InjectView;
-
 import com.cs.animators.R;
 import com.cs.animators.VideoDetailActivity;
 import com.cs.animators.base.BaseFragment;
+import com.cs.animators.dao.bean.VideoPlayRecord;
+import com.cs.animators.dao.service.DaoFactory;
 import com.cs.animators.entity.VideoDetail;
 import com.cs.cj.view.FragmentTabAdapter;
 import com.cs.cj.view.PagerTabStrip;
@@ -24,6 +25,8 @@ public class DetailSeriesFragment extends BaseFragment {
 	private int mTotalPage ;
 	
 	private int mTotalVideoNum ;
+	
+	private int mLastPlaySeries = -1;
 	
 	@Override
 	protected void loadLayout() {
@@ -42,11 +45,17 @@ public class DetailSeriesFragment extends BaseFragment {
 			mPtsIndicator.setVisibility(View.GONE);
 		}
 		
+		VideoPlayRecord lastPlayRecord = DaoFactory.getVideoRecordInstance(getActivity()).queryLastPlayRecord(mVideoDetail.getVideoId());
+		if(lastPlayRecord != null){
+			mLastPlaySeries = lastPlayRecord.getSeries();
+		}
+		
 		mPtsIndicator.setAdapter(new DetailSeriesTabAdapter(getChildFragmentManager()));
 	}
 
 	
 	public static final String CURRENT_PAGER = "current_page";
+	public static final String LAST_PLAY_SERIES = "last_play_series";
 	
 	private class DetailSeriesTabAdapter extends FragmentTabAdapter{
 
@@ -69,6 +78,9 @@ public class DetailSeriesFragment extends BaseFragment {
 			DetailSeriesTabFragment fragment = new DetailSeriesTabFragment();
 			Bundle args = new Bundle();
 			args.putInt(CURRENT_PAGER, position);
+			if(mLastPlaySeries >= getFirstPosition(position) && mLastPlaySeries <= getLastPosition(position)){
+				args.putInt(LAST_PLAY_SERIES, mLastPlaySeries);
+			}
 			fragment.setArguments(args);
 			return fragment;
 		}
@@ -78,6 +90,16 @@ public class DetailSeriesFragment extends BaseFragment {
 			return getTabTitle(position);
 		}
 		
+	}
+	
+	private long getFirstPosition(int position){
+		String tabTitle = getTabTitle(position);
+		return Long.parseLong(tabTitle.substring(0, tabTitle.indexOf("-")).trim());
+	}
+	
+	private long getLastPosition(int position){
+		String tabTitle = getTabTitle(position);
+		return Long.parseLong(tabTitle.substring(tabTitle.indexOf("-") + 1).trim());
 	}
 	
 	private String getTabTitle(int position) {
@@ -90,5 +112,4 @@ public class DetailSeriesFragment extends BaseFragment {
 			return ((position) * PAGE_COUNT + 1 )+ " - " + (position + 1) * PAGE_COUNT;
 		}
 	}
-	
 }

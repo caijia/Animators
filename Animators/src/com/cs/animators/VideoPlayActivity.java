@@ -10,17 +10,24 @@ import io.vov.vitamio.MediaPlayer.OnPreparedListener;
 import io.vov.vitamio.MediaPlayer.OnSeekCompleteListener;
 import io.vov.vitamio.MediaPlayer.OnVideoSizeChangedListener;
 import io.vov.vitamio.utils.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -38,16 +45,19 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.PlayVideo;
 import com.cs.animators.entity.VideoDetail;
 import com.cs.animators.eventbus.PlayRecordEvent;
 import com.cs.animators.eventbus.PlayerSizeEvent;
+import com.cs.animators.eventbus.SelectSeriesEvent;
 import com.cs.animators.fragment.PlayerSeriesFragment;
 import com.cs.animators.fragment.PlayerSettingFragment;
 import com.cs.animators.util.CommonUtil;
 import com.cs.animators.util.PlayerUtils;
 import com.cs.animators.view.VerticalSeekBar;
+import com.cs.cj.http.utils.NetWorkUtil;
 import com.cs.cj.http.work.JDataCallback;
 import com.cs.cj.http.work.JHttpClient;
 import com.cs.cj.http.work.Response;
@@ -59,6 +69,8 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	
 	//最外层的布局
 	@InjectView(R.id.content) RelativeLayout mContent ;
+	
+	@InjectView(R.id.rlayout_loading) RelativeLayout mLoadingLayout ;
 	
 	//顶部布局控件
 	
@@ -164,7 +176,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	
 	private String mPath ;
 	
-	//透传参数
+	//透传参数(这里当做当前的剧集)
 	private String mExtra ;
 	
 	private long mRecord ;
@@ -177,12 +189,15 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	public static final String VIDEO_EXTRA = "video_extra";
 	public static final String VIDEO_RECORD = "video_record";
 	public static final String ALL_VIDEO = "all_video";
+	public static final String CURRENT_SERIES = "current_series";
 	
 	
 	@Override
 	protected void loadLayout() {
 		//播放视频时不休眠
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 		setContentView(R.layout.activity_play_video);
 	}
 
@@ -199,15 +214,16 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		//显示加载视频的动画
 		initLoadingAnimation();
 		startLoadingAnimation();
+		showLoadingLayout();
 		
 		//Activity全屏显示，但状态栏不会被隐藏覆盖，状态栏依然可见，Activity顶端布局部分会被状态遮住
 		//设置成这样的目的是隐藏和显示状态栏的时候 视频不会随状态栏显示和隐藏时拉伸视频
 //		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 		
 		//由于显示的时候Activity上面是覆盖的状态栏 所有顶部的布局应该在状态栏的下面
-//		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mControllerTop.getLayoutParams();
-//		params.topMargin = CommonUtil.getStatusBarHeight(mContext);
-//		mControllerTop.setLayoutParams(params);
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mControllerTop.getLayoutParams();
+		params.topMargin = CommonUtil.getStatusBarHeight(mContext);
+		mControllerTop.setLayoutParams(params);
 		
 		mControllerLayouts.add(mControllerTop);
 		mControllerLayouts.add(mControllerBottom);
@@ -354,6 +370,13 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		mHomeKey = true ;
 		//保存播放记录
+		savePlayRecord();
+	}
+
+	/**
+	 * 这个方法只发出保存播放记录的事件 具体保存操作由VideoDetailActivity 里面保存
+	 */
+	private void savePlayRecord() {
 		if(canPlay()){
 			long record = mediaPlayer.getCurrentPosition();
 			long duration = mediaPlayer.getDuration();
@@ -371,7 +394,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 				if(!TextUtils.isEmpty(mPath)){
 					playVideo();
 				}else{
-					showErrorDialog();
+					showErrorDialog("抱歉,加载视频地址失败!","确定",PLAY_VIDEO_ERROR);
 				}
 				
 			}
@@ -381,7 +404,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 				super.onFailure(responseString);
 				stopLoadingAnimation();
 				mBufferProgress.setVisibility(View.GONE);
-				showErrorDialog();
+				showErrorDialog("抱歉,加载视频地址失败!","确定",PLAY_VIDEO_ERROR);
 			}
 		});
 	}
@@ -389,6 +412,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	private void playVideo() {
 		clearState();
 		try {
+			
 			mediaPlayer = new MediaPlayer(this);
 			mediaPlayer.setDataSource(mPath);
 			mediaPlayer.setDisplay(mHolder);
@@ -417,37 +441,53 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		return true;
 	}
 
-	private void showErrorDialog() {
+	private void showErrorDialog(){
+		showErrorDialog("抱歉,不能播放此视频!","确定",PLAY_VIDEO_ERROR);
+	}
+	
+	public static final int NETWORK_CHANGE = 1 ;
+	public static final int PLAY_VIDEO_ERROR = 2 ;
+	
+	private void showErrorDialog(String errorMessage,String positionText,final int errorType) {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage("抱歉,不能播放此视频!");
+		builder.setMessage(errorMessage);
 		builder.setTitle("视频");
-		builder.setPositiveButton("确定",new DialogInterface.OnClickListener() {
-			
-			@Override
+		builder.setPositiveButton(positionText,new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface arg0, int arg1) {
 				VideoPlayActivity.this.finish();
 				builder.create().dismiss();
 			}
 		} );
-		builder.setNegativeButton("取消", null);
+		builder.setNegativeButton("取消", new OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				if(errorType == NETWORK_CHANGE){
+					//继续播放
+					startPlay();
+				}
+			}
+		});
 		builder.create().show();
 	}
 
+	private boolean mBuffering ;
+	
 	@Override
 	public boolean onInfo(MediaPlayer mp, int what, int extra) {
 		switch (what) {
         case MediaPlayer.MEDIA_INFO_BUFFERING_START:
+        	mBuffering = true ;
+        	stopLoadingAnimation();
         	stopPlay();
-        	mPauseAll.setVisibility(View.GONE);
-        	mBufferProgress.setVisibility(View.VISIBLE);
         	startLoadingAnimation();
             break;
         case MediaPlayer.MEDIA_INFO_BUFFERING_END:
         	startPlay();
-        	mBufferProgress.setVisibility(View.GONE);
+        	mBuffering = false ;
         	stopLoadingAnimation();
+			hideLoadingLayout();
             break;
         case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
+        	setBufferPercentage(extra,mBufferPercent);
             break;
         }
         return true;
@@ -467,22 +507,25 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 
 	@Override
 	public void onCompletion(MediaPlayer mp) {
-		
+		mCurPlayTime.setText(StringUtils.generateTime(totalPlayTime));
 	}
 
+	private int mBufferPercent ;
 	@Override
 	public void onBufferingUpdate(MediaPlayer mp, int percent) {
-		setBufferPercentage(percent);
+		mBufferPercent = percent ;
 	}
 
 	@Override
 	public void onPrepared(MediaPlayer mp) {
 		mPrepare = true ;
-		stopLoadingAnimation();
 		startPlayVideo();
 	}
 
 	private void startPlayVideo() {
+		
+		//开始播放时隐藏视频加载时的布局 
+		mLoadingLayout.setVisibility(View.GONE);
 		
 		//设置Video name
 		mTitle.setText(mVideoName);
@@ -512,32 +555,62 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	}
 	
 	private void startPlay(){
-		if(canPlay()&& !mediaPlayer.isPlaying()){
-			mediaPlayer.start();
+		startPlay(false);
+	}
+	
+	private void startPlay(boolean buffering){
+		if(buffering){
 			mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_pause, 0, 0, 0);
 			mPauseAll.setVisibility(View.GONE);
+			mBufferProgress.setVisibility(View.VISIBLE);
+		}else{
+			if(canPlay()&& !mediaPlayer.isPlaying()){
+				mediaPlayer.start();
+				mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_pause, 0, 0, 0);
+				mPauseAll.setVisibility(View.GONE);
+				mBufferProgress.setVisibility(View.GONE);
+			}
+		}
+	}
+	
+	private void stopPlay(boolean buffering){
+		if(buffering){
+			mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_start, 0, 0, 0);
+			mPauseAll.setVisibility(View.VISIBLE);
+			mBufferProgress.setVisibility(View.GONE);
+		}else{
+			if(mediaPlayer != null && !mError&& mediaPlayer.isPlaying()){
+				mediaPlayer.stop();
+				mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_start, 0, 0, 0);
+				mPauseAll.setVisibility(View.VISIBLE);
+				mBufferProgress.setVisibility(View.GONE);
+			}
 		}
 	}
 	
 	private void stopPlay(){
-		if(mediaPlayer != null && !mError&& mediaPlayer.isPlaying()){
-			mediaPlayer.stop();
-			mPlay.setCompoundDrawablesWithIntrinsicBounds(R.drawable.selector_player_start, 0, 0, 0);
-			mPauseAll.setVisibility(View.VISIBLE);
+		stopPlay(false);
+	}
+	
+	private void togglePlay(boolean buffering){
+		if(buffering){
+			if(mPauseAll.isShown()){
+				startPlay(buffering);
+			}else{
+				stopPlay(buffering);
+			}
+		}else{
+			if(mediaPlayer != null && !mError&& mediaPlayer.isPlaying()){
+				stopPlay(buffering);
+			}else{
+				startPlay(buffering);
+			}
 		}
 	}
 	
 	private void seekToRecord(long record){
 		if(canPlay()){
 			mediaPlayer.seekTo(record);
-		}
-	}
-	
-	private void togglePlay(){
-		if(mediaPlayer.isPlaying()){
-			stopPlay();
-		}else{
-			startPlay();
 		}
 	}
 	
@@ -921,20 +994,22 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 			mControllerVolume.setVisibility(mControllerVolume.isShown() ? View.GONE : View.VISIBLE);
 			mVolume.setSelected(mControllerVolume.isShown() ? true :false);
 			mBrightness.setSelected(false);
+			
+			//缓冲图片出现让中间的开始按钮消失
 			mControllerBrightness.setVisibility(View.GONE);
 		}
 	}
 	
 	@OnClick(R.id.txt_pause_all)
 	void onClickPauseAll(){
-		startPlay();
+		startPlay(mBuffering);
 	}
 	
 	
 	@OnClick(R.id.txt_play)
 	void onClickPlay(){
 		resetDimissTask();
-		togglePlay();
+		togglePlay(mBuffering);
 	}
 	
 	@OnClick(R.id.player_title)
@@ -956,6 +1031,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		PlayerSeriesFragment series = new PlayerSeriesFragment();
 		Bundle args = new Bundle();
 		args.putParcelable(ALL_VIDEO, mAllVideo);
+		args.putString(CURRENT_SERIES, mExtra);
 		series.setArguments(args);
 		series.show(getSupportFragmentManager(), "seriesDialog");
 	}
@@ -972,9 +1048,10 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		if(mLoadingAnimation != null && !mLoadingAnimation.isRunning()){
 			mBufferProgress.setVisibility(View.VISIBLE);
 			mLoadingAnimation.start();
+			mPauseAll.setVisibility(View.GONE);
 		}
 	}
-	
+
 	/**
 	 * 停止缓存时的动画
 	 */
@@ -985,14 +1062,25 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		}
 	}
 	
+	/**
+	 * 只有在选集和进入播放页面时才显示背景
+	 */
+	private void showLoadingLayout() {
+		mLoadingLayout.setVisibility(View.VISIBLE);
+	}
+
+	private void hideLoadingLayout() {
+		mLoadingLayout.setVisibility(View.GONE);
+	}
+	
 	private void initLoadingAnimation(){
 		mLoadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.player_loading);
 		mBufferProgress.setCompoundDrawablesWithIntrinsicBounds(null, mLoadingAnimation, null, null);
 	}
 	
-	private void setBufferPercentage(int percentage){
+	private void setBufferPercentage(int rate ,int percentage){
 		if(mBufferProgress.isShown()){
-			mBufferProgress.setText("缓冲("+percentage + "%)");
+			mBufferProgress.setText("("+rate+"KB/S)缓冲"+percentage + "%");
 		}
 	}
 	
@@ -1023,6 +1111,24 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		{
 			mHolder.setFixedSize(width, height);
 		}
+		
+	}
+	
+	
+	//选集
+	public void onEventMainThread(SelectSeriesEvent event){
+		
+		//选集之后要保存上一集的记录
+		savePlayRecord();
+		
+		mUrl = event.getUrl() ;
+		mVideoName = event.getVideoName();
+		mExtra = event.getSeries();
+		mRecord = event.getPlayRecord();
+		release();
+		showLoadingLayout();
+		startLoadingAnimation();
+		requestVideoAddress();
 		
 	}
 	
@@ -1065,14 +1171,48 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
             WindowManager.LayoutParams lp = getWindow().getAttributes();
             lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
             getWindow().setAttributes(lp);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         } else {
             WindowManager.LayoutParams attr = getWindow().getAttributes();
             attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getWindow().setAttributes(attr);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
+	
+	
+	private ConnectionChangeReceiver mConnectionChangeReceiver ;
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		mConnectionChangeReceiver = new ConnectionChangeReceiver();
+		//android.net.wifi.WIFI_STATE_CHANGED
+		IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		registerReceiver(mConnectionChangeReceiver, filter);
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		unregisterReceiver(mConnectionChangeReceiver);
+	}
+	
+	private class ConnectionChangeReceiver extends BroadcastReceiver{
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			int netType = NetWorkUtil.getNetType(context);
+			if(netType == ConnectivityManager.TYPE_MOBILE){
+				//提示用户网络状态转为2G/3G/4G
+				stopPlay();
+				showErrorDialog("当前网络类型不是WIFI,是否退出?","退出",NETWORK_CHANGE);
+			}else if(netType == NetWorkUtil.NO_NETWORK_TYPE){
+				CommonUtil.showMessage(mContext, "网络已断开!");
+			}
+		}
+		
+	}
 	
 
 }

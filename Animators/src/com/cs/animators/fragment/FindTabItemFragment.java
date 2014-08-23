@@ -51,6 +51,7 @@ public class FindTabItemFragment extends BaseFragment {
 		Intent intent = new Intent(getActivity(), FindMoreActivity.class);
 		intent.putParcelableArrayListExtra(FindFragment.GROUP_ITEM_MORE, (ArrayList<? extends Parcelable>) mCategory);
 		intent.putExtra(FindFragment.GROUP_TAB_ITEM, mCurPage * PAGE_NUMBER + position);
+		intent.putExtra(FindFragment.GROUP_TITLE, "分类");
 		startActivity(intent);
 	}
 	

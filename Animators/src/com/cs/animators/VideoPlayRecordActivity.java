@@ -2,7 +2,9 @@ package com.cs.animators;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import se.emilsjolander.stickylistheaders.StickyHeaderXListView;
+import android.content.Intent;
 import android.os.Message;
 import android.support.v7.view.ActionMode;
 import android.util.SparseBooleanArray;
@@ -12,11 +14,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import butterknife.InjectView;
+
 import com.cs.animators.adapter.VideoRecordAdapter;
 import com.cs.animators.base.BaseActivity;
+import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
 import com.cs.animators.dao.service.DaoFactory;
+import com.cs.animators.fragment.HotFragment;
 import com.cs.animators.util.CommonUtil;
+import com.cs.cj.http.httplibrary.RequestParams;
+import com.cs.cj.http.work.JHttpClient;
 
 public class VideoPlayRecordActivity extends BaseActivity implements OnItemClickListener {
 
@@ -55,7 +62,6 @@ public class VideoPlayRecordActivity extends BaseActivity implements OnItemClick
 		
 	}
 	
-	
 	//main thread
 	@SuppressWarnings("unchecked")
 	@Override
@@ -76,13 +82,51 @@ public class VideoPlayRecordActivity extends BaseActivity implements OnItemClick
 	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 		if(mActionMode == null)
 		{
-			//播放视频
+			//进入视频详细界面
+			VideoPlayRecord record = (VideoPlayRecord) parent.getAdapter().getItem(position);
+//			playVideo(record);
+			if(record != null){
+				accessVideoDetail(record);
+			}
 		}
 		else
 		{
 			onCheckedItem(parent, view, position, id);
 		}
 	}
+	
+	private void accessVideoDetail(VideoPlayRecord record) {
+		String videoId = record.getVideoId();
+		Intent detailIntent = new Intent(mContext , VideoDetailActivity.class);
+		detailIntent.putExtra(HotFragment.VIDEO_ID, videoId);
+		detailIntent.putExtra("video_name", record.getVideoName());
+		mContext.startActivity(detailIntent);
+		finish();
+	}
+
+	@SuppressWarnings("unused")
+	private void playVideo(VideoPlayRecord record) {
+		//拼接请求视频播放地址的url
+		String videoId = record.getVideoId();
+		String id = record.getId() + "";
+		
+		RequestParams params = new RequestParams();
+		params.put("m","Api");
+		params.put("a", "play");
+		params.put("ios", "1");
+		params.put("format", "2");
+		params.put("id",id );
+		params.put("video_id", videoId);
+		String loadVideoAddressUrl = JHttpClient.getUrlWithQueryString(Constants.host, params);
+		
+		Intent intent = new Intent(this, VideoPlayActivity.class);
+		intent.putExtra(VideoPlayActivity.VIDEO_NAME, record.getVideoName());
+		intent.putExtra(VideoPlayActivity.LOAD_VIDEO_URL, loadVideoAddressUrl);
+		intent.putExtra(VideoPlayActivity.VIDEO_EXTRA, record.getSeries() + "");
+		intent.putExtra(VideoPlayActivity.VIDEO_RECORD, record.getPlayRecord());
+		startActivity(intent);
+	}
+	
 	
 	private void onCheckedItem(AdapterView<?> parent , View v , int position , long id){
 		mAdapter.toggleSelection(position - mXListView.getHeaderViewsCount());  //让被选中的Item 保持高亮

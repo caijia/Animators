@@ -1,6 +1,7 @@
 package com.cs.animators.adapter;
 
 import java.util.List;
+
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
 import com.cs.animators.R;
 import com.cs.animators.entity.PlayerSeries;
+import com.cs.animators.entity.VideoDetailSeries;
 import com.cs.animators.fragment.PlayerSeriesFragment;
 import com.cs.animators.util.CommonUtil;
 
@@ -97,8 +100,16 @@ public class PlayerSeriesAdapter extends BaseExpandableListAdapter {
 		}
 		
 		textView.setLayoutParams(new AbsListView.LayoutParams(CommonUtil.getWidthMetrics(mContext) / 4, CommonUtil.dip2px(mContext, PlayerSeriesFragment.SERIES_LAYOUT_WIDTH / 4)));
-		textView.setBackgroundResource(R.drawable.shape_player_series);
-		textView.setTextColor(mContext.getResources().getColor(R.color.player_series_child_color));
+		
+		VideoDetailSeries detailSeries = (VideoDetailSeries) getChild(groupPosition, childPosition);
+		boolean curPlay = detailSeries.isCurPlay();
+		if(curPlay){
+			textView.setBackgroundResource(R.drawable.selector_player_series_curpaly_series);
+			textView.setTextColor(mContext.getResources().getColor(R.color.white));
+		}else{
+			textView.setBackgroundResource(R.drawable.shape_player_series);
+			textView.setTextColor(mContext.getResources().getColor(R.color.player_series_child_color));
+		}
 		textView.setGravity(Gravity.CENTER);
 		
 		String curSeries = groupPosition * PAGE_COUNT + childPosition + 1+"";

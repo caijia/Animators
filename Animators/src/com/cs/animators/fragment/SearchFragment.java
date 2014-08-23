@@ -37,7 +37,7 @@ public class SearchFragment extends BaseFragment {
 		RequestParams params = new RequestParams();
 		params.put("m", "Cartoon");
 		params.put("a", "search");
-		params.put("limit", "10");
+		params.put("limit", "15");
 		params.put("word", mSearchWord);
 		params.put("page", "1");
 		params.put("type", "0");

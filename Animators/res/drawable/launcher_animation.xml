@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:oneshot="true">
+	<item android:drawable="@drawable/flower0001" android:duration="60" />
+	<item android:drawable="@drawable/flower0002" android:duration="60" />
+	<item android:drawable="@drawable/flower0003" android:duration="60" />
+	<item android:drawable="@drawable/flower0004" android:duration="60" />
+	<item android:drawable="@drawable/flower0005" android:duration="60" />
+	<item android:drawable="@drawable/flower0006" android:duration="60" />
+	<item android:drawable="@drawable/flower0007" android:duration="60" />
+	<item android:drawable="@drawable/flower0008" android:duration="60" />
+	<item android:drawable="@drawable/flower0009" android:duration="60" />
+	<item android:drawable="@drawable/flower00010" android:duration="60" />
+	<item android:drawable="@drawable/flower00011" android:duration="60" />
+	<item android:drawable="@drawable/flower00012" android:duration="60" />
+	<item android:drawable="@drawable/flower00013" android:duration="60" />
+	<item android:drawable="@drawable/flower00014" android:duration="60" />
+</animation-list>

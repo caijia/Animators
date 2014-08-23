@@ -4,7 +4,6 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -47,7 +46,8 @@ public abstract class BaseActivity extends ActionBarActivity {
         
         mActionBar = getSupportActionBar();
       //去掉ActionBar的图标
-  		mActionBar.setIcon(new ColorDrawable(android.R.color.transparent));
+//  		mActionBar.setIcon(new ColorDrawable(android.R.color.transparent));
+  		mActionBar.setIcon(getResources().getDrawable(R.drawable.actionbar_title_icon));
   		
         mContext = this ;
         

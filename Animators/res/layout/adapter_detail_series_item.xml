@@ -8,7 +8,7 @@
         android:id="@+id/detail_series_txt_seriesnum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray_light" 
+        android:textColor="@drawable/selector_theme_tab_textcolor" 
         android:textSize="16sp"
         android:text="1"
         android:gravity="center"

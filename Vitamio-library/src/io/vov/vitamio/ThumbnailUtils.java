@@ -95,7 +95,7 @@ public class ThumbnailUtils {
     int deltaX = source.getWidth() - targetWidth;
     int deltaY = source.getHeight() - targetHeight;
     if (!scaleUp && (deltaX < 0 || deltaY < 0)) {
-      Bitmap b2 = Bitmap.createBitmap(targetWidth, targetHeight, Bitmap.Config.ARGB_8888);
+      Bitmap b2 = Bitmap.createBitmap(targetWidth, targetHeight, Bitmap.Config.RGB_565);
       Canvas c = new Canvas(b2);
 
       int deltaXHalf = Math.max(0, deltaX / 2);

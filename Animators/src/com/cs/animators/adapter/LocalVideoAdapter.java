@@ -3,9 +3,7 @@ package com.cs.animators.adapter;
 import io.vov.vitamio.ThumbnailUtils;
 import io.vov.vitamio.provider.MediaStore.Video.Thumbnails;
 import io.vov.vitamio.utils.StringUtils;
-
 import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -17,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
 import com.cs.animators.R;
 import com.cs.animators.entity.LocalVideo;
 import com.cs.cj.util.FileUtils;
@@ -53,7 +50,7 @@ public class LocalVideoAdapter extends ArrayAdapter<LocalVideo> {
 		{
 			holder.name.setText(localVideo.getVideoName());
 			holder.duration.setText(StringUtils.generateTime(localVideo.getVideoDuration()));
-			Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(getContext(), localVideo.getVideoPath(), Thumbnails.MINI_KIND);
+			Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(getContext(), localVideo.getVideoPath(), Thumbnails.MICRO_KIND);
 			if(bitmap != null)
 			{
 				holder.thumb.setImageBitmap(bitmap);	

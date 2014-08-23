@@ -1,9 +1,9 @@
 package com.cs.animators;
 
+import io.vov.vitamio.LibsChecker;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Handler;
@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-
 import com.cs.animators.adapter.LocalVideoAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.LocalVideo;
@@ -32,6 +31,10 @@ public class LocalVideoActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
+		if(!LibsChecker.checkVitamioLibs(this))
+		{
+			return ;
+		}
 		
 		mActionBar.setTitle("本地缓存");
 		mActionBar.setDisplayHomeAsUpEnabled(true);

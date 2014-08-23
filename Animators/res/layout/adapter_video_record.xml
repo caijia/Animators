@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:background="@drawable/selector_adapter_video_record"
      >
 
     <TextView
@@ -10,23 +9,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="6dp"
         android:text="Medium Text"
+        android:singleLine="true"
         android:textColor="#5F5F5F"
-        android:textSize="17sp" 
-        android:layout_marginTop="6dp"/>
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/video_record_recordtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/video_record_videoname"
         android:layout_below="@+id/video_record_videoname"
         android:layout_marginLeft="20dp"
         android:text="TextView"
+        android:singleLine="true"
         android:textColor="#B8B4B8"
         android:textSize="14sp" />
-
 
 </RelativeLayout>
