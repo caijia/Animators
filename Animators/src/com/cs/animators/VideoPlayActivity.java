@@ -10,12 +10,10 @@ import io.vov.vitamio.MediaPlayer.OnPreparedListener;
 import io.vov.vitamio.MediaPlayer.OnSeekCompleteListener;
 import io.vov.vitamio.MediaPlayer.OnVideoSizeChangedListener;
 import io.vov.vitamio.utils.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,7 +21,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -41,7 +38,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
-
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.PlayVideo;
 import com.cs.animators.entity.VideoDetail;
@@ -206,7 +202,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 		
 		//Activity全屏显示，但状态栏不会被隐藏覆盖，状态栏依然可见，Activity顶端布局部分会被状态遮住
 		//设置成这样的目的是隐藏和显示状态栏的时候 视频不会随状态栏显示和隐藏时拉伸视频
-		mContent.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 		
 		//由于显示的时候Activity上面是覆盖的状态栏 所有顶部的布局应该在状态栏的下面
 //		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mControllerTop.getLayoutParams();
@@ -957,7 +953,6 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 	
 	@OnClick(R.id.txt_series)
 	void onClickSeries(){
-		getWindow().getDecorView().setSystemUiVisibility(View.INVISIBLE);
 		PlayerSeriesFragment series = new PlayerSeriesFragment();
 		Bundle args = new Bundle();
 		args.putParcelable(ALL_VIDEO, mAllVideo);

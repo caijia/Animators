@@ -78,12 +78,12 @@ public class PlayerSeriesFragment extends DialogFragment {
 				String goupTitle = "";
 				if(curPage == totalPage - 1)
 				{
-					goupTitle = (curPage * PAGE_COUNT + 1 ) +  " - " + (mTotalSeries.size() + 1);
+					goupTitle = (curPage * PAGE_COUNT + 1 ) +  " - " + (mTotalSeries.size());
 					child.addAll(mTotalSeries.subList(curPage * PAGE_COUNT, mTotalSeries.size()));
 				}
 				else
 				{
-					goupTitle = (curPage* PAGE_COUNT + 1 )+ " - " + ((curPage + 1) * PAGE_COUNT +1) ;
+					goupTitle = (curPage* PAGE_COUNT + 1 )+ " - " + ((curPage + 1) * PAGE_COUNT ) ;
 					child.addAll(mTotalSeries.subList(curPage* PAGE_COUNT, (curPage + 1) * PAGE_COUNT));
 				}
 				group.setGroupTitle(goupTitle);
