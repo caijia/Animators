@@ -15,7 +15,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.eventbus.PlayerSizeEvent;
 import com.cs.animators.util.PlayerUtils;
 import de.greenrobot.event.EventBus;

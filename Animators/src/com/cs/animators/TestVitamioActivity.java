@@ -44,6 +44,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.cs.animationvideo.R;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;
 import com.cs.animators.dao.service.DaoFactory;

@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.VideoPlayActivity;
 import com.cs.animators.adapter.PlayerSeriesAdapter;
 import com.cs.animators.constants.Constants;

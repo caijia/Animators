@@ -14,7 +14,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.entity.PlayerSeries;
 import com.cs.animators.entity.VideoDetailSeries;
 import com.cs.animators.fragment.PlayerSeriesFragment;

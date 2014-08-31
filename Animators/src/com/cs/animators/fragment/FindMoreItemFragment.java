@@ -15,7 +15,7 @@ import butterknife.InjectView;
 import butterknife.OnItemClick;
 import butterknife.OnItemLongClick;
 import com.cs.animators.FindMoreActivity;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.VideoDetailActivity;
 import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseFragment;

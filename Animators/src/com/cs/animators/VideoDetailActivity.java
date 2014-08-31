@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import com.cs.animationvideo.R;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;
 import com.cs.animators.dao.bean.VideoPlayRecord;

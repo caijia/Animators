@@ -1,5 +1,6 @@
 package com.cs.animators;
 
+import com.cs.animationvideo.R;
 import com.cs.animators.base.BaseActivity;
 
 public class AboutActivity extends BaseActivity {

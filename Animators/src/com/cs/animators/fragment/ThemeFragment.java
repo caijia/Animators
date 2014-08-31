@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import butterknife.InjectView;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.base.BaseFragment;
 import com.cs.cj.view.FragmentTabAdapter;
 import com.cs.cj.view.PagerTabStrip;

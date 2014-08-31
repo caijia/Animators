@@ -4,7 +4,7 @@ import io.vov.vitamio.utils.StringUtils;
 import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.dao.bean.VideoPlayRecord;
 import com.cs.animators.util.PlayerUtils;
 import android.content.Context;

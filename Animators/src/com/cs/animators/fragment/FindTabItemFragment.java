@@ -11,7 +11,7 @@ import android.widget.GridView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
 import com.cs.animators.FindMoreActivity;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.adapter.FindAdapter;
 import com.cs.animators.base.BaseFragment;
 import com.cs.animators.entity.GroupItem;

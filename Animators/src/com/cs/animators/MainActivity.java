@@ -22,6 +22,7 @@ import butterknife.OnItemClick;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.cs.animationvideo.R;
 import com.cs.animators.adapter.DrawerAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.DrawerItem;

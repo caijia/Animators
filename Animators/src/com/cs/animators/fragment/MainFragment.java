@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import butterknife.InjectView;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.base.BaseFragment;
 import com.cs.cj.adapter.RestoreFragmentPagerAdapter;
 import com.cs.cj.view.PagerSlidingTabStrip;

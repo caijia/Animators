@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.VideoDetailActivity;
 import com.cs.animators.adapter.ThemeAdapter;
 import com.cs.animators.base.BaseFragment;

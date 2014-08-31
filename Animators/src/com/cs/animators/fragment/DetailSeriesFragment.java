@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import butterknife.InjectView;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.VideoDetailActivity;
 import com.cs.animators.base.BaseFragment;
 import com.cs.animators.dao.bean.VideoPlayRecord;

@@ -43,6 +43,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.cs.animationvideo.R;
 import com.cs.animators.eventbus.PlayerSizeEvent;
 import com.cs.animators.eventbus.SelectSeriesEvent;
 import com.cs.animators.fragment.PlayerSeriesFragment;

@@ -16,7 +16,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.entity.GroupItem;
 import com.cs.animators.util.CommonUtil;
 import com.cs.cj.util.ImageLoaderUtil;

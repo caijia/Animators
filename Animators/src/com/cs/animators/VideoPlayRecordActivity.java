@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import butterknife.InjectView;
 
+import com.cs.animationvideo.R;
 import com.cs.animators.adapter.VideoRecordAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.constants.Constants;

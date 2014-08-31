@@ -3,7 +3,7 @@ package com.cs.animators.adapter;
 import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.entity.HotItem;
 import com.cs.cj.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;

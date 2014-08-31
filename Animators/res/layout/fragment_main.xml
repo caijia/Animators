@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainFragment" xmlns:app="http://schemas.android.com/apk/res/com.cs.animators">
+    tools:context=".MainFragment" xmlns:app="http://schemas.android.com/apk/res/com.cs.animationvideo">
 
     <com.cs.cj.view.PagerSlidingTabStrip
         android:id="@+id/main_tab_slide"

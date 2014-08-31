@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import butterknife.InjectView;
+import com.cs.animationvideo.R;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.GroupItem;
 import com.cs.animators.fragment.FindFragment;

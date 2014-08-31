@@ -17,7 +17,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import com.cs.animators.FindMoreActivity;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.adapter.FindAdapter;
 import com.cs.animators.adapter.FindBannerAdapter;
 import com.cs.animators.base.BaseFragment;

@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
+import com.cs.animationvideo.R;
 import com.cs.animators.adapter.LocalVideoAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.LocalVideo;

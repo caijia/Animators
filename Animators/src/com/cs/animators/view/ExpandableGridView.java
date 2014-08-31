@@ -13,7 +13,7 @@ import android.widget.AbsListView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 
 public class ExpandableGridView extends ExpandableListView {
 

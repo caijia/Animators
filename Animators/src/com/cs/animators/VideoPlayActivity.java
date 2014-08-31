@@ -46,6 +46,7 @@ import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import com.cs.animationvideo.R;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.PlayVideo;
 import com.cs.animators.entity.VideoDetail;
@@ -321,6 +322,7 @@ public class VideoPlayActivity extends BaseActivity implements Callback, OnPrepa
 				if(mediaPlayer != null&& !mError)
 				{
 					mediaPlayer.seekTo(seekBar.getProgress());
+					curPlayTime = mediaPlayer.getCurrentPosition();
 					
 				}
 				break ;

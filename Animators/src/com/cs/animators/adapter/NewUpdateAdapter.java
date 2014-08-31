@@ -4,7 +4,7 @@ import java.util.List;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.entity.HotItem;
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/layout_bg"
-    android:id="@+id/find_scrollview" xmlns:app="http://schemas.android.com/apk/res/com.cs.animators">
+    android:id="@+id/find_scrollview" xmlns:app="http://schemas.android.com/apk/res/com.cs.animationvideo">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -2,7 +2,7 @@ package com.cs.animators.fragment;
 
 import android.widget.TextView;
 import butterknife.InjectView;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.VideoDetailActivity;
 import com.cs.animators.base.BaseFragment;
 import com.cs.animators.entity.VideoDetail;

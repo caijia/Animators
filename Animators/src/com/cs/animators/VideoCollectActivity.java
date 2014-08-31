@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
 
+import com.cs.animationvideo.R;
 import com.cs.animators.adapter.HotAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.dao.service.DaoFactory;

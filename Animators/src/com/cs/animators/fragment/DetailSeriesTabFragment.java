@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-import com.cs.animators.R;
+import com.cs.animationvideo.R;
 import com.cs.animators.VideoDetailActivity;
 import com.cs.animators.VideoPlayActivity;
 import com.cs.animators.adapter.SeriesAdapter;

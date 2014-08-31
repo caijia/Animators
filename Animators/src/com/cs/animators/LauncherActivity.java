@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import com.cs.animationvideo.R;
 
 public class LauncherActivity extends Activity {
 

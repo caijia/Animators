@@ -1,6 +1,7 @@
 package com.cs.animators;
 
 import android.os.Bundle;
+import com.cs.animationvideo.R;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.fragment.SearchFragment;
 import com.cs.cj.service.FragmentService;
