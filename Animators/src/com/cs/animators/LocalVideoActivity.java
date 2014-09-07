@@ -1,14 +1,20 @@
 package com.cs.animators;
 
 import io.vov.vitamio.LibsChecker;
+import io.vov.vitamio.ThumbnailUtils;
+import io.vov.vitamio.provider.MediaStore.Video.Thumbnails;
+
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,6 +24,9 @@ import com.cs.animationvideo.R;
 import com.cs.animators.adapter.LocalVideoAdapter;
 import com.cs.animators.base.BaseActivity;
 import com.cs.animators.entity.LocalVideo;
+import com.cs.cj.util.BitmapUtil;
+import com.cs.cj.util.MD5;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
 public class LocalVideoActivity extends BaseActivity {
 
@@ -112,7 +121,17 @@ public class LocalVideoActivity extends BaseActivity {
 			//得到视频的文件名test.mp4 -> test.mp4
 			String videoName = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME));
 			
-			LocalVideo video = new LocalVideo(videoPath, videoName, videoTitle, videoDuration);
+			//视频缩略图路径(将Bitmap保存到sd卡)
+			String videoNailImage = null ;
+			Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(mContext, videoPath, Thumbnails.MICRO_KIND);
+			if(bitmap != null && !TextUtils.isEmpty(videoTitle)){
+				File file = BitmapUtil.bitmapToFile(mContext, bitmap, StorageUtils.getCacheDirectory(mContext).getAbsolutePath()+"/"+MD5.getMD5(videoTitle));
+				if(file != null){
+					videoNailImage = file.getAbsolutePath();
+				}
+			}
+			
+			LocalVideo video = new LocalVideo(videoPath, videoName, videoTitle, videoDuration,videoNailImage);
 			localVideos.add(video);
 		}
 		

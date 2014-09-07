@@ -6,18 +6,10 @@ public class LocalVideo {
 	private String videoName;
 	private String videoTitle;
 	private long videoDuration;
+	private String videoThumb ;
 
 	public LocalVideo() {
 		super();
-	}
-
-	public LocalVideo(String videoPath, String videoName, String videoTitle,
-			long videoDuration) {
-		super();
-		this.videoPath = videoPath;
-		this.videoName = videoName;
-		this.videoTitle = videoTitle;
-		this.videoDuration = videoDuration;
 	}
 
 	public String getVideoPath() {
@@ -51,5 +43,24 @@ public class LocalVideo {
 	public void setVideoDuration(long videoDuration) {
 		this.videoDuration = videoDuration;
 	}
+
+	public String getVideoThumb() {
+		return videoThumb;
+	}
+
+	public void setVideoThumb(String videoThumb) {
+		this.videoThumb = videoThumb;
+	}
+
+	public LocalVideo(String videoPath, String videoName, String videoTitle,
+			long videoDuration, String videoThumb) {
+		super();
+		this.videoPath = videoPath;
+		this.videoName = videoName;
+		this.videoTitle = videoTitle;
+		this.videoDuration = videoDuration;
+		this.videoThumb = videoThumb;
+	}
+
 
 }

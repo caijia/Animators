@@ -12,13 +12,10 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -179,30 +176,7 @@ public class CommonUtil {
 		return false ;
 	}
 	
-	public static void saveHeadIcon(Context context , String headIconPath ){
-		SharedPreferences preferences = context.getSharedPreferences("head_icon_file", Context.MODE_PRIVATE);
-		Editor edit = preferences.edit();
-		edit.putString("head_icon", headIconPath);
-		edit.commit();
-	}
 	
-	public static String getHeadIcon(Context context ){
-		SharedPreferences preferences = context.getSharedPreferences("head_icon_file", Context.MODE_PRIVATE);
-		return preferences.getString("head_icon", null);
-	}
-	
-	public static void saveAutoLogin(Context context , boolean autologin ){
-		SharedPreferences preferences = context.getSharedPreferences("head_icon_file", Context.MODE_PRIVATE);
-		Editor edit = preferences.edit();
-		edit.putBoolean("auto_login", autologin);
-		edit.commit();
-	}
-	
-	public static boolean getAutoLogin(Context context ){
-		SharedPreferences preferences = context.getSharedPreferences("head_icon_file", Context.MODE_PRIVATE);
-		return preferences.getBoolean("auto_login", false);
-	}
-
 	public static File createDir(String dir) {
 		File saveDir = null ;
 		if(isMountSdCard())
@@ -262,9 +236,9 @@ public class CommonUtil {
 	public static void installApk(Context context , String path)
 	{
 		Intent intent = new Intent(Intent.ACTION_VIEW); 
-		 intent.setDataAndType(Uri.fromFile(new File(path)), "application/vnd.android.package-archive"); 
-		 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		 context.startActivity(intent);
+		intent.setDataAndType(Uri.fromFile(new File(path)), "application/vnd.android.package-archive"); 
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		context.startActivity(intent);
 	}
 	
 	public static Double getVersion(Context context)//获取版本号

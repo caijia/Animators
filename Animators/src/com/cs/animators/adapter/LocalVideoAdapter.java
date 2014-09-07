@@ -1,11 +1,9 @@
 package com.cs.animators.adapter;
 
-import io.vov.vitamio.ThumbnailUtils;
-import io.vov.vitamio.provider.MediaStore.Video.Thumbnails;
 import io.vov.vitamio.utils.StringUtils;
 import java.util.List;
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +16,8 @@ import butterknife.InjectView;
 import com.cs.animationvideo.R;
 import com.cs.animators.entity.LocalVideo;
 import com.cs.cj.util.FileUtils;
+import com.cs.cj.util.ImageLoaderUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class LocalVideoAdapter extends ArrayAdapter<LocalVideo> {
 	
@@ -50,16 +50,9 @@ public class LocalVideoAdapter extends ArrayAdapter<LocalVideo> {
 		{
 			holder.name.setText(localVideo.getVideoName());
 			holder.duration.setText(StringUtils.generateTime(localVideo.getVideoDuration()));
-			Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(getContext(), localVideo.getVideoPath(), Thumbnails.MICRO_KIND);
-			if(bitmap != null)
-			{
-				holder.thumb.setImageBitmap(bitmap);	
+			if(!TextUtils.isEmpty(localVideo.getVideoThumb())){
+				ImageLoader.getInstance().displayImage("file://" + localVideo.getVideoThumb(), holder.thumb, ImageLoaderUtil.FadeInImageLoaderOptions(300));
 			}
-			else
-			{
-				holder.thumb.setImageResource(R.drawable.defalut_loadimage_icon);
-			}
-			
 			String fileSize = FileUtils.getFilesSize(localVideo.getVideoPath());
 			holder.size.setText(fileSize);
 		}

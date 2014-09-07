@@ -1,7 +1,10 @@
 package com.cs.cj.util;
 
 import java.io.ByteArrayOutputStream;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -81,21 +84,23 @@ public class BitmapUtil {
 		return baos;
 	}
 	
-//    public static File bitmapToFile(Context context , int resId, String saveFileName){
-//    	Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resId);
-//    	File saveFile = CommonUtil.createFile(MD5.getMD5(saveFileName));
-//    	OutputStream out = null ;
-//    	if(saveFile != null)
-//    	{
-//    		try {
-//				out = new FileOutputStream(saveFile);
-//			} catch (FileNotFoundException e) {}
-//    	}
-//    	if(out != null){
-//    		bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-//    	}
-//    	return saveFile ;
-//    }
+    public static File bitmapToFile(Context context , Bitmap bitmap, String path){
+    	File saveFile = new File(path);
+    	if(saveFile.exists()){
+    		return saveFile ;
+    	}
+    	OutputStream out = null ;
+    	if(saveFile != null)
+    	{
+    		try {
+				out = new FileOutputStream(saveFile);
+			} catch (FileNotFoundException e) {}
+    	}
+    	if(out != null){
+    		bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+    	}
+    	return saveFile ;
+    }
     
     public static Bitmap decodeBitmap(Context context ,int resId,int width,int height)  {
             Bitmap bm = getSmallBitmap(context ,resId , width , height);
