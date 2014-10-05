@@ -1,4 +1,3 @@
-include ':android-support-v7-appcompat-gamecenter'
 include ':Animators'
 include ':Vitamio-library'
 include ':X-Library'

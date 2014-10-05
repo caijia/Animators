@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="eventbus-2.2.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/X-Library/libs/eventbus-2.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
