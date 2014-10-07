@@ -78,8 +78,8 @@
     <orderEntry type="jdk" jdkName="Android API 20 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="umeng-update-v2.4.2" level="project" />
-    <orderEntry type="library" exported="" name="armeabi" level="project" />
     <orderEntry type="library" exported="" name="butterknife-5.1.1" level="project" />
+    <orderEntry type="library" exported="" name="armeabi" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-20.0.0" level="project" />
     <orderEntry type="library" exported="" name="pushservice-4.1.0" level="project" />
     <orderEntry type="module" module-name="X-Library" exported="" />
