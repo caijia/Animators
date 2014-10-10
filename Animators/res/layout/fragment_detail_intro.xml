@@ -31,7 +31,7 @@
             android:textColor="@color/detail_intro_color" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/rank_title_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView3"
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/rank_title_more"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"

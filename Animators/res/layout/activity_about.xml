@@ -20,7 +20,7 @@
         />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/rank_title_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -34,7 +34,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
+        android:layout_above="@+id/rank_title_more"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
         android:text="免责声明"

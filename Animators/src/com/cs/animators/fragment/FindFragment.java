@@ -144,11 +144,11 @@ public class FindFragment extends BaseFragment {
 	
 	protected void bindData(Response<List<Group>> data) {
 		mServerData = data.getResult();
-		
-		List<GroupItem> recommed = mServerData.get(RECOMMED).getList().subList(0, 4);
+
+        List<GroupItem> recommend = mServerData.get(RECOMMED).getList().subList(0, 2);
 		List<GroupItem> area = mServerData.get(AREA).getList().subList(0, 2);
 		
-		mGvRecommend.setAdapter(new FindAdapter(getActivity(), 2, recommed, mGvRecommend));
+		mGvRecommend.setAdapter(new FindAdapter(getActivity(), 2, recommend, mGvRecommend));
 		mGvArea.setAdapter(new FindAdapter(getActivity(), 2, area, mGvArea));
 		mPtsCategory.setAdapter(new FindCategoryTabAdapter(getChildFragmentManager()));
 		
@@ -174,7 +174,9 @@ public class FindFragment extends BaseFragment {
 		public Fragment getItem(int position) {
 			FindTabItemFragment fragment = new FindTabItemFragment();
 			Bundle args = new Bundle();
-			args.putParcelableArrayList(TAB_DATA,(ArrayList<? extends Parcelable>) mServerData.get(CATEGORY).getList());
+            List<GroupItem> categorys = new ArrayList<GroupItem>();
+            categorys.addAll(mServerData.get(AREA).getList().subList(2,mServerData.get(AREA).getList().size()));
+            args.putParcelableArrayList(TAB_DATA,(ArrayList<? extends Parcelable>)categorys );
 			args.putInt(TAB_CURRENT_PAGE, position);
 			fragment.setArguments(args);
 			return fragment;
@@ -193,14 +195,14 @@ public class FindFragment extends BaseFragment {
 		accessFindMoreActivity(mServerData.get(RECOMMED).getList(),0,mServerData.get(RECOMMED).getGroup());
 	}
 	
-	@OnClick(R.id.find_txt_area_more)
-	void onAreaMoreClick(View v){
-		accessFindMoreActivity(mServerData.get(AREA).getList(),0,mServerData.get(AREA).getGroup());
-	}
+//	@OnClick(R.id.find_txt_area_more)
+//	void onAreaMoreClick(View v){
+//		accessFindMoreActivity(mServerData.get(AREA).getList(),0,mServerData.get(AREA).getGroup());
+//	}
 	
 	@OnClick(R.id.find_txt_category_more)
 	void onCategoryMoreClick(View v){
-		accessFindMoreActivity(mServerData.get(CATEGORY).getList(),0,mServerData.get(CATEGORY).getGroup());
+		accessFindMoreActivity(mServerData.get(CATEGORY).getList(),2,mServerData.get(CATEGORY).getGroup());
 	}
 	
 	@OnItemClick(R.id.find_recommed_gv)

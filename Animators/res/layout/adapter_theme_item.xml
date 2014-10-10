@@ -11,6 +11,15 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:src="@drawable/shape_loading_image" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/newupdate_img_pic"
+        android:layout_alignRight="@+id/newupdate_img_pic"
+        android:layout_alignTop="@+id/newupdate_img_pic"
+        android:layout_alignBottom="@+id/newupdate_img_pic"
+        android:background="@drawable/drawable_rank_cover"/>
     
       <TextView
         android:id="@+id/divider"

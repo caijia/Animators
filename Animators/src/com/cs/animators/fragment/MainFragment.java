@@ -33,7 +33,7 @@ public class MainFragment extends BaseFragment {
 		fragments.add(new FindFragment());
 		fragments.add(new ThemeFragment());
 		fragments.add(new NewUpdateFragment());
-		fragments.add(new HotFragment());
+		fragments.add(new RankFragment());
 		
 		PagerAdapter adapter = new MainSlideTabFragmentAdapter(getChildFragmentManager(),fragments);
 		mViewPager.setAdapter(adapter);

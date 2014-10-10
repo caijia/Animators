@@ -6,6 +6,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.cs.animationvideo.R;
 import com.cs.animators.entity.HotItem;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

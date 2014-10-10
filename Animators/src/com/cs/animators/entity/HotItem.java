@@ -1,8 +1,10 @@
 package com.cs.animators.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class HotItem {
+public class HotItem implements Parcelable {
 
 	@JSONField(name="video_id")
 	private String videoId;
@@ -33,8 +35,8 @@ public class HotItem {
 	
 
 	public HotItem(String videoId, String name, String cover, String category,
-			String score,  String curNum, String totalNum,
-			String updateYear) {
+                   String score, String curNum, String totalNum,
+                   String updateYear) {
 		this.videoId = videoId;
 		this.name = name;
 		this.cover = cover;
@@ -157,4 +159,52 @@ public class HotItem {
 		this.totalNum = totalNum;
 	}
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.videoId);
+        dest.writeString(this.name);
+        dest.writeString(this.intro);
+        dest.writeString(this.area);
+        dest.writeString(this.cover);
+        dest.writeString(this.character);
+        dest.writeString(this.category);
+        dest.writeString(this.score);
+        dest.writeString(this.id);
+        dest.writeString(this.update);
+        dest.writeString(this.curNum);
+        dest.writeString(this.totalNum);
+        dest.writeString(this.updateYear);
+    }
+
+    private HotItem(Parcel in) {
+        this.videoId = in.readString();
+        this.name = in.readString();
+        this.intro = in.readString();
+        this.area = in.readString();
+        this.cover = in.readString();
+        this.character = in.readString();
+        this.category = in.readString();
+        this.score = in.readString();
+        this.id = in.readString();
+        this.update = in.readString();
+        this.curNum = in.readString();
+        this.totalNum = in.readString();
+        this.updateYear = in.readString();
+    }
+
+    public static final Parcelable.Creator<HotItem> CREATOR = new Parcelable.Creator<HotItem>() {
+        public HotItem createFromParcel(Parcel source) {
+            return new HotItem(source);
+        }
+
+        public HotItem[] newArray(int size) {
+            return new HotItem[size];
+        }
+    };
 }

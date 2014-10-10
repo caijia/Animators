@@ -5,6 +5,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.cs.animationvideo.R;
 import com.cs.animators.entity.HotItem;
+import com.cs.animators.util.CommonUtil;
 import com.cs.cj.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import android.content.Context;
@@ -37,9 +38,9 @@ public class HotAdapter extends ActionModeAdapter<HotItem> {
 		}
 		
 		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) holder.cover.getLayoutParams();
-		int height = (int) (params.width * 240 / (float)200) ;
-		params.height = height ;
-		holder.cover.setLayoutParams(params);
+        int height = (int) (params.width * 240 / (float)200) ;
+        params.height = height ;
+        holder.cover.setLayoutParams(params);
 		
 		HotItem item = getItem(position);
 		if(item != null)
@@ -49,10 +50,15 @@ public class HotAdapter extends ActionModeAdapter<HotItem> {
 			String score = item.getScore();
 			if(!TextUtils.isEmpty(score) && score.contains("."))
 			{
-				String htmlScore = "<big><font color=" + getScoreColor(score)+ ">" + score.substring(0, score.indexOf("."))+ "</big>"
+                String start = score.substring(0, score.indexOf("."));
+                if (start.length() > 1 && CommonUtil.isNumber(start) && Long.parseLong(start) > 10) {
+                    start = score.substring(score.indexOf(".") - 1, score.indexOf("."));
+                }
+
+                String htmlScore = "<big><font color=" + getScoreColor(score)+ ">" + start+ "</big>"
 						+ "<small><font color=" + getScoreColor(score)+ ">" + score.substring(score.indexOf("."))+ "</small>";
 				holder.score.setText(Html.fromHtml(htmlScore));
-				holder.score.getCompoundDrawables()[1].setLevel((int)Float.parseFloat(item.getScore()));
+				holder.score.getCompoundDrawables()[1].setLevel((int)Float.parseFloat(start));
 			}
 			
 			String htmlCurSeries = "更新至<font color=\"#168FFA\">"
@@ -85,6 +91,7 @@ public class HotAdapter extends ActionModeAdapter<HotItem> {
 		{
 			ButterKnife.inject(this, v);
 		}
+
 	}
 	
 	/**

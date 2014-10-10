@@ -13,7 +13,7 @@ public class ImageLoaderUtil {
 				.showImageOnLoading(defaultDrawable)
 				.showImageForEmptyUri(defaultDrawable)
 				.showImageOnFail(defaultDrawable).cacheInMemory(true)
-				.cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(radius))
+				.cacheOnDisk(true).displayer(new RoundedBitmapDisplayer(radius))
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		return options;
 	}
@@ -28,7 +28,7 @@ public class ImageLoaderUtil {
 				.showImageOnLoading(defaultDrawable)
 				.showImageForEmptyUri(defaultDrawable)
 				.showImageOnFail(defaultDrawable).cacheInMemory(true)
-				.cacheOnDisc(true).displayer(new FadeInBitmapDisplayer(durationMillis))
+				.cacheOnDisk(true).displayer(new FadeInBitmapDisplayer(durationMillis))
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		return options;
 	}

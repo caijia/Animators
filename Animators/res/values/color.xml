@@ -44,5 +44,7 @@
     
     <color name="player_series_group_color">#4A4C4A</color>
     <color name="player_series_child_color">#BDBCBD</color>
+
+    <color name="rank_cover_pressed">#8c73cbff</color>
     
 </resources>

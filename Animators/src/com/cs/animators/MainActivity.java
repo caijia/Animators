@@ -56,11 +56,11 @@ public class MainActivity extends BaseActivity {
 		UmengUpdateAgent.update(this);
 		
 		//百度推送
-		if (!PushUtils.hasBind(getApplicationContext())) {
-            PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY ,PushUtils.getMetaValue(this, "api_key"));
-            // Push: 如果想基于地理位置推送，可以打开支持地理位置的推送的开关
-            // PushManager.enableLbs(getApplicationContext());
-        }
+//		if (!PushUtils.hasBind(getApplicationContext())) {
+//            PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY ,PushUtils.getMetaValue(this, "api_key"));
+//            // Push: 如果想基于地理位置推送，可以打开支持地理位置的推送的开关
+//            // PushManager.enableLbs(getApplicationContext());
+//        }
 		
 		mAppName = getResources().getString(R.string.app_name);
 		//ActionBar逻辑
